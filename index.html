@@ -3,43 +3,40 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>IA360 – Profil & Univers</title>
-  <link rel="stylesheet" href="style.css"/>
-  <script src="data.js" defer></script>
+  <title>IA360 — Intérêts & Univers</title>
+  <script src="data.js"></script>
   <script src="script.js" defer></script>
+  <style>
+    body{font-family:Arial, sans-serif; margin:32px; line-height:1.4}
+    h1{margin:0 0 8px}
+    .sub{color:#555; margin:0 0 24px}
+    .question{margin:12px 0 18px}
+    label{display:block; font-weight:bold; margin-bottom:6px}
+    input[type="range"]{width:100%}
+    .row{display:flex; gap:8px; align-items:center}
+    .tag{min-width:40px; text-align:right; font-variant-numeric:tabular-nums}
+    button{background:#000;color:#fff;border:0;border-radius:6px;padding:10px 16px;cursor:pointer}
+    button:hover{background:#333}
+    .result{margin-top:28px; border-top:2px solid #000; padding-top:18px}
+    .univers{margin:6px 0}
+    .mono{font-family:ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace}
+    .legend{font-size:14px; color:#444; margin-top:8px}
+  </style>
 </head>
 <body>
-  <div class="container">
-    <h1>🎯 IA360 — Mes intérêts & mes univers</h1>
-    <p>Glisse chaque réglette (0 → 10). Puis clique sur <b>Calculer</b>.</p>
+  <h1>🎯 Mes intérêts & mes univers</h1>
+  <p class="sub">Glisse chaque réglette (0 → 10), puis clique sur <b>Calculer mes univers</b>.</p>
 
-    <form id="profilForm" class="grid"></form>
+  <div id="questions"></div>
 
-    <div class="actions">
-      <button id="calculer">Calculer mes univers</button>
-      <button id="btnCopy" class="ghost" disabled>📋 Copier pour ChatGPT</button>
-      <button id="btnPdf" class="ghost" disabled>📄 Télécharger PDF</button>
-    </div>
-
-    <div id="rapport" class="rapport" hidden>
-      <h2>🧭 Rapport IA360</h2>
-
-      <section>
-        <h3>📋 Mes 14 intérêts</h3>
-        <div id="profilList" class="list"></div>
-      </section>
-
-      <section>
-        <h3>🌍 Mes univers classés</h3>
-        <div id="universList" class="list"></div>
-      </section>
-
-      <section>
-        <h3>🔗 Bloc unique à coller dans ChatGPT</h3>
-        <pre id="payload" class="payload" aria-label="Bloc à copier"></pre>
-        <p class="hint">Ce bloc contient le <b>profil</b> et le <b>classement des univers</b> — un seul copier-coller suffit.</p>
-      </section>
-    </div>
+  <div class="legend">
+    Barème univers (interne)&nbsp;: 2 = faible · 4 = secondaire · 6 = important · 8 = très important · 10 = structurant
   </div>
+
+  <p style="margin-top:16px">
+    <button onclick="calculer()">Calculer mes univers</button>
+  </p>
+
+  <div id="resultats" class="result"></div>
 </body>
 </html>
