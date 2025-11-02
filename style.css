@@ -25,6 +25,28 @@ body {
     color: white;
     padding: 40px;
     text-align: center;
+    position: relative;
+}
+
+.back-home-btn {
+    position: absolute;
+    left: 40px;
+    top: 40px;
+    background: rgba(255,255,255,0.2);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: all 0.3s;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.3);
+}
+
+.back-home-btn:hover {
+    background: white;
+    color: #667eea;
+    transform: translateX(-5px);
 }
 
 .header h1 {
@@ -172,6 +194,49 @@ body {
     animation: fadeIn 0.5s;
 }
 
+.results-actions {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+}
+
+.action-btn {
+    padding: 15px 30px;
+    border: none;
+    border-radius: 50px;
+    font-size: 1em;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.download-btn {
+    background: #27ae60;
+    color: white;
+}
+
+.download-btn:hover {
+    background: #229954;
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(39, 174, 96, 0.3);
+}
+
+.copy-btn {
+    background: #3498db;
+    color: white;
+}
+
+.copy-btn:hover {
+    background: #2980b9;
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(52, 152, 219, 0.3);
+}
+
 @keyframes fadeIn {
     from { 
         opacity: 0; 
@@ -276,6 +341,16 @@ body {
 }
 
 @media (max-width: 768px) {
+    .header {
+        padding: 30px 20px 30px 20px;
+    }
+    
+    .back-home-btn {
+        position: static;
+        display: inline-block;
+        margin-bottom: 15px;
+    }
+    
     .rating-buttons {
         flex-direction: column;
     }
@@ -290,5 +365,14 @@ body {
     
     .content {
         padding: 20px;
+    }
+    
+    .results-actions {
+        flex-direction: column;
+    }
+    
+    .action-btn {
+        width: 100%;
+        justify-content: center;
     }
 }
