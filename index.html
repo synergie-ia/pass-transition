@@ -3,62 +3,52 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Orientation IA360 – Profil d'intérêts</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <title>IA360 - Test d'orientation professionnelle</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <div class="progress-container">
+        <div class="progress-indicator" id="progressBar"></div>
+    </div>
+    
     <div class="container">
-        <header>
-            <h1>🎯 Orientation IA360</h1>
-            <p class="intro">
-                Découvrez vos univers professionnels les plus compatibles en répondant à ce questionnaire sur vos centres d'intérêt. 
-                Basé sur une approche scientifique étendue du modèle RIASEC, ce test analyse 12 dimensions d'intérêts 
-                pour vous orienter parmi 21 univers métiers.
-            </p>
-        </header>
-
-        <div id="questionnaire"></div>
-
-        <button class="btn-primary" onclick="calculateResults()">Voir mes résultats</button>
-
-        <div id="results">
-            <div class="results-header">
-                <h2>🎯 Votre Profil de Compatibilité</h2>
-            </div>
-
+        <div class="header">
+            <h1>🎯 IA360</h1>
+            <p>Test d'orientation professionnelle basé sur vos intérêts</p>
+        </div>
+        
+        <div class="content">
             <div class="legend">
+                <h3>📊 Comment répondre ?</h3>
                 <div class="legend-item">
-                    <div class="legend-color score3"></div>
-                    <span>🟩 Déterminant (+3)</span>
+                    <div class="legend-box" style="background: #e74c3c;"></div>
+                    <span><strong>❌ Pas du tout moi</strong> - Je n'aime pas ça</span>
                 </div>
                 <div class="legend-item">
-                    <div class="legend-color score1"></div>
-                    <span>🟨 Favorable (+1)</span>
+                    <div class="legend-box" style="background: #95a5a6;"></div>
+                    <span><strong>⚪ Un peu moi</strong> - Ça m'intéresse légèrement</span>
                 </div>
                 <div class="legend-item">
-                    <div class="legend-color score0"></div>
-                    <span>⚪ Neutre (0)</span>
+                    <div class="legend-box" style="background: #f39c12;"></div>
+                    <span><strong>🟡 Plutôt moi</strong> - J'aime assez ça</span>
                 </div>
                 <div class="legend-item">
-                    <div class="legend-color score-1"></div>
-                    <span>🟧 Éloigné (-1)</span>
-                </div>
-                <div class="legend-item">
-                    <div class="legend-color score-2"></div>
-                    <span>🟥 Incompatible (-2)</span>
+                    <div class="legend-box" style="background: #27ae60;"></div>
+                    <span><strong>🟢 Totalement moi</strong> - C'est exactement moi</span>
                 </div>
             </div>
-
-            <div class="ranking" id="ranking"></div>
-
-            <div class="matrix-container">
-                <table class="matrix-table" id="matrixTable"></table>
-            </div>
-
-            <div class="action-buttons">
-                <button class="btn-secondary" onclick="copyProfile()">📋 Copier le profil IA360</button>
-                <button class="btn-secondary" onclick="window.print()">📄 Imprimer / Télécharger PDF</button>
+            
+            <div id="interestsList"></div>
+            
+            <button class="calculate-btn" onclick="calculateResults()">
+                ✨ Calculer mes résultats
+            </button>
+            
+            <div class="results" id="results">
+                <h2 style="text-align: center; margin-bottom: 30px; color: #333;">
+                    🎉 Vos univers professionnels compatibles
+                </h2>
+                <div id="resultsList"></div>
             </div>
         </div>
     </div>
