@@ -434,6 +434,11 @@ const universesData = [
 function renderUniverses() {
     const grid = document.getElementById('universesGrid');
     
+    if (!grid) {
+        console.error('Element universesGrid not found');
+        return;
+    }
+    
     grid.innerHTML = universesData.map(universe => `
         <div class="universe-card">
             <div class="universe-image">
@@ -441,4 +446,18 @@ function renderUniverses() {
             </div>
             <div class="universe-content">
                 <div class="universe-name">${universe.name}</div>
-                <div c
+                <div class="universe-description">${universe.description}</div>
+            </div>
+            <div class="sub-universes">
+                ${universe.subUniverses.map(sub => `
+                    <div class="sub-universe-item">&bull; ${sub}</div>
+                `).join('')}
+            </div>
+        </div>
+    `).join('');
+}
+
+// Initialisation
+document.addEventListener('DOMContentLoaded', function() {
+    renderUniverses();
+});
