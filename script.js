@@ -6,6 +6,9 @@
 function generateQuestionnaire() {
     const container = document.getElementById('questionnaire');
     
+    // Éviter la duplication : vider le container d'abord
+    container.innerHTML = '';
+    
     interests.forEach((interest, idx) => {
         const questionDiv = document.createElement('div');
         questionDiv.className = 'question';
@@ -25,6 +28,10 @@ function generateQuestionnaire() {
                 <div class="option">
                     <input type="radio" name="q${idx}" value="-1" id="q${idx}_-1">
                     <label for="q${idx}_-1">Peu moi</label>
+                </div>
+                <div class="option">
+                    <input type="radio" name="q${idx}" value="0" id="q${idx}_0">
+                    <label for="q${idx}_0">Parfois moi</label>
                 </div>
                 <div class="option">
                     <input type="radio" name="q${idx}" value="1" id="q${idx}_1">
@@ -63,25 +70,47 @@ function getUserAnswers() {
 function calculateScores(answers) {
     const scores = [];
     
+    // Calcul des scores min et max possibles pour la normalisation
+    let minPossible = 0;
+    let maxPossible = 0;
+    
     univers.forEach((universName, universIdx) => {
         let totalScore = 0;
+        let minScore = 0;
+        let maxScore = 0;
         
         // Calcul : réponse utilisateur × coefficient de compatibilité
         for (let interestIdx = 0; interestIdx < interests.length; interestIdx++) {
             const userScore = answers[interestIdx];
             const compatibilityCoef = matrix[universIdx][interestIdx];
             totalScore += userScore * compatibilityCoef;
+            
+            // Calcul des bornes théoriques
+            if (compatibilityCoef > 0) {
+                minScore += -2 * compatibilityCoef;
+                maxScore += 2 * compatibilityCoef;
+            } else {
+                minScore += 2 * compatibilityCoef;
+                maxScore += -2 * compatibilityCoef;
+            }
+        }
+        
+        // Normalisation en pourcentage (0% = min possible, 100% = max possible)
+        let percentage = 0;
+        if (maxScore !== minScore) {
+            percentage = ((totalScore - minScore) / (maxScore - minScore)) * 100;
         }
         
         scores.push({
             name: universName,
             score: totalScore,
+            percentage: Math.round(percentage),
             coefficients: matrix[universIdx]
         });
     });
     
-    // Tri par score décroissant
-    scores.sort((a, b) => b.score - a.score);
+    // Tri par pourcentage décroissant
+    scores.sort((a, b) => b.percentage - a.percentage);
     
     return scores;
 }
@@ -100,40 +129,52 @@ function displayRanking(scores) {
         
         rankingItem.innerHTML = `
             <span class="ranking-name">${medal} ${index + 1}. ${item.name}</span>
-            <span class="ranking-score">Score: ${item.score > 0 ? '+' : ''}${item.score}</span>
+            <span class="ranking-score">${item.percentage}%</span>
         `;
         
         container.appendChild(rankingItem);
     });
 }
 
-// === AFFICHAGE DE LA MATRICE COLORÉE ===
-function displayMatrix(answers) {
+// === AFFICHAGE DE LA MATRICE INDIVIDUELLE ===
+function displayMatrix(answers, scores) {
     const table = document.getElementById('matrixTable');
     
     // En-tête du tableau
-    let html = '<thead><tr><th>Univers / Intérêts</th>';
+    let html = '<thead><tr><th>Univers</th>';
     interests.forEach(interest => {
         html += `<th title="${interest.name}">${interest.icon}</th>`;
     });
-    html += '</tr></thead><tbody>';
+    html += '<th>Score Total</th><th>%</th></tr></thead><tbody>';
     
-    // Lignes de la matrice
-    univers.forEach((universName, universIdx) => {
-        html += `<tr><td>${universName}</td>`;
+    // Lignes de la matrice - afficher UNIQUEMENT les scores individuels (réponse × coefficient)
+    scores.forEach((item) => {
+        const universIdx = univers.indexOf(item.name);
+        html += `<tr><td>${item.name}</td>`;
         
+        let totalForRow = 0;
         matrix[universIdx].forEach((compatValue, interestIdx) => {
             const userAnswer = answers[interestIdx];
-            const cellClass = `score${compatValue}`;
+            const individualScore = userAnswer * compatValue; // Score individuel uniquement
+            totalForRow += individualScore;
+            
+            // Déterminer la classe de couleur selon le score individuel
+            let cellClass = 'score0';
+            if (individualScore >= 6) cellClass = 'score3';
+            else if (individualScore >= 3) cellClass = 'score1';
+            else if (individualScore <= -4) cellClass = 'score-2';
+            else if (individualScore <= -2) cellClass = 'score-1';
             
             html += `<td>
                 <div class="cell-score ${cellClass}" 
-                     title="Compatibilité: ${compatValue} | Votre réponse: ${userAnswer}">
-                    ${compatValue > 0 ? '+' : ''}${compatValue}
+                     title="Votre réponse: ${userAnswer} × Coefficient: ${compatValue} = ${individualScore}">
+                    ${individualScore > 0 ? '+' : ''}${individualScore}
                 </div>
             </td>`;
         });
         
+        html += `<td><strong>${totalForRow > 0 ? '+' : ''}${totalForRow}</strong></td>`;
+        html += `<td><strong>${item.percentage}%</strong></td>`;
         html += '</tr>';
     });
     
@@ -153,8 +194,8 @@ function calculateResults() {
     // Afficher le classement
     displayRanking(scores);
     
-    // Afficher la matrice
-    displayMatrix(answers);
+    // Afficher la matrice individuelle
+    displayMatrix(answers, scores);
     
     // Afficher la section résultats
     document.getElementById('results').style.display = 'block';
@@ -188,13 +229,13 @@ function copyProfile() {
     profileText += '─────────────────────────────\n';
     scores.slice(0, 10).forEach((item, index) => {
         const medal = index === 0 ? '🥇' : index === 1 ? '🥈' : index === 2 ? '🥉' : '  ';
-        profileText += `${medal} ${index + 1}. ${item.name} → Score: ${item.score > 0 ? '+' : ''}${item.score}\n`;
+        profileText += `${medal} ${index + 1}. ${item.name} → ${item.percentage}%\n`;
     });
     
     profileText += '\n📋 TOUS LES UNIVERS:\n';
     profileText += '─────────────────────────────\n';
     scores.forEach((item, index) => {
-        profileText += `${index + 1}. ${item.name}: ${item.score > 0 ? '+' : ''}${item.score}\n`;
+        profileText += `${index + 1}. ${item.name}: ${item.percentage}%\n`;
     });
     
     profileText += '\n─────────────────────────────\n';
@@ -211,11 +252,7 @@ function copyProfile() {
 }
 
 // === INITIALISATION AU CHARGEMENT DE LA PAGE ===
-document.addEventListener('DOMContentLoaded', function() {
-    generateQuestionnaire();
-});
-
-// Génération immédiate si le DOM est déjà chargé
+// Utiliser une seule méthode pour éviter la duplication
 if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', generateQuestionnaire);
 } else {
