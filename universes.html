@@ -4,236 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Les Univers Professionnels - Orientation 360 IA</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            padding: 20px;
-        }
-
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-
-        .header {
-            background: white;
-            border-radius: 15px;
-            padding: 25px 40px;
-            margin-bottom: 40px;
-            text-align: center;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-            position: relative;
-        }
-
-        .back-btn {
-            position: absolute;
-            left: 40px;
-            top: 50%;
-            transform: translateY(-50%);
-            background: #f8f9fa;
-            color: #667eea;
-            padding: 10px 20px;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: bold;
-            transition: all 0.3s;
-        }
-
-        .back-btn:hover {
-            background: #667eea;
-            color: white;
-        }
-
-        .header h1 {
-            font-size: 2em;
-            color: #333;
-            margin: 0 0 15px 0;
-        }
-
-        .show-all-btn {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            border: none;
-            padding: 12px 25px;
-            border-radius: 50px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s;
-            font-size: 0.95em;
-        }
-
-        .show-all-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
-        }
-
-        .universes-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 25px;
-        }
-
-        .universe-card {
-            background: white;
-            border-radius: 15px;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
-            transition: all 0.3s;
-            position: relative;
-        }
-
-        .universe-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 35px rgba(0,0,0,0.25);
-        }
-
-        .universe-image {
-            width: 100%;
-            height: 120px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 3.5em;
-            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-            border-radius: 15px 15px 0 0;
-        }
-
-        .universe-content {
-            padding: 20px;
-        }
-
-        .universe-name {
-            font-size: 1.1em;
-            font-weight: bold;
-            color: #333;
-            margin-bottom: 12px;
-            min-height: 50px;
-            display: flex;
-            align-items: center;
-            text-align: center;
-            justify-content: center;
-        }
-
-        .universe-description {
-            color: #666;
-            line-height: 1.5;
-            font-size: 0.95em;
-            text-align: center;
-            margin-bottom: 15px;
-        }
-
-        .toggle-arrow {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            cursor: pointer;
-            padding: 10px;
-            transition: all 0.3s;
-        }
-
-        .arrow-icon {
-            font-size: 1.5em;
-            color: #667eea;
-            transition: transform 0.3s;
-            animation: bounce 2s infinite;
-        }
-
-        @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% {
-                transform: translateY(0);
-            }
-            40% {
-                transform: translateY(-10px);
-            }
-            60% {
-                transform: translateY(-5px);
-            }
-        }
-
-        .toggle-arrow:hover .arrow-icon {
-            animation: none;
-            transform: translateY(5px);
-            color: #764ba2;
-        }
-
-        .arrow-icon.rotated {
-            transform: rotate(180deg);
-            animation: none;
-        }
-
-        .sub-universes {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.5s ease-out;
-            background: linear-gradient(135deg, #f8f9fa 0%, #fff 100%);
-            border-radius: 0 0 15px 15px;
-        }
-
-        .sub-universes.open {
-            max-height: 1000px;
-            transition: max-height 0.7s ease-in;
-        }
-
-        .sub-universes-content {
-            padding: 20px;
-            border-top: 2px solid #e9ecef;
-        }
-
-        .sub-universe-item {
-            padding: 10px 15px;
-            color: #333;
-            font-size: 0.9em;
-            text-align: left;
-            margin-bottom: 8px;
-            background: white;
-            border-radius: 8px;
-            border-left: 3px solid #667eea;
-            font-weight: 600;
-            transition: all 0.2s;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .sub-universe-item:hover {
-            background: #667eea;
-            color: white;
-            transform: translateX(5px);
-            box-shadow: 0 3px 10px rgba(102, 126, 234, 0.3);
-        }
-
-        .sub-universe-emoji {
-            font-size: 1.2em;
-        }
-
-        @media (max-width: 768px) {
-            .header {
-                padding: 20px;
-            }
-            
-            .back-btn {
-                position: static;
-                display: inline-block;
-                margin-bottom: 15px;
-                transform: none;
-            }
-            
-            .header h1 {
-                font-size: 1.5em;
-            }
-            
-            .universes-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="universes-style.css">
 </head>
 <body>
     <div class="container">
@@ -248,437 +19,17 @@
         <div class="universes-grid" id="universesGrid"></div>
     </div>
 
-    <script>
-        var universesData = [
-            {
-                id: 1,
-                icon: '🌾',
-                name: 'Agriculture, nature & animaux',
-                description: 'Cultivez, élevez, protégez la nature et travaillez avec les animaux.',
-                subUniverses: [
-                    {emoji: '🏭', name: 'Agroalimentaire industriel'},
-                    {emoji: '🌱', name: 'Production biologique'},
-                    {emoji: '🔬', name: 'Agronomie'},
-                    {emoji: '🍷', name: 'Viticulture & œnologie'},
-                    {emoji: '🥕', name: 'Maraîchage'},
-                    {emoji: '🌺', name: 'Horticulture & pépinière'},
-                    {emoji: '🌳', name: 'Paysagisme'},
-                    {emoji: '🌲', name: 'Forêt & sylviculture'},
-                    {emoji: '🐄', name: 'Élevage'},
-                    {emoji: '🐟', name: 'Aquaculture'},
-                    {emoji: '🐝', name: 'Apiculture'},
-                    {emoji: '💧', name: 'Gestion de l eau'},
-                    {emoji: '📦', name: 'Valorisation produits agricoles'}
-                ]
-            },
-            {
-                id: 2,
-                icon: '🎨',
-                name: 'Arts, design & création',
-                description: 'Créez, dessinez et exprimez votre créativité artistique.',
-                subUniverses: [
-                    {emoji: '🖼️', name: 'Arts visuels & peinture'},
-                    {emoji: '🗿', name: 'Sculpture'},
-                    {emoji: '✏️', name: 'Design graphique'},
-                    {emoji: '💡', name: 'Design produit'},
-                    {emoji: '🏠', name: 'Architecture intérieure'},
-                    {emoji: '📷', name: 'Photographie'},
-                    {emoji: '🎬', name: 'Cinéma & audiovisuel'},
-                    {emoji: '👗', name: 'Mode & stylisme'},
-                    {emoji: '🎭', name: 'Artisanat d art'},
-                    {emoji: '🎪', name: 'Scénographie'},
-                    {emoji: '📚', name: 'Illustration'},
-                    {emoji: '🏛️', name: 'Patrimoine'},
-                    {emoji: '🎭', name: 'Spectacle vivant'},
-                    {emoji: '💎', name: 'Métiers du luxe'},
-                    {emoji: '🎚️', name: 'Régie spectacle'}
-                ]
-            },
-            {
-                id: 3,
-                icon: '🛒',
-                name: 'Commerce, marketing & vente',
-                description: 'Vendez, négociez et développez des stratégies commerciales.',
-                subUniverses: [
-                    {emoji: '🏪', name: 'Commerce de détail'},
-                    {emoji: '💻', name: 'E-commerce'},
-                    {emoji: '🤝', name: 'Vente B2B'},
-                    {emoji: '📊', name: 'Représentation'},
-                    {emoji: '🛍️', name: 'Merchandising'},
-                    {emoji: '📈', name: 'Marketing stratégique'},
-                    {emoji: '📱', name: 'Marketing digital'},
-                    {emoji: '📢', name: 'Communication commerciale'},
-                    {emoji: '🛒', name: 'Achats'},
-                    {emoji: '🏬', name: 'Management point de vente'},
-                    {emoji: '🏢', name: 'Immobilier commercial'},
-                    {emoji: '🏦', name: 'Banque & assurance'},
-                    {emoji: '☎️', name: 'Service client'},
-                    {emoji: '💎', name: 'Commerce du luxe'},
-                    {emoji: '🌐', name: 'Marketplaces'}
-                ]
-            },
-            {
-                id: 4,
-                icon: '🎙️',
-                name: 'Communication, médias & culture',
-                description: 'Informez, divertissez, communiquez à travers les médias.',
-                subUniverses: [
-                    {emoji: '📰', name: 'Journalisme'},
-                    {emoji: '📺', name: 'Audiovisuel'},
-                    {emoji: '🎉', name: 'Relations publiques'},
-                    {emoji: '🏢', name: 'Communication entreprise'},
-                    {emoji: '🏛️', name: 'Communication publique'},
-                    {emoji: '📚', name: 'Édition'},
-                    {emoji: '✍️', name: 'Création de contenus'},
-                    {emoji: '📢', name: 'Publicité'},
-                    {emoji: '📲', name: 'Influence & storytelling'},
-                    {emoji: '🌍', name: 'Traduction'},
-                    {emoji: '🎭', name: 'Médiation culturelle'},
-                    {emoji: '🎙️', name: 'Podcasting'}
-                ]
-            },
-            {
-                id: 5,
-                icon: '🏗️',
-                name: 'Construction, BTP & habitat',
-                description: 'Construisez, rénovez et aménagez les bâtiments.',
-                subUniverses: [
-                    {emoji: '🏛️', name: 'Architecture'},
-                    {emoji: '🧱', name: 'Gros œuvre'},
-                    {emoji: '🎨', name: 'Second œuvre'},
-                    {emoji: '🪵', name: 'Menuiserie'},
-                    {emoji: '🔧', name: 'Plomberie & chauffage'},
-                    {emoji: '⚡', name: 'Électricité & domotique'},
-                    {emoji: '🛣️', name: 'Travaux publics'},
-                    {emoji: '🌉', name: 'Génie civil'},
-                    {emoji: '🌱', name: 'Rénovation énergétique'},
-                    {emoji: '📐', name: 'Études techniques'},
-                    {emoji: '👷', name: 'Conduite de chantier'},
-                    {emoji: '🏢', name: 'Gestion immobilière'},
-                    {emoji: '🏙️', name: 'Aménagement urbain'}
-                ]
-            },
-            {
-                id: 6,
-                icon: '⚖️',
-                name: 'Droit, administration & politique',
-                description: 'Défendez, régulez et administrez dans le juridique.',
-                subUniverses: [
-                    {emoji: '⚖️', name: 'Droit privé'},
-                    {emoji: '💼', name: 'Droit des affaires'},
-                    {emoji: '👥', name: 'Droit social'},
-                    {emoji: '🏛️', name: 'Droit public'},
-                    {emoji: '🏢', name: 'Administration publique'},
-                    {emoji: '🤝', name: 'Ressources humaines'},
-                    {emoji: '🗳️', name: 'Gouvernance territoriale'},
-                    {emoji: '🌍', name: 'Diplomatie'},
-                    {emoji: '📋', name: 'Marchés publics'},
-                    {emoji: '🔍', name: 'Intelligence juridique'},
-                    {emoji: '📜', name: 'Notariat'}
-                ]
-            },
-            {
-                id: 7,
-                icon: '🎓',
-                name: 'Éducation, formation & apprentissage',
-                description: 'Enseignez, formez et transmettez vos connaissances.',
-                subUniverses: [
-                    {emoji: '👶', name: 'Enseignement primaire'},
-                    {emoji: '🎒', name: 'Enseignement secondaire'},
-                    {emoji: '🎓', name: 'Enseignement supérieur'},
-                    {emoji: '💼', name: 'Formation professionnelle'},
-                    {emoji: '🧭', name: 'Orientation'},
-                    {emoji: '💪', name: 'Coaching'},
-                    {emoji: '📚', name: 'Ingénierie pédagogique'},
-                    {emoji: '🤲', name: 'Éducation spécialisée'},
-                    {emoji: '🔬', name: 'Recherche en éducation'},
-                    {emoji: '🎪', name: 'Animation socioculturelle'}
-                ]
-            },
-            {
-                id: 8,
-                icon: '🌍',
-                name: 'Environnement, climat & énergies',
-                description: 'Protégez la planète et développez les énergies vertes.',
-                subUniverses: [
-                    {emoji: '♻️', name: 'Gestion des déchets'},
-                    {emoji: '💧', name: 'Traitement de l eau'},
-                    {emoji: '☀️', name: 'Énergies renouvelables'},
-                    {emoji: '⚡', name: 'Hydrogène'},
-                    {emoji: '☢️', name: 'Énergie nucléaire'},
-                    {emoji: '🌡️', name: 'Génie climatique'},
-                    {emoji: '🌊', name: 'Adaptation climatique'},
-                    {emoji: '📊', name: 'Bilan carbone'},
-                    {emoji: '🔄', name: 'Économie circulaire'},
-                    {emoji: '🏞️', name: 'Aménagement durable'},
-                    {emoji: '🔬', name: 'Ingénierie environnementale'},
-                    {emoji: '🦋', name: 'Biodiversité'},
-                    {emoji: '🌳', name: 'Restauration écologique'},
-                    {emoji: '🚲', name: 'Mobilité durable'},
-                    {emoji: '🌾', name: 'Agriculture régénératrice'},
-                    {emoji: '🌪️', name: 'Gestion risques naturels'}
-                ]
-            },
-            {
-                id: 9,
-                icon: '💶',
-                name: 'Gestion, finance & comptabilité',
-                description: 'Gérez et optimisez les ressources financières.',
-                subUniverses: [
-                    {emoji: '📊', name: 'Comptabilité'},
-                    {emoji: '🔍', name: 'Audit'},
-                    {emoji: '💰', name: 'Trésorerie'},
-                    {emoji: '🏦', name: 'Banque'},
-                    {emoji: '💎', name: 'Gestion de patrimoine'},
-                    {emoji: '🏢', name: 'Gestion d entreprise'},
-                    {emoji: '🌱', name: 'Finance durable'},
-                    {emoji: '📈', name: 'Gestion de projets financiers'},
-                    {emoji: '💳', name: 'Fintech'},
-                    {emoji: '🏛️', name: 'Gestion budgétaire publique'},
-                    {emoji: '✅', name: 'Conformité'}
-                ]
-            },
-            {
-                id: 10,
-                icon: '🍽️',
-                name: 'Hôtellerie, restauration & tourisme',
-                description: 'Accueillez, servez et faites découvrir les destinations.',
-                subUniverses: [
-                    {emoji: '👨‍🍳', name: 'Cuisine gastronomique'},
-                    {emoji: '🍱', name: 'Restauration collective'},
-                    {emoji: '🍷', name: 'Service & sommellerie'},
-                    {emoji: '🏨', name: 'Hôtellerie'},
-                    {emoji: '🤝', name: 'Accueil'},
-                    {emoji: '🗺️', name: 'Tourisme local'},
-                    {emoji: '✈️', name: 'Tourisme international'},
-                    {emoji: '🎉', name: 'Événementiel'},
-                    {emoji: '💼', name: 'Management hôtelier'},
-                    {emoji: '🍇', name: 'Œnotourisme'},
-                    {emoji: '♻️', name: 'Gestion durable du tourisme'}
-                ]
-            },
-            {
-                id: 11,
-                icon: '🏠',
-                name: 'Immobilier & patrimoine',
-                description: 'Conseillez et gérez les biens immobiliers.',
-                subUniverses: [
-                    {emoji: '🏡', name: 'Transaction résidentielle'},
-                    {emoji: '🏢', name: 'Transaction entreprise'},
-                    {emoji: '🏗️', name: 'Promotion immobilière'},
-                    {emoji: '🔑', name: 'Gestion locative'},
-                    {emoji: '📋', name: 'Expertise immobilière'},
-                    {emoji: '💰', name: 'Conseil patrimonial'},
-                    {emoji: '🗺️', name: 'Aménagement foncier'},
-                    {emoji: '🤝', name: 'Immobilier social'},
-                    {emoji: '🏢', name: 'Facility management'},
-                    {emoji: '💎', name: 'Immobilier de luxe'}
-                ]
-            },
-            {
-                id: 12,
-                icon: '⚙️',
-                name: 'Industrie, fabrication & production',
-                description: 'Produisez et automatisez dans les usines modernes.',
-                subUniverses: [
-                    {emoji: '🏭', name: 'Production industrielle'},
-                    {emoji: '🔧', name: 'Maintenance'},
-                    {emoji: '⚙️', name: 'Mécanique'},
-                    {emoji: '⚡', name: 'Électrotechnique'},
-                    {emoji: '🤖', name: 'Robotique'},
-                    {emoji: '🧪', name: 'Chimie'},
-                    {emoji: '✈️', name: 'Aéronautique'},
-                    {emoji: '⚒️', name: 'Métallurgie'},
-                    {emoji: '💊', name: 'Industrie pharmaceutique'},
-                    {emoji: '🔬', name: 'Plasturgie'},
-                    {emoji: '✅', name: 'Qualité & sécurité'},
-                    {emoji: '📦', name: 'Supply chain industrielle'},
-                    {emoji: '🖨️', name: 'Impression 3D'},
-                    {emoji: '👕', name: 'Industrie textile'},
-                    {emoji: '💻', name: 'Micro-électronique'},
-                    {emoji: '⛏️', name: 'Industries extractives'},
-                    {emoji: '⚓', name: 'Construction navale'}
-                ]
-            },
-            {
-                id: 13,
-                icon: '🚚',
-                name: 'Logistique, transport & mobilité',
-                description: 'Transportez et gérez les flux de marchandises.',
-                subUniverses: [
-                    {emoji: '📦', name: 'Logistique'},
-                    {emoji: '🔗', name: 'Supply chain'},
-                    {emoji: '🛃', name: 'Douanes'},
-                    {emoji: '🚛', name: 'Transport routier'},
-                    {emoji: '🚂', name: 'Transport ferroviaire'},
-                    {emoji: '✈️', name: 'Transport aérien'},
-                    {emoji: '🚢', name: 'Transport maritime'},
-                    {emoji: '🚇', name: 'Mobilité urbaine'},
-                    {emoji: '🚗', name: 'Gestion de flotte'},
-                    {emoji: '🏍️', name: 'Dernier kilomètre'},
-                    {emoji: '⚓', name: 'Activités portuaires'},
-                    {emoji: '🤖', name: 'Mobilité autonome'}
-                ]
-            },
-            {
-                id: 14,
-                icon: '💼',
-                name: 'Management, entrepreneuriat & stratégie',
-                description: 'Dirigez et pilotez des équipes vers le succès.',
-                subUniverses: [
-                    {emoji: '🚀', name: 'Création d entreprise'},
-                    {emoji: '📊', name: 'Gestion de projets'},
-                    {emoji: '💻', name: 'Transformation digitale'},
-                    {emoji: '👥', name: 'Management d équipe'},
-                    {emoji: '🌱', name: 'RSE'},
-                    {emoji: '🎯', name: 'Stratégie'},
-                    {emoji: '🏢', name: 'Pilotage de structures'},
-                    {emoji: '🌍', name: 'Management interculturel'},
-                    {emoji: '💡', name: 'Conseil stratégique'},
-                    {emoji: '👑', name: 'Gouvernance'}
-                ]
-            },
-            {
-                id: 15,
-                icon: '💻',
-                name: 'Numérique, informatique & data',
-                description: 'Codez et créez les technologies de demain.',
-                subUniverses: [
-                    {emoji: '🌐', name: 'Développement web'},
-                    {emoji: '☁️', name: 'DevOps & cloud'},
-                    {emoji: '🔒', name: 'Cybersécurité'},
-                    {emoji: '🌐', name: 'Réseaux'},
-                    {emoji: '🤖', name: 'Intelligence artificielle'},
-                    {emoji: '📊', name: 'Data science'},
-                    {emoji: '🥽', name: 'Réalité augmentée'},
-                    {emoji: '🎨', name: 'UX/UI design'},
-                    {emoji: '📡', name: 'IoT'},
-                    {emoji: '💼', name: 'ERP'},
-                    {emoji: '🔧', name: 'No-code'},
-                    {emoji: '🎬', name: 'Design numérique'},
-                    {emoji: '🔗', name: 'Blockchain'},
-                    {emoji: '🌱', name: 'Informatique durable'},
-                    {emoji: '🎮', name: 'Gaming'},
-                    {emoji: '🏆', name: 'E-sport'}
-                ]
-            },
-            {
-                id: 16,
-                icon: '⚕️',
-                name: 'Santé, bien-être & médical',
-                description: 'Soignez et accompagnez dans la santé.',
-                subUniverses: [
-                    {emoji: '👨‍⚕️', name: 'Médecine générale'},
-                    {emoji: '🏥', name: 'Chirurgie'},
-                    {emoji: '📷', name: 'Radiologie'},
-                    {emoji: '🔬', name: 'Biologie'},
-                    {emoji: '💊', name: 'Pharmacie'},
-                    {emoji: '👩‍⚕️', name: 'Soins infirmiers'},
-                    {emoji: '🦾', name: 'Kinésithérapie'},
-                    {emoji: '🧠', name: 'Santé mentale'},
-                    {emoji: '🥗', name: 'Nutrition'},
-                    {emoji: '🏥', name: 'Santé publique'},
-                    {emoji: '👴', name: 'Accompagnement personnes âgées'},
-                    {emoji: '⚽', name: 'Médecine du sport'},
-                    {emoji: '📱', name: 'Télésanté'}
-                ]
-            },
-            {
-                id: 17,
-                icon: '🔬',
-                name: 'Sciences, recherche & innovation',
-                description: 'Cherchez et innovez pour faire avancer la science.',
-                subUniverses: [
-                    {emoji: '⚛️', name: 'Physique'},
-                    {emoji: '➗', name: 'Mathématiques'},
-                    {emoji: '🧪', name: 'Chimie'},
-                    {emoji: '🧬', name: 'Biotechnologies'},
-                    {emoji: '🌍', name: 'Géosciences'},
-                    {emoji: '🧠', name: 'Neurosciences'},
-                    {emoji: '📚', name: 'Sciences humaines'},
-                    {emoji: '🎓', name: 'Recherche en éducation'},
-                    {emoji: '🔬', name: 'Recherche appliquée'},
-                    {emoji: '🏢', name: 'R&D entreprise'},
-                    {emoji: '💼', name: 'Consulting scientifique'}
-                ]
-            },
-            {
-                id: 18,
-                icon: '🛡️',
-                name: 'Sécurité, défense & urgence',
-                description: 'Protégez et sécurisez les personnes et les biens.',
-                subUniverses: [
-                    {emoji: '👮', name: 'Police'},
-                    {emoji: '🚒', name: 'Pompiers'},
-                    {emoji: '🔒', name: 'Sécurité privée'},
-                    {emoji: '🆘', name: 'Protection civile'},
-                    {emoji: '🪖', name: 'Défense'},
-                    {emoji: '🕵️', name: 'Renseignement'},
-                    {emoji: '💻', name: 'Cyberdéfense'},
-                    {emoji: '🏢', name: 'Sécurité infrastructures'},
-                    {emoji: '⚠️', name: 'Gestion de crise'},
-                    {emoji: '🛡️', name: 'Prévention des risques'},
-                    {emoji: '⚙️', name: 'Industrie de défense'}
-                ]
-            },
-            {
-                id: 19,
-                icon: '❤️',
-                name: 'Social, aide & solidarité',
-                description: 'Aidez et accompagnez les personnes vulnérables.',
-                subUniverses: [
-                    {emoji: '🏠', name: 'Aide à domicile'},
-                    {emoji: '🤝', name: 'Travail social'},
-                    {emoji: '👶', name: 'Enfance & jeunesse'},
-                    {emoji: '♿', name: 'Handicap'},
-                    {emoji: '🧠', name: 'Santé mentale'},
-                    {emoji: '🤲', name: 'Médiation sociale'},
-                    {emoji: '👨‍👩‍👧', name: 'Protection de l enfance'},
-                    {emoji: '🌱', name: 'Économie solidaire'},
-                    {emoji: '💚', name: 'Bénévolat'},
-                    {emoji: '🏥', name: 'Gestion médico-social'},
-                    {emoji: '👨‍👩‍👧‍👦', name: 'Médiation familiale'},
-                    {emoji: '🤗', name: 'Services à la personne'},
-                    {emoji: '🕊️', name: 'Accompagnement funéraire'}
-                ]
-            },
-            {
-                id: 20,
-                icon: '🏋️',
-                name: 'Sport, loisirs & vie active',
-                description: 'Animez et organisez des activités sportives.',
-                subUniverses: [
-                    {emoji: '💪', name: 'Coaching sportif'},
-                    {emoji: '🎉', name: 'Animation'},
-                    {emoji: '🏃', name: 'Enseignement du sport'},
-                    {emoji: '⚽', name: 'Encadrement sportif'},
-                    {emoji: '🏟️', name: 'Gestion d équipements sportifs'},
-                    {emoji: '🤝', name: 'Médiation par le sport'},
-                    {emoji: '🥗', name: 'Nutrition sportive'},
-                    {emoji: '🩺', name: 'Sport santé'},
-                    {emoji: '🎊', name: 'Organisation d événements sportifs'},
-                    {emoji: '🏔️', name: 'Tourisme sportif'},
-                    {emoji: '🎮', name: 'E-sport'}
-                ]
-            },
-            {
-                id: 21,
-                icon: '🚀',
-                name: 'Technologies émergentes',
-                description: 'Explorez l IA et les nouvelles formes de travail.',
-                subUniverses: [
-                    {emoji: '🤖', name: 'Robotique humanoïde'},
-                    {emoji: '🥽', name: 'Technologies immersives'},
-                    {emoji: '🧬', name: 'Bio-ingénierie'},
-                    {emoji: '🌾', name: 'AgroTech'},
-                    {emoji: '♻️', name: 'CleanTech'},
-                    {emoji: '⚕️', name: 'HealthTech'},
-                    {emoji: '🚀', name: 'SpaceTech'},
-                    {emoji: '💻', name: 'Travail numérique'}
-                ]
-            }
-        ];
+    <!-- Modal pour afficher la définition -->
+    <div class="modal" id="definitionModal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal()">&times;</span>
+            <h3 id="modalTitle"></h3>
+            <p id="modalDescription"></p>
+        </div>
+    </div>
 
+    <script src="universes-data.js"></script>
+    <script>
         var allSubUniversesVisible = false;
 
         function renderUniverses() {
@@ -691,7 +42,8 @@
                 
                 for (var j = 0; j < universe.subUniverses.length; j++) {
                     var sub = universe.subUniverses[j];
-                    subHtml += '<div class="sub-universe-item">' +
+                    subHtml += '<div class="sub-universe-item" onclick="showDefinition(\'' + 
+                        sub.name.replace(/'/g, "\\'") + '\')">' +
                         '<span class="sub-universe-emoji">' + sub.emoji + '</span>' +
                         '<span>' + sub.name + '</span>' +
                     '</div>';
@@ -702,9 +54,6 @@
                     '<div class="universe-content">' +
                         '<div class="universe-name">' + universe.name + '</div>' +
                         '<div class="universe-description">' + universe.description + '</div>' +
-                        '<div class="toggle-arrow" onclick="toggleSubUniverse(' + i + ')">' +
-                            '<span class="arrow-icon" id="arrow-' + i + '">⬇️</span>' +
-                        '</div>' +
                     '</div>' +
                     '<div class="sub-universes" id="sub-' + i + '">' +
                         '<div class="sub-universes-content">' + subHtml + '</div>' +
@@ -715,37 +64,44 @@
             grid.innerHTML = html;
         }
 
-        function toggleSubUniverse(index) {
-            var subDiv = document.getElementById('sub-' + index);
-            var arrow = document.getElementById('arrow-' + index);
-            
-            if (subDiv.classList.contains('open')) {
-                subDiv.classList.remove('open');
-                arrow.classList.remove('rotated');
-            } else {
-                subDiv.classList.add('open');
-                arrow.classList.add('rotated');
-            }
-        }
-
         function toggleAllSubUniverses() {
             allSubUniversesVisible = !allSubUniversesVisible;
             var button = document.querySelector('.show-all-btn');
             
             for (var i = 0; i < universesData.length; i++) {
                 var subDiv = document.getElementById('sub-' + i);
-                var arrow = document.getElementById('arrow-' + i);
                 
                 if (allSubUniversesVisible) {
                     subDiv.classList.add('open');
-                    arrow.classList.add('rotated');
                 } else {
                     subDiv.classList.remove('open');
-                    arrow.classList.remove('rotated');
                 }
             }
             
-            button.textContent = allSubUniversesVisible ? '📋 Masquer tous les sous-univers' : '📋 Afficher tous les sous-univers';
+            button.textContent = allSubUniversesVisible ? 
+                '📋 Masquer tous les sous-univers' : 
+                '📋 Afficher tous les sous-univers';
+        }
+
+        function showDefinition(subUniverseName) {
+            var definition = subUniverseDefinitions[subUniverseName];
+            if (definition) {
+                document.getElementById('modalTitle').textContent = subUniverseName;
+                document.getElementById('modalDescription').textContent = definition;
+                document.getElementById('definitionModal').style.display = 'block';
+            }
+        }
+
+        function closeModal() {
+            document.getElementById('definitionModal').style.display = 'none';
+        }
+
+        // Fermer le modal en cliquant à l'extérieur
+        window.onclick = function(event) {
+            var modal = document.getElementById('definitionModal');
+            if (event.target == modal) {
+                modal.style.display = 'none';
+            }
         }
 
         if (document.readyState === 'loading') {
