@@ -6,7 +6,7 @@
 
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: #f5f7fa;
     min-height: 100vh;
     padding: 20px;
 }
@@ -16,7 +16,7 @@ body {
     margin: 0 auto;
     background: white;
     border-radius: 20px;
-    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.1);
     overflow: hidden;
 }
 
@@ -93,18 +93,18 @@ body {
 }
 
 .interest-title h3 {
-    color: #333;
+    color: #2c3e50;
     margin-bottom: 5px;
 }
 
 .interest-verbs {
-    color: #666;
+    color: #546e7a;
     font-size: 0.9em;
     font-style: italic;
 }
 
 .interest-description {
-    color: #555;
+    color: #546e7a;
     margin-bottom: 15px;
     line-height: 1.6;
 }
@@ -213,6 +213,8 @@ body {
     display: flex;
     align-items: center;
     gap: 10px;
+    min-width: 200px;
+    justify-content: center;
 }
 
 .download-btn {
@@ -235,6 +237,17 @@ body {
     background: #2980b9;
     transform: translateY(-3px);
     box-shadow: 0 8px 20px rgba(52, 152, 219, 0.3);
+}
+
+.assistant-btn {
+    background: #9b59b6;
+    color: white;
+}
+
+.assistant-btn:hover {
+    background: #8e44ad;
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(155, 89, 182, 0.3);
 }
 
 @keyframes fadeIn {
@@ -271,7 +284,7 @@ body {
 .result-title {
     font-size: 1.2em;
     font-weight: bold;
-    color: #333;
+    color: #2c3e50;
     margin-bottom: 5px;
 }
 
@@ -308,7 +321,7 @@ body {
 
 .legend h3 {
     margin-bottom: 15px;
-    color: #333;
+    color: #2c3e50;
 }
 
 .legend-item {
@@ -330,13 +343,13 @@ body {
     left: 0;
     width: 100%;
     height: 4px;
-    background: rgba(255,255,255,0.3);
+    background: rgba(0,0,0,0.1);
     z-index: 1000;
 }
 
 .progress-indicator {
     height: 100%;
-    background: white;
+    background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
     transition: width 0.3s;
 }
 
