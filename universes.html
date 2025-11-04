@@ -1,32 +1,31 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Les Univers Professionnels - Orientation 360 IA</title>
-  <link rel="stylesheet" href="universes-style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Les Univers Professionnels - IA360</title>
+    <link rel="stylesheet" href="universes-style.css">
 </head>
 <body>
-  <div class="container">
-    <div class="header">
-      <a href="index.html" class="back-btn">Accueil</a>
-      <h1>Les 21 univers & sous-univers</h1>
-      <button class="show-all-btn" id="toggleAllBtn">Afficher tous les univers</button>
+    <div class="container">
+        <div class="header">
+            <a href="index.html" class="back-btn">← Retour</a>
+            <h1>🌐 Les Univers Professionnels</h1>
+        </div>
+        
+        <div class="universes-grid" id="universesGrid"></div>
+        
+        <!-- Modal pour les sous-univers -->
+        <div class="modal" id="subUniversesModal">
+            <div class="modal-content">
+                <span class="close-btn" onclick="closeModal()">&times;</span>
+                <h2 id="modalTitle"></h2>
+                <div class="sub-universes-grid" id="subUniversesList"></div>
+            </div>
+        </div>
     </div>
 
-    <div id="universesGrid" class="universes-grid"></div>
-  </div>
-
-  <!-- Modale définition -->
-  <div id="defModal" class="modal" aria-hidden="true">
-    <div class="modal-dialog" role="dialog" aria-modal="true" aria-labelledby="defTitle">
-      <button class="modal-close" id="closeModal" aria-label="Fermer">×</button>
-      <h3 id="defTitle"></h3>
-      <p id="defText"></p>
-    </div>
-  </div>
-
-<script src="data.js"></script>
-<script src="universes-script.js"></script>
+    <script src="universes-data.js"></script>
+    <script src="universes-script.js"></script>
 </body>
 </html>
