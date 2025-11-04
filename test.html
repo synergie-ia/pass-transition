@@ -46,18 +46,18 @@
             </button>
             
             <div class="results" id="results">
-                <div class="results-actions">
-                    <button class="icon-btn pdf-icon" onclick="downloadResults()" title="Télécharger en PDF">
-                        📄
+                <div class="top-actions">
+                    <button class="pdf-btn" onclick="downloadResults()" title="Télécharger en PDF">
+                        📄<br><span>PDF</span>
                     </button>
-                    <button class="icon-btn copy-icon" onclick="copyResults()" title="Copier les résultats">
-                        📋
+                    <button class="copy-btn" onclick="copyResults()" title="Copier les résultats">
+                        📋<br><span>Copie</span>
                     </button>
                 </div>
                 
                 <div id="resultsList"></div>
                 
-                <div style="text-align: center; margin-top: 30px;">
+                <div class="diagnostic-section">
                     <button class="diagnostic-btn" onclick="openAssistant()">
                         🧭 Diagnostic de mon profil
                     </button>
