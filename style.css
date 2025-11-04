@@ -270,6 +270,24 @@ body {
     transform: translateY(-3px);
 }
 
+.home-btn {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 15px 40px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1.1em;
+    display: inline-block;
+    transition: all 0.3s;
+    box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+}
+
+.home-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(102, 126, 234, 0.5);
+}
+
 @keyframes fadeIn {
     from { 
         opacity: 0; 
@@ -308,6 +326,12 @@ body {
     margin-bottom: 5px;
 }
 
+.result-actions {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
 .result-score {
     font-size: 2em;
     font-weight: bold;
@@ -315,6 +339,28 @@ body {
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
+}
+
+.view-universe-btn {
+    background: #667eea;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 50%;
+    font-size: 1.2em;
+    cursor: pointer;
+    transition: all 0.3s;
+    width: 45px;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.view-universe-btn:hover {
+    background: #5568d3;
+    transform: scale(1.1);
+    box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
 }
 
 .progress-bar {
@@ -407,5 +453,11 @@ body {
     .action-btn {
         width: 100%;
         justify-content: center;
+    }
+    
+    .result-actions {
+        flex-direction: column;
+        align-items: flex-end;
+        gap: 10px;
     }
 }
