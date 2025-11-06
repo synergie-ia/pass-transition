@@ -12,7 +12,7 @@ function renderUniverses() {
                 <div class="universe-description">${universe.description}</div>
                 <div class="universe-footer">
                     <button class="view-universe-btn-card" onclick="event.stopPropagation(); openModal(${universe.id})" title="Voir les sous-univers">
-                        👁️
+                        👁
                     </button>
                     <span class="universe-arrow">→</span>
                 </div>
@@ -67,14 +67,13 @@ function closeModal() {
     const fromResults = urlParams.get('from');
     
     if (fromResults === 'results') {
-        // Toujours retourner à la page test avec les résultats
         window.location.href = 'test.html';
     } else {
         document.getElementById('subUniversesModal').style.display = 'none';
     }
 }
 
-// Gérer aussi la touche Echap
+// Gérer la touche Echap
 document.addEventListener('keydown', function(event) {
     if (event.key === 'Escape') {
         closeModal();
@@ -96,16 +95,13 @@ function checkURLParameter() {
     const fromResults = urlParams.get('from');
     
     if (universeId && fromResults === 'results') {
-        // Masquer seulement la grille, pas tout le container
         document.getElementById('universesGrid').style.display = 'none';
         document.querySelector('.header').style.display = 'none';
         
-        // Ouvrir automatiquement le modal
         setTimeout(() => {
             openModal(parseInt(universeId));
         }, 100);
     } else if (universeId) {
-        // Ouvrir le modal normalement
         setTimeout(() => {
             openModal(parseInt(universeId));
         }, 100);
