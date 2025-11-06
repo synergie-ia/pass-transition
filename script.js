@@ -20,13 +20,9 @@ function renderInterests() {
     const container = document.getElementById('interestsList');
     container.innerHTML = interests.map(interest => `
         <div class="interest-card">
-            <div class="interest-header">
-                <div class="interest-icon">${interest.icon}</div>
-                <div class="interest-title">
-                    <h3>Question ${interest.id} - ${interest.title}</h3>
-                </div>
+            <div class="interest-question">
+                <strong>Question ${interest.id}</strong> - ${interest.description} → <strong>${interest.title}</strong>
             </div>
-            <div class="interest-description">${interest.description}</div>
             <div class="rating-buttons">
                 <button class="rating-btn level-0" data-interest="${interest.id}" data-value="0">Pas du tout</button>
                 <button class="rating-btn level-1" data-interest="${interest.id}" data-value="1">Un peu</button>
@@ -219,9 +215,7 @@ function showRemainingUniverses() {
 
 // Fonction pour voir les détails d'un univers
 function viewUniverseDetails(universeId) {
-    // Sauvegarder qu'on vient de la page résultats
     sessionStorage.setItem('fromResults', 'true');
-    // Ouvrir la page univers avec l'ID
     window.location.href = `universes.html?id=${universeId}&from=results`;
 }
 
