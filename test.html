@@ -1,72 +1,78 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IA360 - Test d'orientation professionnelle</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IA360 - Test d'orientation professionnelle</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="progress-container">
-        <div class="progress-indicator" id="progressBar"></div>
-    </div>
-    
-    <div class="container">
-        <div class="header">
-            <a href="index.html" class="back-home-btn">← Accueil</a>
-            <h1>🎯 Orientation 360 IA</h1>
-            <p>Questionnaire d'orientation professionnelle</p>
-        </div>
-        
-        <div class="content">
-            <div class="legend">
-                <h3>📋 Comment répondre ?</h3>
-                <p style="margin-bottom: 15px; font-weight: 600;">Pour chaque situation professionnelle, indiquez à quel point elle vous correspond :</p>
-                <div class="legend-item">
-                    <div class="legend-box" style="background: #e74c3c;"></div>
-                    <span><strong>Pas du tout</strong> - Ça ne me correspond pas</span>
-                </div>
-                <div class="legend-item">
-                    <div class="legend-box" style="background: #e67e22;"></div>
-                    <span><strong>Un peu</strong> - Ça me correspond légèrement</span>
-                </div>
-                <div class="legend-item">
-                    <div class="legend-box" style="background: #f39c12;"></div>
-                    <span><strong>Moyennement</strong> - Ça me correspond modérément</span>
-                </div>
-                <div class="legend-item">
-                    <div class="legend-box" style="background: #2ecc71;"></div>
-                    <span><strong>Plutôt</strong> - Ça me correspond bien</span>
-                </div>
-                <div class="legend-item">
-                    <div class="legend-box" style="background: #27ae60;"></div>
-                    <span><strong>Totalement</strong> - Ça me correspond parfaitement</span>
-                </div>
-            </div>
-            
-            <div id="interestsList"></div>
-            
-            <button class="calculate-btn" onclick="calculateResults()">
-                🎯 Calculer mes résultats
-            </button>
-            
-            <div class="results" id="results">
-                <div class="top-actions">
-                    <button class="pdf-btn" onclick="downloadResults()" title="Télécharger en PDF">
-                        📄
-                    </button>
-                    <button class="copy-btn" onclick="copyResults()" title="Copier les résultats">
-                        📋
-                    </button>
-                </div>
-                
-                <div id="resultsList"></div>
-            </div>
-        </div>
+  <div class="progress-container">
+    <div class="progress-indicator" id="progressBar"></div>
+  </div>
+  
+  <div class="container">
+    <div class="header">
+      <a href="index.html" class="back-home-btn">← Accueil</a>
+      <h1>🎯 Orientation 360 IA</h1>
+      <p>Questionnaire d'orientation professionnelle</p>
     </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <script src="data.js"></script>
-    <script src="script.js"></script>
+    <div class="content">
+      <div class="legend">
+        <h3>📋 Comment répondre ?</h3>
+        <p style="margin-bottom: 15px; font-weight: 600;">Pour chaque situation professionnelle, indiquez à quel point elle vous correspond :</p>
+        
+        <div class="legend-item">
+          <div class="legend-box" style="background: #e74c3c;"></div>
+          <span><strong>Pas du tout</strong> - Ça ne me correspond pas</span>
+        </div>
+        
+        <div class="legend-item">
+          <div class="legend-box" style="background: #e67e22;"></div>
+          <span><strong>Un peu</strong> - Ça me correspond légèrement</span>
+        </div>
+        
+        <div class="legend-item">
+          <div class="legend-box" style="background: #f39c12;"></div>
+          <span><strong>Moyennement</strong> - Ça me correspond modérément</span>
+        </div>
+        
+        <div class="legend-item">
+          <div class="legend-box" style="background: #2ecc71;"></div>
+          <span><strong>Plutôt</strong> - Ça me correspond bien</span>
+        </div>
+        
+        <div class="legend-item">
+          <div class="legend-box" style="background: #27ae60;"></div>
+          <span><strong>Totalement</strong> - Ça me correspond parfaitement</span>
+        </div>
+      </div>
+
+      <div id="interestsList"></div>
+
+      <button class="calculate-btn" onclick="calculateResults()">
+        🎯 Calculer mes résultats
+      </button>
+
+      <div class="results" id="results">
+        <div class="top-actions">
+          <button class="pdf-btn" onclick="downloadResults()" title="Télécharger en PDF">
+            📄
+          </button>
+          <button class="copy-btn" onclick="copyResults()" title="Copier les résultats">
+            📋
+          </button>
+        </div>
+        
+        <div id="resultsList"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts - ORDRE IMPORTANT -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="data.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
