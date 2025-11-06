@@ -1,344 +1,73 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    min-height: 100vh;
-    padding: 20px;
-}
-
-.container {
-    max-width: 900px;
-    margin: 0 auto;
-}
-
-.header {
-    text-align: center;
-    color: white;
-    margin-bottom: 30px;
-}
-
-.header h1 {
-    font-size: 2.5em;
-    margin-bottom: 10px;
-}
-
-.header p {
-    font-size: 1.1em;
-    opacity: 0.95;
-}
-
-.progress-container {
-    background: white;
-    border-radius: 15px;
-    padding: 20px;
-    margin-bottom: 30px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-}
-
-.progress-bar-container {
-    background: #e0e0e0;
-    height: 12px;
-    border-radius: 10px;
-    overflow: hidden;
-    margin-bottom: 10px;
-}
-
-.progress-bar {
-    height: 100%;
-    background: linear-gradient(90deg, #667eea, #764ba2);
-    border-radius: 10px;
-    transition: width 0.3s ease;
-    width: 0%;
-}
-
-.progress-text {
-    text-align: center;
-    color: #555;
-    font-weight: 600;
-}
-
-#questionContainer {
-    background: white;
-    border-radius: 20px;
-    padding: 40px;
-    box-shadow: 0 15px 40px rgba(0,0,0,0.2);
-    min-height: 400px;
-}
-
-.question-card {
-    text-align: center;
-}
-
-.verb-highlight {
-    font-size: 2em;
-    font-weight: bold;
-    color: #667eea;
-    margin-bottom: 25px;
-}
-
-.question-text {
-    font-size: 1.3em;
-    color: #333;
-    margin-bottom: 40px;
-    line-height: 1.6;
-}
-
-.rating-container {
-    display: flex;
-    justify-content: center;
-    gap: 15px;
-    flex-wrap: wrap;
-}
-
-.rating-btn {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
-    border: none;
-    padding: 18px 30px;
-    border-radius: 15px;
-    cursor: pointer;
-    font-size: 1.1em;
-    font-weight: 600;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
-    min-width: 140px;
-}
-
-.rating-btn:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
-}
-
-.rating-btn:active {
-    transform: translateY(0);
-}
-
-.rating-value {
-    font-weight: 600;
-}
-
-/* RÉSULTATS */
-
-.results-header {
-    text-align: center;
-    margin-bottom: 30px;
-}
-
-.results-header h2 {
-    font-size: 2.2em;
-    color: #667eea;
-    margin-bottom: 10px;
-}
-
-.results-header p {
-    color: #666;
-    font-size: 1.1em;
-}
-
-.top-actions {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    margin-bottom: 30px;
-}
-
-.action-icon-btn {
-    background: transparent;
-    border: none;
-    font-size: 2.5em;
-    cursor: pointer;
-    padding: 10px;
-    transition: transform 0.2s ease;
-}
-
-.action-icon-btn:hover {
-    transform: scale(1.2);
-}
-
-.action-icon-btn:active {
-    transform: scale(0.95);
-}
-
-.results-list h3 {
-    color: #667eea;
-    font-size: 1.5em;
-    margin-bottom: 20px;
-    text-align: center;
-}
-
-.result-item {
-    display: flex;
-    align-items: center;
-    background: #f8f9fa;
-    padding: 20px;
-    border-radius: 12px;
-    margin-bottom: 15px;
-    transition: all 0.3s ease;
-    border: 2px solid transparent;
-}
-
-.result-item:hover {
-    background: #e9ecef;
-    border-color: #667eea;
-    transform: translateX(5px);
-}
-
-.result-rank {
-    font-size: 1.5em;
-    font-weight: bold;
-    color: #667eea;
-    min-width: 50px;
-}
-
-.result-icon {
-    font-size: 2.5em;
-    margin: 0 20px;
-}
-
-.result-info {
-    flex: 1;
-}
-
-.result-name {
-    font-size: 1.2em;
-    font-weight: 600;
-    color: #333;
-    margin-bottom: 5px;
-}
-
-.result-score {
-    color: #666;
-    font-size: 1em;
-}
-
-.explore-btn {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
-    border: none;
-    padding: 12px 20px;
-    border-radius: 10px;
-    cursor: pointer;
-    font-size: 1.5em;
-    transition: all 0.3s ease;
-}
-
-.explore-btn:hover {
-    transform: scale(1.1);
-    box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
-}
-
-.show-more-btn {
-    display: block;
-    width: 100%;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
-    border: none;
-    padding: 15px;
-    border-radius: 12px;
-    cursor: pointer;
-    font-size: 1.1em;
-    font-weight: 600;
-    margin: 20px 0;
-    transition: all 0.3s ease;
-}
-
-.show-more-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
-}
-
-.actions-container {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    margin-top: 40px;
-}
-
-.restart-btn,
-.home-btn {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
-    border: none;
-    padding: 15px 35px;
-    border-radius: 12px;
-    cursor: pointer;
-    font-size: 1.1em;
-    font-weight: 600;
-    transition: all 0.3s ease;
-}
-
-.restart-btn:hover,
-.home-btn:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
-}
-
-/* NOTIFICATION */
-
-.notification {
-    position: fixed;
-    bottom: -100px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: #4CAF50;
-    color: white;
-    padding: 15px 30px;
-    border-radius: 10px;
-    font-weight: 600;
-    font-size: 1.1em;
-    box-shadow: 0 5px 20px rgba(0,0,0,0.3);
-    transition: bottom 0.3s ease;
-    z-index: 1000;
-}
-
-.notification.show {
-    bottom: 30px;
-}
-
-/* RESPONSIVE */
-
-@media (max-width: 768px) {
-    .header h1 {
-        font-size: 2em;
-    }
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IA360 - Test d'orientation professionnelle</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="progress-container">
+        <div class="progress-indicator" id="progressBar"></div>
+    </div>
     
-    #questionContainer {
-        padding: 25px;
-    }
-    
-    .question-text {
-        font-size: 1.1em;
-    }
-    
-    .rating-container {
-        flex-direction: column;
-    }
-    
-    .rating-btn {
-        width: 100%;
-    }
-    
-    .result-item {
-        flex-direction: column;
-        text-align: center;
-        gap: 10px;
-    }
-    
-    .result-rank {
-        margin-bottom: 10px;
-    }
-    
-    .actions-container {
-        flex-direction: column;
-    }
-    
-    .restart-btn,
-    .home-btn {
-        width: 100%;
-    }
-}
+    <div class="container">
+        <div class="header">
+            <a href="index.html" class="back-home-btn">← Accueil</a>
+            <h1>🎯 Orientation 360 IA</h1>
+            <p>Test d'orientation scolaire et professionnelle basé sur vos intérêts</p>
+        </div>
+        
+        <div class="content">
+            <div class="legend">
+                <h3>📋 Comment répondre ?</h3>
+                <div class="legend-item">
+                    <div class="legend-box" style="background: #e74c3c;"></div>
+                    <span><strong>❌ Pas du tout moi</strong> - Je n'aime pas ça</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-box" style="background: #95a5a6;"></div>
+                    <span><strong>🤔 Un peu moi</strong> - Ça m'intéresse légèrement</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-box" style="background: #f39c12;"></div>
+                    <span><strong>👍 Plutôt moi</strong> - J'aime assez ça</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-box" style="background: #27ae60;"></div>
+                    <span><strong>✅ Totalement moi</strong> - C'est exactement moi</span>
+                </div>
+            </div>
+            
+            <div id="interestsList"></div>
+            
+            <button class="calculate-btn" onclick="calculateResults()">
+                🎯 Calculer mes résultats
+            </button>
+            
+            <div class="results" id="results">
+                <div class="top-actions">
+                    <button class="pdf-btn" onclick="downloadResults()" title="Télécharger en PDF">
+                        📄<br><span>PDF</span>
+                    </button>
+                    <button class="copy-btn" onclick="copyResults()" title="Copier les résultats">
+                        📋<br><span>Copie</span>
+                    </button>
+                </div>
+                
+                <div id="resultsList"></div>
+                
+                <div class="diagnostic-section">
+                    <button class="diagnostic-btn" onclick="openAssistant()">
+                        🤖 Diagnostic de mon profil
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="data.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
