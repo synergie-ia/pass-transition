@@ -15,27 +15,32 @@
         <div class="header">
             <a href="index.html" class="back-home-btn">← Accueil</a>
             <h1>🎯 Orientation 360 IA</h1>
-            <p>Test d'orientation scolaire et professionnelle basé sur vos intérêts</p>
+            <p>Questionnaire d'orientation professionnelle</p>
         </div>
         
         <div class="content">
             <div class="legend">
                 <h3>📋 Comment répondre ?</h3>
+                <p style="margin-bottom: 15px; font-weight: 600;">Pour chaque situation professionnelle, indiquez à quel point elle vous correspond :</p>
                 <div class="legend-item">
                     <div class="legend-box" style="background: #e74c3c;"></div>
-                    <span><strong>❌ Pas du tout moi</strong> - Je n'aime pas ça</span>
+                    <span><strong>Pas du tout</strong> - Ça ne me correspond pas</span>
                 </div>
                 <div class="legend-item">
-                    <div class="legend-box" style="background: #95a5a6;"></div>
-                    <span><strong>🤔 Un peu moi</strong> - Ça m'intéresse légèrement</span>
+                    <div class="legend-box" style="background: #e67e22;"></div>
+                    <span><strong>Un peu</strong> - Ça me correspond légèrement</span>
                 </div>
                 <div class="legend-item">
                     <div class="legend-box" style="background: #f39c12;"></div>
-                    <span><strong>👍 Plutôt moi</strong> - J'aime assez ça</span>
+                    <span><strong>Moyennement</strong> - Ça me correspond modérément</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-box" style="background: #2ecc71;"></div>
+                    <span><strong>Plutôt</strong> - Ça me correspond bien</span>
                 </div>
                 <div class="legend-item">
                     <div class="legend-box" style="background: #27ae60;"></div>
-                    <span><strong>✅ Totalement moi</strong> - C'est exactement moi</span>
+                    <span><strong>Totalement</strong> - Ça me correspond parfaitement</span>
                 </div>
             </div>
             
@@ -48,20 +53,14 @@
             <div class="results" id="results">
                 <div class="top-actions">
                     <button class="pdf-btn" onclick="downloadResults()" title="Télécharger en PDF">
-                        📄<br><span>PDF</span>
+                        📄
                     </button>
                     <button class="copy-btn" onclick="copyResults()" title="Copier les résultats">
-                        📋<br><span>Copie</span>
+                        📋
                     </button>
                 </div>
                 
                 <div id="resultsList"></div>
-                
-                <div class="diagnostic-section">
-                    <button class="diagnostic-btn" onclick="openAssistant()">
-                        🤖 Diagnostic de mon profil
-                    </button>
-                </div>
             </div>
         </div>
     </div>
