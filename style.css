@@ -84,7 +84,7 @@ body {
 }
 
 .interest-icon {
-    font-size: 2em;
+    font-size: 2.5em;
     margin-right: 15px;
 }
 
@@ -95,20 +95,14 @@ body {
 .interest-title h3 {
     color: #333;
     margin-bottom: 5px;
-}
-
-.interest-verbs {
-    color: #667eea;
-    font-size: 1em;
-    font-style: normal;
-    font-weight: bold;
+    font-size: 1.1em;
 }
 
 .interest-description {
     color: #555;
     margin-bottom: 15px;
     line-height: 1.6;
-    font-weight: 600;
+    font-weight: 500;
 }
 
 .rating-buttons {
@@ -119,7 +113,7 @@ body {
 
 .rating-btn {
     flex: 1;
-    min-width: 120px;
+    min-width: 100px;
     padding: 12px 20px;
     border: 2px solid #ddd;
     background: white;
@@ -136,30 +130,29 @@ body {
 }
 
 .rating-btn.selected {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     color: white;
-    border-color: #667eea;
+    border-color: transparent;
     font-weight: bold;
 }
 
 .rating-btn.level-0.selected {
     background: #e74c3c;
-    border-color: #e74c3c;
 }
 
 .rating-btn.level-1.selected {
-    background: #95a5a6;
-    border-color: #95a5a6;
+    background: #e67e22;
 }
 
 .rating-btn.level-2.selected {
     background: #f39c12;
-    border-color: #f39c12;
 }
 
 .rating-btn.level-3.selected {
+    background: #2ecc71;
+}
+
+.rating-btn.level-4.selected {
     background: #27ae60;
-    border-color: #27ae60;
 }
 
 .calculate-btn {
@@ -198,112 +191,22 @@ body {
 
 .top-actions {
     display: flex;
-    gap: 20px;
+    gap: 30px;
     justify-content: center;
     margin-bottom: 40px;
 }
 
 .pdf-btn, .copy-btn {
-    background: white;
-    border: 2px solid #667eea;
-    border-radius: 15px;
-    padding: 20px 30px;
+    background: transparent;
+    border: none;
     cursor: pointer;
     transition: all 0.3s;
-    font-size: 2em;
-    min-width: 120px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 5px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-}
-
-.pdf-btn span, .copy-btn span {
-    font-size: 0.4em;
-    font-weight: bold;
-    color: #667eea;
+    font-size: 3.5em;
+    padding: 0;
 }
 
 .pdf-btn:hover, .copy-btn:hover {
-    background: #667eea;
-    transform: translateY(-3px);
-    box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
-}
-
-.pdf-btn:hover span, .copy-btn:hover span {
-    color: white;
-}
-
-.diagnostic-section {
-    text-align: center;
-    margin-top: 40px;
-    padding-top: 30px;
-    border-top: 2px solid #f0f0f0;
-}
-
-.diagnostic-btn {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
-    border: none;
-    padding: 20px 50px;
-    border-radius: 50px;
-    font-size: 1.3em;
-    font-weight: bold;
-    cursor: pointer;
-    transition: all 0.3s;
-    box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
-}
-
-.diagnostic-btn:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.5);
-}
-
-.action-btn {
-    padding: 15px 30px;
-    border: none;
-    border-radius: 50px;
-    font-size: 1em;
-    font-weight: bold;
-    cursor: pointer;
-    transition: all 0.3s;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.download-btn {
-    background: #27ae60;
-    color: white;
-}
-
-.download-btn:hover {
-    background: #229954;
-    transform: translateY(-3px);
-    box-shadow: 0 8px 20px rgba(39, 174, 96, 0.3);
-}
-
-.copy-btn {
-    background: #3498db;
-    color: white;
-}
-
-.copy-btn:hover {
-    background: #2980b9;
-    transform: translateY(-3px);
-    box-shadow: 0 8px 20px rgba(52, 152, 219, 0.3);
-}
-
-.assistant-btn {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
-}
-
-.assistant-btn:hover {
-    background: linear-gradient(135deg, #5568d3 0%, #6a3f8f 100%);
-    transform: translateY(-3px);
-    box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+    transform: scale(1.2) translateY(-5px);
 }
 
 .show-more-btn {
@@ -499,15 +402,6 @@ body {
     
     .content {
         padding: 20px;
-    }
-    
-    .results-actions {
-        flex-direction: column;
-    }
-    
-    .action-btn {
-        width: 100%;
-        justify-content: center;
     }
     
     .result-actions {
