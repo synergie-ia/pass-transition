@@ -12,7 +12,7 @@ function renderUniverses() {
                 <div class="universe-description">${universe.description}</div>
                 <div class="universe-footer">
                     <button class="view-universe-btn-card" onclick="event.stopPropagation(); openModal(${universe.id})" title="Voir les sous-univers">
-                        🔍
+                        👁️
                     </button>
                     <span class="universe-arrow">→</span>
                 </div>
