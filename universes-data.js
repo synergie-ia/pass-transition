@@ -1,9 +1,4 @@
-bash
-
-cat > /home/claude/create_universes.py << 'ENDOFFILE'
-# Script pour créer universes-data.js avec emojis propres
-
-content = """// Données complètes des 21 univers avec leurs sous-univers
+// Données complètes des 21 univers avec leurs sous-univers
 const universesData = [
     {
         id: 1,
@@ -12,18 +7,18 @@ const universesData = [
         description: 'Cultivez, élevez, protégez la nature et travaillez avec les animaux dans des métiers en plein air.',
         subUniverses: [
             { icon: '🏭', name: 'Agroalimentaire industriel', description: 'Transformation et production à grande échelle des produits agricoles.' },
-            { icon: '🌱', name: 'Production biologique & circuits courts', description: 'Cultures et élevages respectueux de l\\'environnement, vente locale.' },
+            { icon: '🌱', name: 'Production biologique & circuits courts', description: 'Cultures et élevages respectueux de l\'environnement, vente locale.' },
             { icon: '🔬', name: 'Agronomie & recherche appliquée', description: 'Études scientifiques pour améliorer les rendements et la durabilité.' },
             { icon: '🌾', name: 'Cultures céréalières & grandes exploitations', description: 'Gestion de grandes surfaces agricoles mécanisées.' },
             { icon: '🍇', name: 'Viticulture & œnologie', description: 'Culture de la vigne et production du vin.' },
             { icon: '🥕', name: 'Maraîchage & production maraîchère', description: 'Culture de légumes et fruits de saison.' },
-            { icon: '🌺', name: 'Horticulture & pépinière', description: 'Production de plantes ornementales et d\\'arbustes.' },
-            { icon: '🌳', name: 'Paysagisme & aménagement végétal', description: 'Création et entretien d\\'espaces verts.' },
+            { icon: '🌺', name: 'Horticulture & pépinière', description: 'Production de plantes ornementales et d\'arbustes.' },
+            { icon: '🌳', name: 'Paysagisme & aménagement végétal', description: 'Création et entretien d\'espaces verts.' },
             { icon: '🌲', name: 'Forêt & sylviculture durable', description: 'Gestion et exploitation raisonnée des forêts.' },
             { icon: '🐄', name: 'Élevage bovin / ovin / porcin / avicole', description: 'Production animale pour la viande, le lait ou les œufs.' },
             { icon: '🐟', name: 'Aquaculture & pêche durable', description: 'Élevage de poissons et gestion responsable des ressources marines.' },
-            { icon: '🐝', name: 'Apiculture & insectes utiles', description: 'Élevage d\\'abeilles et valorisation des insectes pollinisateurs.' },
-            { icon: '💧', name: 'Gestion de l\\'eau, irrigation & bassins versants', description: 'Maîtrise des ressources hydriques pour l\\'agriculture.' },
+            { icon: '🐝', name: 'Apiculture & insectes utiles', description: 'Élevage d\'abeilles et valorisation des insectes pollinisateurs.' },
+            { icon: '💧', name: 'Gestion de l\'eau, irrigation & bassins versants', description: 'Maîtrise des ressources hydriques pour l\'agriculture.' },
             { icon: '📦', name: 'Valorisation & transformation des produits agricoles', description: 'Fabrication de produits finis à partir des matières premières.' }
         ]
     },
@@ -31,23 +26,23 @@ const universesData = [
         id: 2,
         icon: '🎨',
         name: 'Arts, design & création',
-        description: 'Créez, dessinez, designez et exprimez votre créativité dans l\\'art visuel, graphique ou appliqué.',
+        description: 'Créez, dessinez, designez et exprimez votre créativité dans l\'art visuel, graphique ou appliqué.',
         subUniverses: [
             { icon: '🖼️', name: 'Arts visuels & peinture', description: 'Création artistique sur support visuel.' },
-            { icon: '🗿', name: 'Sculpture & installations', description: 'Conception d\\'œuvres tridimensionnelles.' },
-            { icon: '📐', name: 'Design graphique & communication visuelle', description: 'Création d\\'images et supports de communication.' },
-            { icon: '💡', name: 'Design produit & industriel', description: 'Conception d\\'objets et produits manufacturés.' },
+            { icon: '🗿', name: 'Sculpture & installations', description: 'Conception d\'œuvres tridimensionnelles.' },
+            { icon: '📐', name: 'Design graphique & communication visuelle', description: 'Création d\'images et supports de communication.' },
+            { icon: '💡', name: 'Design produit & industriel', description: 'Conception d\'objets et produits manufacturés.' },
             { icon: '🏠', name: 'Architecture intérieure & décoration', description: 'Aménagement esthétique et fonctionnel des espaces.' },
-            { icon: '📷', name: 'Photographie & image numérique', description: 'Prise de vue, retouche et diffusion d\\'images.' },
+            { icon: '📷', name: 'Photographie & image numérique', description: 'Prise de vue, retouche et diffusion d\'images.' },
             { icon: '🎬', name: 'Cinéma, audiovisuel & animation', description: 'Production de films et contenus visuels.' },
             { icon: '👗', name: 'Mode, stylisme & textile', description: 'Conception de vêtements et accessoires.' },
-            { icon: '✂️', name: 'Artisanat d\\'art traditionnel', description: 'Création manuelle de pièces uniques.' },
-            { icon: '🎭', name: 'Scénographie & design d\\'espace', description: 'Mise en scène d\\'expositions ou de spectacles.' },
-            { icon: '✏️', name: 'Illustration & bande dessinée', description: 'Narration visuelle et création d\\'univers graphiques.' },
-            { icon: '🏛️', name: 'Patrimoine, muséographie & restauration d\\'art', description: 'Conservation et mise en valeur d\\'œuvres anciennes.' },
+            { icon: '✂️', name: 'Artisanat d\'art traditionnel', description: 'Création manuelle de pièces uniques.' },
+            { icon: '🎭', name: 'Scénographie & design d\'espace', description: 'Mise en scène d\'expositions ou de spectacles.' },
+            { icon: '✏️', name: 'Illustration & bande dessinée', description: 'Narration visuelle et création d\'univers graphiques.' },
+            { icon: '🏛️', name: 'Patrimoine, muséographie & restauration d\'art', description: 'Conservation et mise en valeur d\'œuvres anciennes.' },
             { icon: '🎪', name: 'Spectacle vivant & arts de la scène', description: 'Interprétation et production théâtrale ou musicale.' },
-            { icon: '💎', name: 'Métiers du luxe & savoir-faire d\\'exception', description: 'Création haut de gamme mêlant tradition et innovation.' },
-            { icon: '🎬', name: 'Régie & technique du spectacle', description: 'Gestion des aspects techniques d\\'événements artistiques.' }
+            { icon: '💎', name: 'Métiers du luxe & savoir-faire d\'exception', description: 'Création haut de gamme mêlant tradition et innovation.' },
+            { icon: '🎬', name: 'Régie & technique du spectacle', description: 'Gestion des aspects techniques d\'événements artistiques.' }
         ]
     },
     {
@@ -66,8 +61,8 @@ const universesData = [
             { icon: '📢', name: 'Communication commerciale & influence', description: 'Stratégies de persuasion et fidélisation.' },
             { icon: '🛍️', name: 'Achats & approvisionnement', description: 'Sélection et négociation avec les fournisseurs.' },
             { icon: '🏬', name: 'Gestion de rayon & management de point de vente', description: 'Pilotage opérationnel des équipes et stocks.' },
-            { icon: '🏢', name: 'Immobilier commercial', description: 'Vente et location d\\'espaces professionnels.' },
-            { icon: '💳', name: 'Banque & assurance commerciale', description: 'Vente de produits financiers et d\\'assurance.' },
+            { icon: '🏢', name: 'Immobilier commercial', description: 'Vente et location d\'espaces professionnels.' },
+            { icon: '💳', name: 'Banque & assurance commerciale', description: 'Vente de produits financiers et d\'assurance.' },
             { icon: '📞', name: 'Service client & relation après-vente', description: 'Suivi et satisfaction des clients.' },
             { icon: '💎', name: 'Commerce du luxe & clientèle premium', description: 'Vente haut de gamme et expérience exclusive.' },
             { icon: '🌐', name: 'Vente en ligne & marketplaces spécialisées', description: 'Plateformes ciblées sur des niches de produits.' }
@@ -77,19 +72,19 @@ const universesData = [
         id: 4,
         icon: '📺',
         name: 'Communication, médias & culture',
-        description: 'Informez, divertissez, communiquez à travers les médias, la culture et l\\'événementiel.',
+        description: 'Informez, divertissez, communiquez à travers les médias, la culture et l\'événementiel.',
         subUniverses: [
-            { icon: '📰', name: 'Journalisme & presse écrite', description: 'Recherche, rédaction et diffusion d\\'informations vérifiées.' },
-            { icon: '📻', name: 'Audiovisuel & production radio/TV', description: 'Réalisation et diffusion d\\'émissions ou reportages.' },
-            { icon: '🎤', name: 'Relations publiques & événementiel', description: 'Gestion de l\\'image d\\'une organisation et organisation d\\'événements.' },
-            { icon: '📢', name: 'Communication d\\'entreprise', description: 'Promotion interne et externe d\\'une marque ou institution.' },
+            { icon: '📰', name: 'Journalisme & presse écrite', description: 'Recherche, rédaction et diffusion d\'informations vérifiées.' },
+            { icon: '📻', name: 'Audiovisuel & production radio/TV', description: 'Réalisation et diffusion d\'émissions ou reportages.' },
+            { icon: '🎤', name: 'Relations publiques & événementiel', description: 'Gestion de l\'image d\'une organisation et organisation d\'événements.' },
+            { icon: '📢', name: 'Communication d\'entreprise', description: 'Promotion interne et externe d\'une marque ou institution.' },
             { icon: '🏛️', name: 'Communication publique & politique', description: 'Information et influence dans le secteur public.' },
-            { icon: '📚', name: 'Édition & correction', description: 'Relecture, mise en page et diffusion d\\'ouvrages.' },
+            { icon: '📚', name: 'Édition & correction', description: 'Relecture, mise en page et diffusion d\'ouvrages.' },
             { icon: '✍️', name: 'Création de contenus numériques', description: 'Production de vidéos, posts, podcasts ou blogs.' },
             { icon: '📱', name: 'Community management & réseaux sociaux', description: 'Animation de communautés en ligne.' },
             { icon: '🎬', name: 'Production audiovisuelle & cinéma', description: 'Création de contenus visuels et films.' },
             { icon: '🎭', name: 'Arts de la scène & spectacle vivant', description: 'Théâtre, danse, musique et performance.' },
-            { icon: '🎪', name: 'Organisation d\\'événements culturels', description: 'Festivals, expositions et manifestations artistiques.' },
+            { icon: '🎪', name: 'Organisation d\'événements culturels', description: 'Festivals, expositions et manifestations artistiques.' },
             { icon: '🏛️', name: 'Médiation culturelle & patrimoine', description: 'Transmission et valorisation de la culture.' }
         ]
     },
@@ -102,12 +97,12 @@ const universesData = [
             { icon: '🏗️', name: 'Gros œuvre & structure', description: 'Construction de la structure principale des bâtiments.' },
             { icon: '🔨', name: 'Second œuvre & finitions', description: 'Aménagements intérieurs et finitions.' },
             { icon: '⚡', name: 'Électricité & domotique', description: 'Installation électrique et maison connectée.' },
-            { icon: '🚿', name: 'Plomberie & sanitaire', description: 'Installation de réseaux d\\'eau et sanitaires.' },
+            { icon: '🚿', name: 'Plomberie & sanitaire', description: 'Installation de réseaux d\'eau et sanitaires.' },
             { icon: '🔥', name: 'Chauffage, ventilation & climatisation', description: 'Systèmes de confort thermique.' },
             { icon: '🎨', name: 'Peinture & revêtements', description: 'Finitions murales et sols.' },
             { icon: '🪟', name: 'Menuiserie & agencement', description: 'Fabrication et pose de boiseries.' },
-            { icon: '🏢', name: 'Architecture & maîtrise d\\'œuvre', description: 'Conception et supervision de projets.' },
-            { icon: '📐', name: 'Bureau d\\'études & ingénierie', description: 'Calculs et études techniques.' },
+            { icon: '🏢', name: 'Architecture & maîtrise d\'œuvre', description: 'Conception et supervision de projets.' },
+            { icon: '📐', name: 'Bureau d\'études & ingénierie', description: 'Calculs et études techniques.' },
             { icon: '🛣️', name: 'Travaux publics & infrastructures', description: 'Routes, ponts et aménagements urbains.' },
             { icon: '🏘️', name: 'Promotion immobilière & lotissement', description: 'Développement de programmes immobiliers.' },
             { icon: '🔧', name: 'Maintenance & rénovation', description: 'Entretien et remise en état de bâtiments.' }
@@ -117,15 +112,15 @@ const universesData = [
         id: 6,
         icon: '⚖️',
         name: 'Droit, administration & politique publique',
-        description: 'Appliquez les lois, gérez l\\'administration et contribuez à la politique publique.',
+        description: 'Appliquez les lois, gérez l\'administration et contribuez à la politique publique.',
         subUniverses: [
             { icon: '👨‍⚖️', name: 'Magistrature & justice', description: 'Application de la loi et jugements.' },
             { icon: '👔', name: 'Avocature & conseil juridique', description: 'Défense et conseil en droit.' },
             { icon: '📝', name: 'Notariat & professions réglementées', description: 'Actes authentiques et conseil patrimonial.' },
-            { icon: '🏛️', name: 'Administration publique', description: 'Gestion des services de l\\'État.' },
+            { icon: '🏛️', name: 'Administration publique', description: 'Gestion des services de l\'État.' },
             { icon: '🗳️', name: 'Politique & élus locaux', description: 'Mandats électifs et représentation.' },
             { icon: '📋', name: 'Fonction publique territoriale', description: 'Services des collectivités locales.' },
-            { icon: '🌍', name: 'Relations internationales & diplomatie', description: 'Représentation à l\\'international.' },
+            { icon: '🌍', name: 'Relations internationales & diplomatie', description: 'Représentation à l\'international.' },
             { icon: '📄', name: 'Droit des affaires', description: 'Conseil juridique aux entreprises.' },
             { icon: '👥', name: 'Droit social & ressources humaines', description: 'Gestion juridique du personnel.' },
             { icon: '🏢', name: 'Droit immobilier', description: 'Transactions et contentieux immobiliers.' },
@@ -147,7 +142,7 @@ const universesData = [
             { icon: '🎯', name: 'Coaching & développement personnel', description: 'Accompagnement individuel.' },
             { icon: '📝', name: 'Ingénierie pédagogique', description: 'Conception de programmes de formation.' },
             { icon: '🎨', name: 'Éducation artistique & culturelle', description: 'Transmission des arts et de la culture.' },
-            { icon: '🏃', name: 'Éducation sportive', description: 'Enseignement du sport et de l\\'EPS.' },
+            { icon: '🏃', name: 'Éducation sportive', description: 'Enseignement du sport et de l\'EPS.' },
             { icon: '🌍', name: 'Enseignement des langues', description: 'Apprentissage linguistique.' }
         ]
     },
@@ -155,15 +150,15 @@ const universesData = [
         id: 8,
         icon: '🌍',
         name: 'Environnement, climat & énergies',
-        description: 'Protégez l\\'environnement et développez les énergies renouvelables.',
+        description: 'Protégez l\'environnement et développez les énergies renouvelables.',
         subUniverses: [
             { icon: '♻️', name: 'Gestion des déchets & économie circulaire', description: 'Recyclage et valorisation.' },
-            { icon: '💧', name: 'Gestion de l\\'eau & assainissement', description: 'Traitement et distribution de l\\'eau.' },
+            { icon: '💧', name: 'Gestion de l\'eau & assainissement', description: 'Traitement et distribution de l\'eau.' },
             { icon: '🌱', name: 'Protection de la biodiversité', description: 'Conservation des écosystèmes.' },
             { icon: '☀️', name: 'Énergies renouvelables', description: 'Solaire, éolien, hydraulique.' },
             { icon: '🌡️', name: 'Transition énergétique', description: 'Efficacité et sobriété énergétique.' },
             { icon: '🏭', name: 'Dépollution & traitement', description: 'Nettoyage des sites contaminés.' },
-            { icon: '📊', name: 'Audit environnemental', description: 'Évaluation d\\'impact écologique.' },
+            { icon: '📊', name: 'Audit environnemental', description: 'Évaluation d\'impact écologique.' },
             { icon: '🌍', name: 'Développement durable', description: 'Stratégies RSE et durabilité.' },
             { icon: '🌳', name: 'Foresterie & gestion des espaces naturels', description: 'Préservation des forêts.' },
             { icon: '🐾', name: 'Protection de la faune', description: 'Sauvegarde des espèces animales.' }
@@ -178,7 +173,7 @@ const universesData = [
             { icon: '📊', name: 'Comptabilité générale', description: 'Tenue des comptes et états financiers.' },
             { icon: '💰', name: 'Audit & expertise comptable', description: 'Contrôle et certification des comptes.' },
             { icon: '📈', name: 'Contrôle de gestion', description: 'Pilotage de la performance.' },
-            { icon: '💼', name: 'Finance d\\'entreprise', description: 'Gestion financière et trésorerie.' },
+            { icon: '💼', name: 'Finance d\'entreprise', description: 'Gestion financière et trésorerie.' },
             { icon: '📉', name: 'Analyse financière', description: 'Évaluation et diagnostic financier.' },
             { icon: '🏦', name: 'Banque & services financiers', description: 'Opérations bancaires.' },
             { icon: '💳', name: 'Assurance & gestion des risques', description: 'Protection et prévention.' },
@@ -193,7 +188,7 @@ const universesData = [
         name: 'Hôtellerie, restauration & tourisme',
         description: 'Accueillez, cuisinez, servez et faites découvrir des destinations.',
         subUniverses: [
-            { icon: '🏨', name: 'Hôtellerie & hébergement', description: 'Gestion d\\'hôtels et accueil.' },
+            { icon: '🏨', name: 'Hôtellerie & hébergement', description: 'Gestion d\'hôtels et accueil.' },
             { icon: '🍽️', name: 'Restauration traditionnelle', description: 'Service en salle et cuisine.' },
             { icon: '🍔', name: 'Restauration rapide', description: 'Fast-food et vente à emporter.' },
             { icon: '👨‍🍳', name: 'Cuisine & gastronomie', description: 'Art culinaire et création.' },
@@ -216,9 +211,9 @@ const universesData = [
             { icon: '🔑', name: 'Gestion locative', description: 'Location et administration.' },
             { icon: '🏗️', name: 'Promotion immobilière', description: 'Développement de programmes.' },
             { icon: '📊', name: 'Expertise & évaluation', description: 'Estimation de biens.' },
-            { icon: '🏘️', name: 'Syndic & copropriété', description: 'Gestion d\\'immeubles collectifs.' },
-            { icon: '💎', name: 'Immobilier de luxe', description: 'Biens d\\'exception.' },
-            { icon: '🏢', name: 'Immobilier d\\'entreprise', description: 'Bureaux et locaux professionnels.' },
+            { icon: '🏘️', name: 'Syndic & copropriété', description: 'Gestion d\'immeubles collectifs.' },
+            { icon: '💎', name: 'Immobilier de luxe', description: 'Biens d\'exception.' },
+            { icon: '🏢', name: 'Immobilier d\'entreprise', description: 'Bureaux et locaux professionnels.' },
             { icon: '🏗️', name: 'Aménagement & urbanisme', description: 'Développement territorial.' },
             { icon: '📄', name: 'Juridique immobilier', description: 'Droit et contentieux.' }
         ]
@@ -233,7 +228,7 @@ const universesData = [
             { icon: '🤖', name: 'Automatisation & robotique', description: 'Systèmes automatisés.' },
             { icon: '⚙️', name: 'Maintenance industrielle', description: 'Entretien des équipements.' },
             { icon: '🔬', name: 'Contrôle qualité', description: 'Vérification et normes.' },
-            { icon: '📦', name: 'Supply chain & logistique', description: 'Chaîne d\\'approvisionnement.' },
+            { icon: '📦', name: 'Supply chain & logistique', description: 'Chaîne d\'approvisionnement.' },
             { icon: '🔩', name: 'Mécanique & usinage', description: 'Fabrication de pièces.' },
             { icon: '⚡', name: 'Électrotechnique', description: 'Systèmes électriques industriels.' },
             { icon: '🏭', name: 'Chimie & process', description: 'Transformation chimique.' },
@@ -265,9 +260,9 @@ const universesData = [
         name: 'Management, entrepreneuriat & stratégie',
         description: 'Dirigez, entreprenez, définissez des stratégies et managez des équipes.',
         subUniverses: [
-            { icon: '👔', name: 'Direction générale', description: 'Leadership et vision d\\'ensemble.' },
-            { icon: '📊', name: 'Management d\\'équipe', description: 'Encadrement et coordination.' },
-            { icon: '🚀', name: 'Entrepreneuriat & startup', description: 'Création d\\'entreprise.' },
+            { icon: '👔', name: 'Direction générale', description: 'Leadership et vision d\'ensemble.' },
+            { icon: '📊', name: 'Management d\'équipe', description: 'Encadrement et coordination.' },
+            { icon: '🚀', name: 'Entrepreneuriat & startup', description: 'Création d\'entreprise.' },
             { icon: '💼', name: 'Conseil en stratégie', description: 'Accompagnement stratégique.' },
             { icon: '📈', name: 'Développement commercial', description: 'Croissance et expansion.' },
             { icon: '🎯', name: 'Gestion de projet', description: 'Pilotage de projets complexes.' },
@@ -311,7 +306,7 @@ const universesData = [
             { icon: '💆', name: 'Kinésithérapie & rééducation', description: 'Thérapie physique.' },
             { icon: '🧠', name: 'Psychologie & psychiatrie', description: 'Santé mentale.' },
             { icon: '🔬', name: 'Laboratoire & analyses', description: 'Biologie médicale.' },
-            { icon: '🚑', name: 'Urgences & secours', description: 'Médecine d\\'urgence.' },
+            { icon: '🚑', name: 'Urgences & secours', description: 'Médecine d\'urgence.' },
             { icon: '🏥', name: 'Gestion hospitalière', description: 'Administration de santé.' },
             { icon: '💊', name: 'Recherche médicale', description: 'Innovation thérapeutique.' }
         ]
@@ -326,12 +321,12 @@ const universesData = [
             { icon: '🔬', name: 'Biologie & sciences du vivant', description: 'Étude des organismes.' },
             { icon: '⚛️', name: 'Physique & matériaux', description: 'Physique fondamentale et appliquée.' },
             { icon: '🌍', name: 'Géosciences & environnement', description: 'Sciences de la Terre.' },
-            { icon: '🔭', name: 'Astronomie & astrophysique', description: 'Étude de l\\'univers.' },
+            { icon: '🔭', name: 'Astronomie & astrophysique', description: 'Étude de l\'univers.' },
             { icon: '🧬', name: 'Génétique & biotechnologies', description: 'Manipulation du vivant.' },
             { icon: '💊', name: 'Pharmacologie', description: 'Développement de médicaments.' },
             { icon: '🏭', name: 'Ingénierie & R&D industrielle', description: 'Innovation technique.' },
             { icon: '📚', name: 'Sciences humaines & sociales', description: 'Analyse des sociétés.' },
-            { icon: '📖', name: 'Recherche en éducation', description: 'Étude des processus d\\'apprentissage.' },
+            { icon: '📖', name: 'Recherche en éducation', description: 'Étude des processus d\'apprentissage.' },
             { icon: '💡', name: 'Recherche appliquée & transfert technologique', description: 'Passage de la science au produit.' },
             { icon: '🏢', name: 'R&D en entreprise', description: 'Innovation intégrée à la production.' },
             { icon: '📊', name: 'Études et consulting scientifique', description: 'Expertise et accompagnement de projets techniques.' }
@@ -343,17 +338,17 @@ const universesData = [
         name: 'Sécurité, défense & urgence',
         description: 'Protégez, intervenez, sécurisez les personnes et les biens au quotidien.',
         subUniverses: [
-            { icon: '👮', name: 'Police & gendarmerie', description: 'Maintien de l\\'ordre et protection des citoyens.' },
-            { icon: '🚒', name: 'Pompiers & secours', description: 'Interventions d\\'urgence et sauvetage.' },
+            { icon: '👮', name: 'Police & gendarmerie', description: 'Maintien de l\'ordre et protection des citoyens.' },
+            { icon: '🚒', name: 'Pompiers & secours', description: 'Interventions d\'urgence et sauvetage.' },
             { icon: '🔒', name: 'Sécurité privée & surveillance', description: 'Protection des biens et des personnes.' },
             { icon: '🆘', name: 'Protection civile', description: 'Organisation des secours en cas de catastrophe.' },
             { icon: '🎖️', name: 'Défense & armée', description: 'Sécurité nationale et opérations extérieures.' },
-            { icon: '🕵️', name: 'Renseignement & sécurité stratégique', description: 'Collecte et analyse d\\'informations sensibles.' },
+            { icon: '🕵️', name: 'Renseignement & sécurité stratégique', description: 'Collecte et analyse d\'informations sensibles.' },
             { icon: '🔐', name: 'Sécurité informatique & cyberdéfense', description: 'Prévention des attaques numériques.' },
             { icon: '🏭', name: 'Sécurité des infrastructures critiques', description: 'Protection des réseaux essentiels (énergie, transport).' },
             { icon: '📋', name: 'Gestion de crise & résilience territoriale', description: 'Coordination des réponses aux urgences.' },
             { icon: '⚠️', name: 'Prévention des risques & sûreté publique', description: 'Surveillance et évaluation des menaces.' },
-            { icon: '🛡️', name: 'Industrie de défense & armement', description: 'Conception d\\'équipements militaires.' }
+            { icon: '🛡️', name: 'Industrie de défense & armement', description: 'Conception d\'équipements militaires.' }
         ]
     },
     {
@@ -363,15 +358,15 @@ const universesData = [
         description: 'Aidez, accompagnez, soutenez les personnes en difficulté ou en situation de vulnérabilité.',
         subUniverses: [
             { icon: '🏠', name: 'Aide à domicile', description: 'Soutien aux personnes dépendantes.' },
-            { icon: '🤝', name: 'Travail social & insertion', description: 'Accompagnement vers l\\'autonomie et l\\'emploi.' },
+            { icon: '🤝', name: 'Travail social & insertion', description: 'Accompagnement vers l\'autonomie et l\'emploi.' },
             { icon: '👶', name: 'Enfance & jeunesse', description: 'Protection et éducation des jeunes publics.' },
             { icon: '♿', name: 'Handicap & inclusion', description: 'Soutien à la participation sociale des personnes handicapées.' },
             { icon: '🧠', name: 'Santé mentale & accompagnement', description: 'Suivi social et psychologique.' },
-            { icon: '🎭', name: 'Animation & médiation sociale', description: 'Création de lien et d\\'activités collectives.' },
-            { icon: '👨‍👩‍👧', name: 'Protection de l\\'enfance', description: 'Défense des droits et sécurité des mineurs.' },
+            { icon: '🎭', name: 'Animation & médiation sociale', description: 'Création de lien et d\'activités collectives.' },
+            { icon: '👨‍👩‍👧', name: 'Protection de l\'enfance', description: 'Défense des droits et sécurité des mineurs.' },
             { icon: '🤲', name: 'Économie sociale & solidaire', description: 'Entreprises à finalité sociale et collective.' },
             { icon: '🌟', name: 'Bénévolat & engagement citoyen', description: 'Actions solidaires et collectives.' },
-            { icon: '🏥', name: 'Gestion d\\'établissements médico-sociaux', description: 'Pilotage de structures d\\'accueil.' },
+            { icon: '🏥', name: 'Gestion d\'établissements médico-sociaux', description: 'Pilotage de structures d\'accueil.' },
             { icon: '👨‍👩‍👧‍👦', name: 'Médiation familiale', description: 'Résolution de conflits familiaux.' },
             { icon: '🏠', name: 'Services à la personne & assistance familiale', description: 'Soutien à domicile et accompagnement quotidien.' },
             { icon: '🕊️', name: 'Accompagnement funéraire & thanatologie', description: 'Soutien aux familles et organisation des rites.' }
@@ -384,14 +379,14 @@ const universesData = [
         description: 'Entraînez, animez, organisez des activités sportives et de loisirs pour tous.',
         subUniverses: [
             { icon: '🏋️', name: 'Coaching sportif', description: 'Entraînement personnalisé et motivation.' },
-            { icon: '🎉', name: 'Animation & loisirs', description: 'Encadrement d\\'activités de détente.' },
+            { icon: '🎉', name: 'Animation & loisirs', description: 'Encadrement d\'activités de détente.' },
             { icon: '🏃', name: 'Éducation physique & enseignement du sport', description: 'Formation sportive en milieu scolaire.' },
             { icon: '⚽', name: 'Encadrement sportif & fédérations', description: 'Organisation et arbitrage des pratiques.' },
-            { icon: '🏟️', name: 'Gestion d\\'équipements sportifs', description: 'Direction d\\'installations ou clubs.' },
+            { icon: '🏟️', name: 'Gestion d\'équipements sportifs', description: 'Direction d\'installations ou clubs.' },
             { icon: '🤝', name: 'Médiation par le sport', description: 'Utilisation du sport à des fins sociales ou éducatives.' },
             { icon: '🥗', name: 'Nutrition & bien-être', description: 'Équilibre alimentaire et hygiène de vie.' },
             { icon: '🏥', name: 'Sport santé & réathlétisation', description: 'Activité physique adaptée à la santé.' },
-            { icon: '🏆', name: 'Organisation d\\'événements sportifs', description: 'Planification et logistique de compétitions.' },
+            { icon: '🏆', name: 'Organisation d\'événements sportifs', description: 'Planification et logistique de compétitions.' },
             { icon: '🌍', name: 'Tourisme sportif', description: 'Voyages et séjours autour du sport.' },
             { icon: '🎮', name: 'E-sport & compétition numérique', description: 'Compétition professionnelle de jeux vidéo.' }
         ]
@@ -400,24 +395,16 @@ const universesData = [
         id: 21,
         icon: '🚀',
         name: 'Technologies émergentes & futur du travail',
-        description: 'Explorez l\\'IA, la robotique, le métavers et les nouvelles formes de travail.',
+        description: 'Explorez l\'IA, la robotique, le métavers et les nouvelles formes de travail.',
         subUniverses: [
-            { icon: '🤖', name: 'Robotique humanoïde avancée', description: 'Conception de robots capables d\\'interagir naturellement.' },
+            { icon: '🤖', name: 'Robotique humanoïde avancée', description: 'Conception de robots capables d\'interagir naturellement.' },
             { icon: '🥽', name: 'Technologies immersives nouvelle génération (XR, haptique)', description: 'Interfaces sensorielles et réalités augmentées.' },
-            { icon: '🧬', name: 'Biotechnologies avancées & bio-ingénierie', description: 'Innovation à l\\'échelle du vivant.' },
-            { icon: '🌱', name: 'AgroTech & FoodTech', description: 'Nouvelles technologies pour l\\'agriculture et l\\'alimentation.' },
-            { icon: '♻️', name: 'CleanTech & GreenTech', description: 'Solutions technologiques pour réduire l\\'impact écologique.' },
+            { icon: '🧬', name: 'Biotechnologies avancées & bio-ingénierie', description: 'Innovation à l\'échelle du vivant.' },
+            { icon: '🌱', name: 'AgroTech & FoodTech', description: 'Nouvelles technologies pour l\'agriculture et l\'alimentation.' },
+            { icon: '♻️', name: 'CleanTech & GreenTech', description: 'Solutions technologiques pour réduire l\'impact écologique.' },
             { icon: '💊', name: 'HealthTech & MedTech', description: 'Dispositifs connectés et innovations médicales.' },
-            { icon: '🛸', name: 'SpaceTech & exploration spatiale', description: 'Technologies dédiées à l\\'espace et aux satellites.' },
+            { icon: '🛸', name: 'SpaceTech & exploration spatiale', description: 'Technologies dédiées à l\'espace et aux satellites.' },
             { icon: '💼', name: 'Économie créative & travail numérique indépendant', description: 'Nouvelles formes de métiers autonomes et digitaux.' }
         ]
     }
 ];
-"""
-
-with open('/mnt/user-data/outputs/universes-data.js', 'w', encoding='utf-8') as f:
-    f.write(content)
-
-print("Fichier créé avec succès!")
-ENDOFFILE
-python3 /home/claude/create_universes.py
