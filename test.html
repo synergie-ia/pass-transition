@@ -13,14 +13,14 @@
   
   <div class="container">
     <div class="header">
-      <a href="index.html" class="back-home-btn">← Accueil</a>
+      <a href="index.html" class="back-home-btn">🏠 Accueil</a>
       <h1>🎯 Orientation 360 IA</h1>
       <p>Questionnaire d'orientation professionnelle</p>
     </div>
 
     <div class="content">
       <div class="legend">
-        <h3>📋 Comment répondre ?</h3>
+        <h3>📝 Comment répondre ?</h3>
         <p style="margin-bottom: 15px; font-weight: 600;">Pour chaque situation professionnelle, indiquez à quel point elle vous correspond :</p>
         
         <div class="legend-item">
@@ -56,22 +56,11 @@
       </button>
 
       <div class="results" id="results">
-        <div class="top-actions">
-          <button class="pdf-btn" onclick="downloadResults()" title="Télécharger en PDF">
-            📄
-          </button>
-          <button class="copy-btn" onclick="copyResults()" title="Copier les résultats">
-            📋
-          </button>
-        </div>
-        
         <div id="resultsList"></div>
       </div>
     </div>
   </div>
 
-  <!-- Scripts - ORDRE IMPORTANT -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <script src="data.js"></script>
   <script src="script.js"></script>
 </body>
