@@ -1,8 +1,8 @@
-// Stockage des réponses de l'utilisateur
+// Stockage des r�ponses de l'utilisateur
 let ratings = {};
 let currentResults = [];
 
-// Charger les réponses sauvegardées au démarrage
+// Charger les r�ponses sauvegard�es au d�marrage
 function loadSavedRatings() {
   try {
     const saved = localStorage.getItem('orientation360_ratings');
@@ -10,17 +10,17 @@ function loadSavedRatings() {
       ratings = JSON.parse(saved);
     }
   } catch (e) {
-    console.log('Impossible de charger les données sauvegardées:', e);
+    console.log('Impossible de charger les donn�es sauvegard�es:', e);
     ratings = {};
   }
 }
 
-// Sauvegarder les réponses
+// Sauvegarder les r�ponses
 function saveRatings() {
   try {
     localStorage.setItem('orientation360_ratings', JSON.stringify(ratings));
   } catch (e) {
-    console.log('Impossible de sauvegarder les données:', e);
+    console.log('Impossible de sauvegarder les donn�es:', e);
   }
 }
 
@@ -35,20 +35,20 @@ function renderInterests() {
   
   if (typeof interests === 'undefined' || !interests.length) {
     console.error('interests array not found or empty');
-    container.innerHTML = '<p style="color: red; padding: 20px;">Erreur: Les questions ne sont pas chargées. Vérifiez que data.js est bien chargé.</p>';
+    container.innerHTML = '<p style="color: red; padding: 20px;">Erreur: Les questions ne sont pas charg�es. V�rifiez que data.js est bien charg�.</p>';
     return;
   }
   
   container.innerHTML = interests.map(interest => `
     <div class="interest-card">
       <div class="interest-question">
-        <strong>Question ${interest.id}</strong> - ${interest.description} → <strong>${interest.title}</strong>
+        <strong>Question ${interest.id}</strong> - ${interest.description} ? <strong>${interest.title}</strong>
       </div>
       <div class="rating-buttons">
         <button class="rating-btn level-0" data-interest="${interest.id}" data-value="0">Pas du tout</button>
         <button class="rating-btn level-1" data-interest="${interest.id}" data-value="1">Un peu</button>
         <button class="rating-btn level-2" data-interest="${interest.id}" data-value="2">Moyennement</button>
-        <button class="rating-btn level-3" data-interest="${interest.id}" data-value="3">Plutôt</button>
+        <button class="rating-btn level-3" data-interest="${interest.id}" data-value="3">Plut�t</button>
         <button class="rating-btn level-4" data-interest="${interest.id}" data-value="4">Totalement</button>
       </div>
     </div>
@@ -65,17 +65,17 @@ function renderInterests() {
       // Sauvegarder dans localStorage
       saveRatings();
       
-      // Mettre à jour visuellement
+      // Mettre � jour visuellement
       const card = this.closest('.interest-card');
       card.querySelectorAll('.rating-btn').forEach(b => b.classList.remove('selected'));
       this.classList.add('selected');
       
-      // Mettre à jour la barre de progression
+      // Mettre � jour la barre de progression
       updateProgress();
     });
   });
 
-  // Restaurer les sélections
+  // Restaurer les s�lections
   Object.keys(ratings).forEach(interestId => {
     const value = ratings[interestId];
     const btn = document.querySelector(`.rating-btn[data-interest="${interestId}"][data-value="${value}"]`);
@@ -84,11 +84,11 @@ function renderInterests() {
     }
   });
 
-  // Mettre à jour la progression
+  // Mettre � jour la progression
   updateProgress();
 }
 
-// Fonction pour mettre à jour la barre de progression
+// Fonction pour mettre � jour la barre de progression
 function updateProgress() {
   const totalAnswered = Object.keys(ratings).length;
   const percentage = (totalAnswered / interests.length) * 100;
@@ -98,14 +98,14 @@ function updateProgress() {
   }
 }
 
-// Fonction pour créer le profil utilisateur
+// Fonction pour cr�er le profil utilisateur
 function createUserProfile() {
-  let profile = "MON PROFIL D'INTÉRÊTS\n";
+  let profile = "MON PROFIL D'INT�R�TS\n";
   profile += "=".repeat(50) + "\n\n";
   
   interests.forEach(interest => {
     const rating = ratings[interest.id] || 0;
-    const ratingLabels = ['Pas du tout', 'Un peu', 'Moyennement', 'Plutôt', 'Totalement'];
+    const ratingLabels = ['Pas du tout', 'Un peu', 'Moyennement', 'Plut�t', 'Totalement'];
     profile += `${interest.title}\n`;
     profile += `  ${ratingLabels[rating]}\n\n`;
   });
@@ -113,39 +113,39 @@ function createUserProfile() {
   return profile;
 }
 
-// Fonction principale de calcul des résultats
+// Fonction principale de calcul des r�sultats
 function calculateResults() {
-  // Vérifier que toutes les questions ont été répondues
+  // V�rifier que toutes les questions ont �t� r�pondues
   if (Object.keys(ratings).length < interests.length) {
-    alert('Veuillez répondre à toutes les questions avant de calculer vos résultats.');
+    alert('Veuillez r�pondre � toutes les questions avant de calculer vos r�sultats.');
     return;
   }
 
-  // Vérifier que universes existe
+  // V�rifier que universes existe
   if (typeof universes === 'undefined' || !universes.length) {
-    alert('Erreur: Les univers professionnels ne sont pas chargés.');
+    alert('Erreur: Les univers professionnels ne sont pas charg�s.');
     return;
   }
 
   // Calcul du score pour chaque univers selon l'algorithme
-  // Les poids et les intérêts sont dans le même ordre (1 à 12)
+  // Les poids et les int�r�ts sont dans le m�me ordre (1 � 12)
   const results = universes.map(universe => {
     let score = 0;
     let maxScore = 0;
     
-    // Pour chaque intérêt (12 au total)
+    // Pour chaque int�r�t (12 au total)
     universe.weights.forEach((weight, index) => {
-      const interestId = index + 1; // Les IDs commencent à 1
+      const interestId = index + 1; // Les IDs commencent � 1
       const userRating = ratings[interestId] || 0;
       
-      // Score = somme des (note utilisateur × poids univers)
+      // Score = somme des (note utilisateur � poids univers)
       score += userRating * weight;
       
-      // Score max = somme des poids × 4 (note max possible avec nouvelle échelle)
+      // Score max = somme des poids � 4 (note max possible avec nouvelle �chelle)
       maxScore += weight * 4;
     });
     
-    // Calcul du pourcentage de compatibilité
+    // Calcul du pourcentage de compatibilit�
     const percentage = maxScore > 0 ? (score / maxScore) * 100 : 0;
     
     return {
@@ -158,17 +158,17 @@ function calculateResults() {
     };
   });
 
-  // Tri des résultats par pourcentage décroissant
+  // Tri des r�sultats par pourcentage d�croissant
   results.sort((a, b) => b.percentage - a.percentage);
   
-  // Stocker TOUS les résultats globalement
+  // Stocker TOUS les r�sultats globalement
   currentResults = results;
   
-  // Affichage des résultats
+  // Affichage des r�sultats
   displayResults(currentResults);
 }
 
-// Fonction d'affichage des résultats
+// Fonction d'affichage des r�sultats
 function displayResults(results) {
   const container = document.getElementById('resultsList');
   
@@ -192,7 +192,7 @@ function displayResults(results) {
       <div class="result-actions">
         <div class="result-score">${Math.round(result.percentage)}%</div>
         <button class="view-universe-btn" onclick="viewUniverseDetails(${result.id})" title="Voir les sous-univers">
-          👁
+          ??
         </button>
       </div>
     </div>
@@ -202,7 +202,7 @@ function displayResults(results) {
   if (remaining.length > 0) {
     html += `
       <button class="show-more-btn" onclick="showRemainingUniverses()" id="showMoreBtn">
-        👇 Voir les ${remaining.length} univers restants
+        ?? Voir les ${remaining.length} univers restants
       </button>
       <div id="remainingUniverses" style="display: none;">
         ${remaining.map((result, index) => `
@@ -216,7 +216,7 @@ function displayResults(results) {
             <div class="result-actions">
               <div class="result-score">${Math.round(result.percentage)}%</div>
               <button class="view-universe-btn" onclick="viewUniverseDetails(${result.id})" title="Voir les sous-univers">
-                👁
+                ??
               </button>
             </div>
           </div>
@@ -228,18 +228,18 @@ function displayResults(results) {
   // Ajouter le bouton Retour
   html += `
     <div style="text-align: center; margin-top: 30px;">
-      <button onclick="window.history.back()" class="home-btn">← Retour</button>
+      <button onclick="window.history.back()" class="home-btn">? Retour</button>
     </div>
   `;
 
   container.innerHTML = html;
 
-  // Affichage de la section résultats avec animation
+  // Affichage de la section r�sultats avec animation
   const resultsSection = document.getElementById('results');
   if (resultsSection) {
     resultsSection.classList.add('show');
     
-    // Scroll automatique vers les résultats
+    // Scroll automatique vers les r�sultats
     resultsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
 }
@@ -253,7 +253,7 @@ function showRemainingUniverses() {
   if (btn) btn.style.display = 'none';
 }
 
-// Fonction pour voir les détails d'un univers
+// Fonction pour voir les d�tails d'un univers
 function viewUniverseDetails(universeId) {
   try {
     sessionStorage.setItem('fromResults', 'true');
@@ -263,15 +263,15 @@ function viewUniverseDetails(universeId) {
   window.location.href = `universes.html?id=${universeId}&from=results`;
 }
 
-// Fonction pour télécharger les résultats en PDF
+// Fonction pour t�l�charger les r�sultats en PDF
 function downloadResults() {
   if (currentResults.length === 0) {
-    alert('Aucun résultat à télécharger. Veuillez d\'abord passer le test.');
+    alert('Aucun r�sultat � t�l�charger. Veuillez d\'abord passer le test.');
     return;
   }
 
   if (typeof window.jspdf === 'undefined') {
-    alert('La bibliothèque PDF n\'est pas chargée. Veuillez réessayer.');
+    alert('La biblioth�que PDF n\'est pas charg�e. Veuillez r�essayer.');
     return;
   }
 
@@ -296,7 +296,7 @@ function downloadResults() {
   
   yPos += 15;
 
-  // Profil d'intérêts
+  // Profil d'int�r�ts
   doc.setFontSize(14);
   doc.setFont(undefined, 'bold');
   doc.text('MON PROFIL D\'INTERETS', 20, yPos);
@@ -380,19 +380,19 @@ function downloadResults() {
 
   // Sauvegarde
   doc.save('Orientation360IA_Resultats_' + date.replace(/\//g, '-') + '.pdf');
-  showNotification('PDF téléchargé avec succès !');
+  showNotification('PDF t�l�charg� avec succ�s !');
 }
 
-// Fonction pour copier les résultats
+// Fonction pour copier les r�sultats
 function copyResults() {
   if (currentResults.length === 0) {
-    alert('Aucun résultat à copier. Veuillez d\'abord passer le test.');
+    alert('Aucun r�sultat � copier. Veuillez d\'abord passer le test.');
     return;
   }
 
   const date = new Date().toLocaleDateString('fr-FR');
 
-  let content = "ORIENTATION 360 IA - RÉSULTATS\n";
+  let content = "ORIENTATION 360 IA - R�SULTATS\n";
   content += "Date : " + date + "\n";
   content += "=".repeat(60) + "\n\n";
 
@@ -400,13 +400,13 @@ function copyResults() {
   content += createUserProfile();
   content += "\n" + "=".repeat(60) + "\n\n";
 
-  // Ajout des résultats
+  // Ajout des r�sultats
   content += "TOP 5 DES UNIVERS COMPATIBLES\n";
   content += "=".repeat(60) + "\n\n";
 
   currentResults.slice(0, 5).forEach((result, index) => {
     content += `#${index + 1} ${result.icon} ${result.name}\n`;
-    content += `  Compatibilité : ${Math.round(result.percentage)}%\n\n`;
+    content += `  Compatibilit� : ${Math.round(result.percentage)}%\n\n`;
   });
 
   if (currentResults.length > 5) {
@@ -420,7 +420,7 @@ function copyResults() {
 
   // Copie dans le presse-papier
   navigator.clipboard.writeText(content).then(() => {
-    showNotification('Résultats copiés dans le presse-papier !');
+    showNotification('R�sultats copi�s dans le presse-papier !');
   }).catch(err => {
     alert('Erreur lors de la copie : ' + err);
   });
