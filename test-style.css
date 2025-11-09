@@ -126,17 +126,10 @@ body {
   margin-bottom: 20px;
 }
 
-.interest-name {
-  font-size: 1.5em;
-  font-weight: bold;
-  color: #333;
-  margin-bottom: 10px;
-}
-
 .interest-question {
   color: #555;
-  font-size: 1.1em;
-  font-style: italic;
+  font-size: 1.3em;
+  font-weight: 600;
   margin-bottom: 20px;
 }
 
@@ -293,19 +286,22 @@ body {
   text-align: right;
 }
 
-.view-universe-btn {
-  width: 50px;
-  height: 50px;
+.view-universe-btn-small {
+  width: 35px;
+  height: 35px;
   background: #667eea;
   color: white;
   border: none;
   border-radius: 50%;
-  font-size: 1.5em;
+  font-size: 1em;
   cursor: pointer;
   transition: all 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.view-universe-btn:hover {
+.view-universe-btn-small:hover {
   background: #5568d3;
   transform: scale(1.1);
 }
