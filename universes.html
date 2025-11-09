@@ -3,28 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Les Univers Professionnels - IA360</title>
+    <title>Univers Professionnels - Reconversion 360 IA</title>
     <link rel="stylesheet" href="universes-style.css">
 </head>
 <body>
     <div class="container">
         <div class="header">
             <a href="index.html" class="back-btn">← Retour</a>
-            <h1>🌐 Les Univers Professionnels</h1>
-            <p class="subtitle">Sélectionnez les univers qui vous intéressent</p>
+            <h1>🌐 Sélectionnez vos univers professionnels</h1>
+            <p class="subtitle">Choisissez jusqu'à 5 univers qui vous intéressent</p>
         </div>
         
         <div class="top-actions">
             <button class="test-btn" onclick="window.location.href='test.html'">
-                📝 Si vous hésitez sur les univers, passez le test d'intérêts professionnels
-            </button>
-            <button class="download-btn" onclick="downloadSelectedUniverses()" id="downloadBtn" disabled>
-                📥 Télécharger les univers choisis
+                📝 Si vous hésitez, passez le test d'intérêts professionnels
             </button>
         </div>
         
         <div class="selection-info" id="selectionInfo">
             <span id="selectionCount">0 univers sélectionné(s)</span>
+            <span id="selectionLimit" style="color: #e74c3c; display: none;">Maximum 5 univers</span>
         </div>
         
         <div class="universes-grid" id="universesGrid"></div>
@@ -39,7 +37,6 @@
         </div>
     </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="universes-data.js"></script>
     <script src="universes-script.js"></script>
 </body>
