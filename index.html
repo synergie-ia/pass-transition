@@ -3,38 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Orientation 360 IA</title>
+    <title>Reconversion 360 IA</title>
     <link rel="stylesheet" href="home-style.css">
 </head>
 <body>
-    <div class="hero-section">
-        <div class="hero-content">
-            <h1 class="hero-title">🎯 Bienvenue sur la plateforme Orientation 360 IA</h1>
-            <p class="hero-subtitle">L'intelligence artificielle au service de l'orientation, la reconversion et du bilan de compétence</p>
-            
-            <div class="main-actions">
-                <div class="action-card" onclick="window.location.href='universes.html'">
-                    <div class="action-icon">🌐</div>
-                    <h3>Choisir son univers professionnel</h3>
-                    <p>Explorez les 21 univers professionnels et sélectionnez ceux qui vous intéressent</p>
-                    <button class="action-btn">Découvrir →</button>
-                </div>
+    <div class="container">
+        <div class="header">
+            <h1>🧭 Reconversion 360 IA</h1>
+            <p class="subtitle">Bienvenue sur la plateforme Reconversion 360 IA</p>
+            <p class="tagline">Au service de la reconversion professionnelle et du bilan de compétence</p>
+        </div>
 
-                <div class="action-card" onclick="window.location.href='situation.html'">
-                    <div class="action-icon">📋</div>
-                    <h3>Faire son bilan de situation personnelle</h3>
-                    <p>Répondez au questionnaire pour établir votre profil personnel complet</p>
-                    <button class="action-btn">Commencer →</button>
-                </div>
+        <div class="content">
+            <div class="card" onclick="window.location.href='universes.html'">
+                <div class="card-icon">🌐</div>
+                <h2>Sélectionnez vos univers professionnels</h2>
+                <p>Explorez les 21 univers professionnels et sélectionnez jusqu'à 5 qui vous intéressent</p>
+            </div>
 
-                <div class="action-card coming-soon">
-                    <div class="action-icon">🤖</div>
-                    <h3>Construire mon projet avec mon coach virtuel</h3>
-                    <p>Bénéficiez d'un accompagnement personnalisé par intelligence artificielle</p>
-                    <button class="action-btn disabled">Bientôt disponible</button>
-                </div>
+            <div class="card" onclick="window.location.href='situation.html'">
+                <div class="card-icon">📋</div>
+                <h2>Faites votre bilan de situation professionnelle</h2>
+                <p>Complétez votre bilan pour permettre une reconversion adaptée à votre profil</p>
+            </div>
+
+            <div class="card disabled" title="Fonctionnalité à venir">
+                <div class="card-icon">🧭</div>
+                <h2>Construisez votre projet avec votre conseiller et l'assistant virtuel</h2>
+                <p>Élaborez votre projet professionnel avec l'accompagnement de votre conseiller et de l'IA</p>
+                <div class="coming-soon">Bientôt disponible</div>
+            </div>
+
+            <div class="card copy-card" onclick="copyUserData()" id="copyCard">
+                <div class="card-icon">📄</div>
+                <h2>Copier vos données pour les communiquer à l'assistant virtuel</h2>
+                <p>Copiez toutes vos informations pour les partager avec votre conseiller virtuel</p>
             </div>
         </div>
     </div>
+
+    <script src="home-script.js"></script>
 </body>
 </html>
