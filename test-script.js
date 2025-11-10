@@ -1,154 +1,142 @@
 // 12 Dimensions d'intérêts professionnels (Questionnaire adulte)
-const interests = [
+const interestDimensions = [
   {
     id: 1,
     code: "MO",
     name: "Méthode & organisation",
-    question: "Quand vous travaillez sur quelque chose d'important :",
-    statements: [
-      "Vous ressentez le besoin de tout planifier dans les détails avant de commencer",
-      "Vous préférez suivre une méthode éprouvée plutôt que d'improviser",
-      "Vous êtes mal à l'aise si les choses ne sont pas clairement cadrées dès le départ",
-      "Vous trouvez rassurant d'avoir des procédures à suivre, même si elles peuvent sembler rigides"
+    questions: [
+      { q: "On vous propose de rejoindre une nouvelle équipe, vous choisissez :", a: "Organiser le planning et structurer les tâches" },
+      { q: "Pour progresser, vous choisissez d'apprendre à :", a: "Mieux planifier et suivre l'avancement des projets" },
+      { q: "On vous confie une mission, vous choisissez de :", a: "Mettre en place des procédures claires" },
+      { q: "Vous souhaitez développer vos compétences en :", a: "Organisation et gestion du temps" }
     ]
   },
   {
     id: 2,
     code: "PT",
     name: "Pratique & technique",
-    question: "Face à un problème concret :",
-    statements: [
-      "Votre premier réflexe est de manipuler, tester, bricoler pour comprendre",
-      "Vous apprenez mieux en 'faisant' qu'en lisant des explications théoriques",
-      "Vous pouvez passer des heures à perfectionner un geste ou régler finement quelque chose",
-      "Vous vous sentez plus compétent avec des outils dans les mains que dans des discussions abstraites"
+    questions: [
+      { q: "On vous propose de rejoindre une nouvelle équipe, vous choisissez :", a: "Utiliser des outils techniques et équipements" },
+      { q: "Pour progresser, vous choisissez d'apprendre à :", a: "Maîtriser de nouvelles techniques manuelles" },
+      { q: "On vous confie une mission, vous choisissez de :", a: "Réparer, assembler ou fabriquer quelque chose" },
+      { q: "Vous souhaitez développer vos compétences en :", a: "Savoir-faire technique et pratique" }
     ]
   },
   {
     id: 3,
     code: "AL",
     name: "Analyse & logique",
-    question: "Quand un problème se présente :",
-    statements: [
-      "Vous avez tendance à vouloir décortiquer tous les aspects avant de proposer une solution",
-      "Vous êtes frustré si on vous demande d'agir sans avoir d'abord tout analysé",
-      "Vous préférez prendre le temps de comprendre en profondeur plutôt que d'avoir une réponse rapide",
-      "Vous êtes agacé par les raisonnements approximatifs ou les affirmations non vérifiées"
+    questions: [
+      { q: "On vous propose de rejoindre une nouvelle équipe, vous choisissez :", a: "Analyser les données et faire des bilans" },
+      { q: "Pour progresser, vous choisissez d'apprendre à :", a: "Résoudre des problèmes complexes par l'analyse" },
+      { q: "On vous confie une mission, vous choisissez de :", a: "Examiner la situation et établir un diagnostic" },
+      { q: "Vous souhaitez développer vos compétences en :", a: "Raisonnement logique et synthèse" }
     ]
   },
   {
     id: 4,
     code: "SI",
     name: "Sciences & innovation",
-    question: "Face à l'inconnu ou à un défi technique :",
-    statements: [
-      "Vous êtes stimulé par ce qui n'a jamais été fait ou ce qui semble impossible",
-      "Vous acceptez facilement que vos tentatives échouent si cela fait avancer la compréhension",
-      "Vous préférez expérimenter de nouvelles approches plutôt qu'appliquer des solutions connues",
-      "Vous supportez bien l'incertitude et l'absence de garantie de résultat"
+    questions: [
+      { q: "On vous propose de rejoindre une nouvelle équipe, vous choisissez :", a: "Tester de nouvelles méthodes et expérimenter" },
+      { q: "Pour progresser, vous choisissez d'apprendre à :", a: "Comprendre les dernières avancées scientifiques" },
+      { q: "On vous confie une mission, vous choisissez de :", a: "Explorer des solutions innovantes" },
+      { q: "Vous souhaitez développer vos compétences en :", a: "Recherche et découverte de nouvelles connaissances" }
     ]
   },
   {
     id: 5,
     code: "CS",
     name: "Conception & structuration d'idées",
-    question: "Avant de passer à l'action :",
-    statements: [
-      "Vous avez besoin de visualiser mentalement l'ensemble du projet dans ses moindres détails",
-      "Vous passez beaucoup de temps à organiser vos idées en schémas ou plans structurés",
-      "Vous êtes mal à l'aise si vous devez commencer sans avoir une vision claire de l'architecture globale",
-      "Vous préférez concevoir le cadre général que vous laisser à d'autres, plutôt qu'exécuter vous-même"
+    questions: [
+      { q: "Dans un projet créatif, vous préférez :", a: "Concevoir la structure et l'organisation générale" },
+      { q: "Dans un nouveau projet, vous préférez :", a: "Définir le concept et l'architecture d'ensemble" },
+      { q: "Dans un projet culturel, vous préférez :", a: "Structurer le contenu et le scénario" },
+      { q: "Dans une équipe créative, vous aimez :", a: "Concevoir la stratégie globale" }
     ]
   },
   {
     id: 6,
     code: "EC",
     name: "Expression & création",
-    question: "Dans vos productions (travaux, projets, créations) :",
-    statements: [
-      "Vous ressentez le besoin impérieux d'y mettre votre 'patte' personnelle",
-      "Vous êtes frustré quand vous devez strictement suivre des consignes sans marge de créativité",
-      "Vous assumez de faire des choix originaux même s'ils peuvent être critiqués",
-      "Vous préférez créer quelque chose d'imparfait mais personnel qu'une copie parfaite d'un modèle"
+    questions: [
+      { q: "Dans un projet créatif, vous préférez :", a: "Créer les éléments visuels ou artistiques" },
+      { q: "Dans un nouveau projet, vous préférez :", a: "Créer l'identité visuelle et l'ambiance" },
+      { q: "Dans un projet culturel, vous préférez :", a: "Créer l'univers sonore ou visuel" },
+      { q: "Dans une équipe créative, vous aimez :", a: "Produire les créations artistiques" }
     ]
   },
   {
     id: 7,
     code: "MP",
     name: "Mouvement & plein air",
-    question: "Dans votre quotidien :",
-    statements: [
-      "Vous ressentez un vrai inconfort physique si vous devez rester assis longtemps au même endroit",
-      "Vous avez besoin de bouger, de vous déplacer pour maintenir votre concentration",
-      "Vous êtes nettement plus énergique et efficace en extérieur ou dans un environnement changeant",
-      "Les espaces fermés et statiques vous donnent une sensation d'enfermement"
+    questions: [
+      { q: "Au travail, vous préférez :", a: "Être en mouvement et travailler dehors" },
+      { q: "Votre journée idéale inclut :", a: "Bouger, vous déplacer et être en extérieur" },
+      { q: "Dans une association, vous choisissez de :", a: "Partir en mission dans des lieux variés" },
+      { q: "Vous êtes attiré(e) par des activités de :", a: "Animation sportive en plein air" }
     ]
   },
   {
     id: 8,
     code: "CP",
     name: "Coordination & pilotage",
-    question: "Dans une dynamique de groupe :",
-    statements: [
-      "Vous voyez naturellement qui fait quoi et comment mieux organiser l'ensemble",
-      "Vous êtes à l'aise pour répartir les rôles et arbitrer quand il y a désaccord",
-      "Vous préférez avoir une vue d'ensemble et coordonner plutôt que vous concentrer sur une seule tâche",
-      "Vous supportez bien la pression de devoir maintenir la cohésion et l'avancement global"
+    questions: [
+      { q: "Dans un projet créatif, vous préférez :", a: "Coordonner l'équipe et répartir les rôles" },
+      { q: "Dans un nouveau projet, vous préférez :", a: "Superviser l'avancement et gérer les priorités" },
+      { q: "Dans un projet culturel, vous préférez :", a: "Organiser la production et les équipes" },
+      { q: "Dans une équipe créative, vous aimez :", a: "Piloter le projet et coordonner" }
     ]
   },
   {
     id: 9,
     code: "IP",
     name: "Initiative & projet",
-    question: "Face à une situation établie :",
-    statements: [
-      "Vous voyez rapidement ce qui pourrait être amélioré ou fait différemment",
-      "Vous ressentez de la frustration quand 'on a toujours fait comme ça' sans questionner",
-      "Vous préférez créer quelque chose de nouveau plutôt qu'optimiser l'existant",
-      "Vous êtes prêt à prendre des risques et essayer même sans garantie de succès"
+    questions: [
+      { q: "Dans un projet créatif, vous préférez :", a: "Proposer des idées nouvelles et lancer des pistes" },
+      { q: "Dans un nouveau projet, vous préférez :", a: "Lancer de nouvelles initiatives sans attendre" },
+      { q: "Dans un projet culturel, vous préférez :", a: "Inventer de nouveaux formats d'expression" },
+      { q: "Dans une équipe créative, vous aimez :", a: "Proposer des approches originales" }
     ]
   },
   {
     id: 10,
     code: "AT",
     name: "Action & efficacité terrain",
-    question: "Dans votre façon de travailler :",
-    statements: [
-      "Vous avez besoin de voir rapidement le résultat concret de vos actions",
-      "Vous êtes à l'aise dans l'urgence et les situations qui demandent une réaction immédiate",
-      "Vous préférez résoudre plusieurs petits problèmes concrets qu'un seul gros projet théorique",
-      "Vous êtes frustré par les projets à très long terme où l'impact n'est pas visible avant des mois"
+    questions: [
+      { q: "Au travail, vous préférez :", a: "Agir rapidement pour régler des situations urgentes" },
+      { q: "Votre journée idéale inclut :", a: "Intervenir sur le terrain avec des résultats directs" },
+      { q: "Dans une association, vous choisissez de :", a: "Répondre aux urgences et situations critiques" },
+      { q: "Vous êtes attiré(e) par des activités de :", a: "Intervention rapide en situation d'urgence" }
     ]
   },
   {
     id: 11,
     code: "AA",
     name: "Aide & Accompagnement",
-    question: "Dans vos interactions avec les autres :",
-    statements: [
-      "Vous ressentez une réelle satisfaction quand quelqu'un comprend grâce à vous",
-      "Vous êtes patient face aux difficultés d'apprentissage des autres",
-      "Vous prenez plaisir à adapter vos explications jusqu'à trouver la bonne approche",
-      "Vous trouvez gratifiant de voir quelqu'un devenir autonome grâce à votre accompagnement"
+    questions: [
+      { q: "Au travail, vous préférez :", a: "Écouter et aider les personnes en difficulté" },
+      { q: "Votre journée idéale inclut :", a: "Accompagner des personnes individuellement" },
+      { q: "Dans une association, vous choisissez de :", a: "Soutenir et conseiller les bénéficiaires" },
+      { q: "Vous êtes attiré(e) par des activités de :", a: "Écoute et médiation avec les personnes" }
     ]
   },
   {
     id: 12,
     code: "RI",
     name: "Relationnel & influence",
-    question: "Dans vos échanges avec les autres :",
-    statements: [
-      "Vous percevez intuitivement les dynamiques relationnelles et les non-dits",
-      "Vous adaptez spontanément votre communication selon votre interlocuteur",
-      "Vous êtes à l'aise pour convaincre ou faire évoluer le point de vue de quelqu'un",
-      "Vous considérez la qualité de la relation comme un outil de travail, pas seulement un contexte agréable"
+    questions: [
+      { q: "Au travail, vous préférez :", a: "Convaincre et faire changer d'avis" },
+      { q: "Votre journée idéale inclut :", a: "Négocier et défendre des positions" },
+      { q: "Dans une association, vous choisissez de :", a: "Représenter l'association et mobiliser des partenaires" },
+      { q: "Vous êtes attiré(e) par des activités de :", a: "Persuasion et influence dans les discussions" }
     ]
   }
 ];
 
 // 21 Univers avec leurs matrices de corrélation (coefficients 0, 1, 3, 6)
 // Ordre: MO, PT, AL, SI, CS, EC, MP, CP, IP, AT, AA, RI
-const universes = [
+const professionalUniverses = [
   { id: 1, name: "Agriculture, nature & animaux", icon: "🌾", 
     weights: [1, 6, 3, 1, 0, 0, 6, 0, 1, 3, 1, 0] },
   { id: 2, name: "Arts, design & création", icon: "🎨", 
@@ -192,3 +180,8 @@ const universes = [
   { id: 21, name: "Technologies émergentes & futur du travail", icon: "🚀", 
     weights: [1, 1, 3, 6, 3, 1, 0, 1, 6, 1, 1, 3] }
 ];
+
+// Export pour utilisation dans d'autres fichiers si nécessaire
+if (typeof module !== 'undefined' && module.exports) {
+  module.exports = { interestDimensions, professionalUniverses };
+}
