@@ -1,4 +1,7 @@
-let answers = {}; // { QID-OPTION : value }
+let answers = {}; // { QID-DIM : scaledValue }
+
+/* ----- ÉCHELLE NON-LINÉAIRE (augmentation du contraste) ----- */
+const SCALE = [0, 1, 3, 6, 9];
 
 /* ----- RENDU DU QUESTIONNAIRE ----- */
 function renderQuestions() {
@@ -7,12 +10,16 @@ function renderQuestions() {
   root.innerHTML = QUESTIONS.map(q => `
     <div class="question-block">
       <div class="question-title">${q.title}</div>
-      ${q.options.map((opt, idx) => `
+      ${q.options.map(opt => `
         <div class="option-row">
           <div class="option-text">${opt.text}</div>
           <div class="rating-buttons">
             ${[0,1,2,3,4].map(v => `
-              <div class="rate-btn" data-q="${q.id}" data-dim="${opt.dim}" data-value="${v}">${v}</div>
+              <div class="rate-btn"
+                   data-q="${q.id}"
+                   data-dim="${opt.dim}"
+                   data-value="${v}"
+                   title="${LEVEL_LABELS[v]}">${v}</div>
             `).join("")}
           </div>
         </div>
@@ -24,9 +31,12 @@ function renderQuestions() {
     btn.addEventListener("click", () => {
       const q = btn.dataset.q;
       const dim = btn.dataset.dim;
-      const v = Number(btn.dataset.value);
-      answers[q + "-" + dim] = v;
+      const raw = Number(btn.dataset.value);
 
+      // ✅ Conversion vers échelle renforcée
+      answers[q + "-" + dim] = SCALE[raw];
+
+      // Mise en surbrillance du bouton sélectionné
       document.querySelectorAll(`.rate-btn[data-q='${q}'][data-dim='${dim}']`)
         .forEach(b => b.classList.remove("selected"));
       btn.classList.add("selected");
@@ -55,7 +65,7 @@ document.getElementById("btn-calc-profile").addEventListener("click", () => {
 
   root.innerHTML = DIMENSIONS.map(dim => {
     const val = scores[dim.code];
-    const percent = Math.round((val / 16) * 100); // 4 items × 4 max = 16
+    const percent = Math.round((val / 36) * 100); // max = 4 réponses × 9
     return `
       <div class="profile-row">
         <div class="profile-label">${dim.name}</div>
@@ -68,17 +78,18 @@ document.getElementById("btn-calc-profile").addEventListener("click", () => {
   document.getElementById("profile-section").classList.remove("hidden");
 });
 
-/* ----- CALCUL UNIVERS ----- */
+/* ----- CALCUL UNIVERS (pondération + score profil) ----- */
 function calcUnivers() {
   const scores = calcProfile();
+
   return universes.map(u => {
     let score = 0, max = 0;
     u.weights.forEach((w, i) => {
       const dimCode = DIMENSIONS[i].code;
       score += scores[dimCode] * w;
-      max += 16 * w; // dim max possible (16) × poids
+      max += 36 * w; // car le nouveau max dimension = 36
     });
-    return {...u, pct: Math.round((score / max)*100)};
+    return { ...u, pct: Math.round((score / max) * 100) };
   }).sort((a,b)=>b.pct-a.pct);
 }
 
