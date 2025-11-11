@@ -3,34 +3,54 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Test d'intérêts professionnels</title>
+  <title>Questionnaire – Profil d'intérêts</title>
+
+  <!-- Style du test -->
   <link rel="stylesheet" href="test-style.css" />
 </head>
+
 <body>
 
-<div class="container">
+  <div class="container">
 
-  <h1>🎯 Test d'intérêts professionnels</h1>
-  <p class="intro">
-    Pour chaque proposition, indique ce qui te ressemble **spontanément**.<br>
-    <strong>0 = Pas du tout</strong> → <strong>4 = Totalement</strong>
-  </p>
+    <h1>Découvre ton profil d’intérêts professionnels</h1>
 
-  <div id="questionnaire"></div>
+    <p class="intro">
+      Réponds spontanément. Il n’y a **pas de bonne ou de mauvaise réponse**.<br>
+      Choisis la couleur qui te correspond le mieux :
+    </p>
 
-  <button id="calculateProfile" class="main-btn">✅ Calculer mon profil</button>
-  <button id="recalculateProfile" class="main-btn hidden">🔄 Recalculer mon profil</button>
+    <div class="helper">
+      <strong>Échelle utilisée :</strong><br>
+      0 = Pas du tout • 1 = Un peu • 2 = Moyennement • 3 = Plutôt • 4 = Totalement
+    </div>
 
-  <div id="profileSection" class="hidden">
-    <h2>📊 Ton profil</h2>
-    <div id="profileResults"></div>
+    <!-- Conteneur des questions (rempli par test-script.js) -->
+    <div id="questionsContainer"></div>
 
-    <button id="goToUniverses" class="main-btn">🌍 Voir mes univers métiers</button>
+    <!-- Bouton calcul -->
+    <div class="center mt-18">
+      <button id="calculateBtn" class="main-btn">Calculer mon profil</button>
+      <button id="recalculateBtn" class="main-btn hidden">Recalculer le profil</button>
+    </div>
+
+    <!-- Section résultat profil -->
+    <div id="profileSection" class="hidden">
+      <h2>📊 Ton profil d’intérêts</h2>
+      <div class="profile-rows" id="profileResults"></div>
+
+      <div class="sticky-actions center mt-18">
+        <button id="goUniversesBtn" class="main-btn">🌍 Voir les univers métiers</button>
+      </div>
+    </div>
+
   </div>
 
-</div>
+  <!-- Données (ne pas modifier ce fichier) -->
+  <script src="test-data.js"></script>
 
-<script src="test-data.js"></script>
-<script src="test-script.js"></script>
+  <!-- Script de logique du questionnaire & calcul -->
+  <script src="test-script.js"></script>
+
 </body>
 </html>
