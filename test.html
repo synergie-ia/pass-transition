@@ -2,60 +2,35 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>IA360 – Test d'intérêts professionnels</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Test d'intérêts professionnels</title>
   <link rel="stylesheet" href="test-style.css" />
 </head>
 <body>
-  <div class="container">
-    <header class="page-head">
-      <h1>🎯 Découvrir mon profil professionnel</h1>
-      <p class="intro">
-        Pour chaque proposition, indique à quel point cela te correspond.<br>
-        <strong>0 = Pas du tout</strong> • <strong>1 = Un peu</strong> •
-        <strong>2 = Moyennement</strong> • <strong>3 = Plutôt</strong> •
-        <strong>4 = Totalement</strong><br>
-        Il n’y a pas de “bonne” réponse : réponds spontanément.
-      </p>
-    </header>
 
-    <!-- Questionnaire -->
-    <section id="questionnaire" class="card"></section>
+<div class="container">
 
-    <!-- Actions -->
-    <div class="actions">
-      <button id="btn-calc-profile" class="btn primary">✅ Calculer mon profil</button>
-      <span id="change-hint" class="hint hidden">Tu as modifié des réponses. Appuie sur <b>Recalculer mon profil</b>.</span>
-    </div>
+  <h1>🎯 Test d'intérêts professionnels</h1>
+  <p class="intro">
+    Pour chaque proposition, indique ce qui te ressemble **spontanément**.<br>
+    <strong>0 = Pas du tout</strong> → <strong>4 = Totalement</strong>
+  </p>
 
-    <!-- Profil -->
-    <section id="profile-section" class="card hidden">
-      <div class="card-head">
-        <h2>📊 Ton profil d'intérêts</h2>
-        <button class="btn link" id="btn-back-to-questions-top">⬅️ Revenir au questionnaire</button>
-      </div>
-      <div id="profile-results"></div>
-      <div class="card-actions">
-        <button id="btn-calc-univers" class="btn primary" disabled>🌍 Voir les univers qui me correspondent</button>
-      </div>
-    </section>
+  <div id="questionnaire"></div>
 
-    <!-- Univers -->
-    <section id="univers-section" class="card hidden">
-      <div class="card-head">
-        <h2>🌍 Univers professionnels recommandés</h2>
-        <button class="btn link" id="btn-back-to-questions-bottom">⬅️ Revenir au questionnaire</button>
-      </div>
-      <div id="univers-results" class="univers-grid"></div>
-      <div class="card-actions">
-        <button id="btn-show-all" class="btn outline hidden">Voir tous les univers</button>
-      </div>
-    </section>
+  <button id="calculateProfile" class="main-btn">✅ Calculer mon profil</button>
+  <button id="recalculateProfile" class="main-btn hidden">🔄 Recalculer mon profil</button>
+
+  <div id="profileSection" class="hidden">
+    <h2>📊 Ton profil</h2>
+    <div id="profileResults"></div>
+
+    <button id="goToUniverses" class="main-btn">🌍 Voir mes univers métiers</button>
   </div>
 
-  <!-- Données (fourni par toi, inchangé) -->
-  <script src="test-data.js"></script>
-  <!-- Logique -->
-  <script src="test-script.js"></script>
+</div>
+
+<script src="test-data.js"></script>
+<script src="test-script.js"></script>
 </body>
 </html>
