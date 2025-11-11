@@ -1,15 +1,41 @@
 /* 
-  Script questionnaire + calculs
-  Ne modifie PAS test-data.js
+  Script questionnaire + calculs avec sélection d'univers
 */
 
-let answers = {};        // clé "QID-DIM" -> 0..4
+let answers = {};
 let profileComputed = false;
+let selectedUnivers = new Set();
 
-/* ----- RENDU DES QUESTIONS ----- */
+// Charger les sélections depuis localStorage
+function loadSelections(){
+  const saved = localStorage.getItem('selectedUnivers');
+  if(saved){
+    selectedUnivers = new Set(JSON.parse(saved));
+  }
+}
+
+// Sauvegarder les sélections dans localStorage
+function saveSelections(){
+  localStorage.setItem('selectedUnivers', JSON.stringify([...selectedUnivers]));
+}
+
+// Charger les réponses depuis localStorage
+function loadAnswers(){
+  const saved = localStorage.getItem('questionnaire_answers');
+  if(saved){
+    answers = JSON.parse(saved);
+    return true;
+  }
+  return false;
+}
+
+// Sauvegarder les réponses dans localStorage
+function saveAnswers(){
+  localStorage.setItem('questionnaire_answers', JSON.stringify(answers));
+}
+
 function renderQuestions(){
   const root = document.getElementById("questionsContainer");
-
   root.innerHTML = QUESTIONS.map(q => `
     <div class="question-block">
       <div class="question-title">${q.title}</div>
@@ -26,25 +52,32 @@ function renderQuestions(){
     </div>
   `).join("");
 
-  // Gestion clics sur ronds
+  // Restaurer les sélections si elles existent
+  Object.keys(answers).forEach(key=>{
+    const [q, dim] = key.split("-");
+    const v = answers[key];
+    const selector = `.rate-btn[data-q='${q}'][data-dim='${dim}'][data-val='${v}']`;
+    const btn = document.querySelector(selector);
+    if(btn){
+      btn.classList.add("selected", `v${v}`);
+    }
+  });
+
   document.querySelectorAll(".rate-btn").forEach(btn=>{
     btn.addEventListener("click", ()=>{
-      const q   = btn.dataset.q;
+      const q = btn.dataset.q;
       const dim = btn.dataset.dim;
-      const v   = Number(btn.dataset.val);
-
+      const v = Number(btn.dataset.val);
       const key = `${q}-${dim}`;
       answers[key] = v;
+      saveAnswers();
 
-      // Retire sélection sur les 5 ronds de cette option
       const selector = `.rate-btn[data-q='${q}'][data-dim='${dim}']`;
       document.querySelectorAll(selector).forEach(b=>{
         b.classList.remove("selected","v0","v1","v2","v3","v4");
       });
-      // Applique sélection + couleur
       btn.classList.add("selected", `v${v}`);
 
-      // Si le profil a déjà été calculé une 1ère fois, propose REcalculer
       if(profileComputed){
         const btnCalc = document.getElementById("calculateBtn");
         btnCalc.textContent = "🔁 Recalculer mon profil";
@@ -54,51 +87,133 @@ function renderQuestions(){
   });
 }
 
-/* ----- CALCUL PROFIL (12 dimensions) ----- */
 function calcProfile(){
   const scores = Object.fromEntries(DIMENSIONS.map(d=>[d.code,0]));
   Object.keys(answers).forEach(key=>{
     const [,dim] = key.split("-");
-    const val = answers[key]; // 0..4
-    scores[dim] += val;
+    scores[dim] += answers[key];
   });
   return scores;
 }
 
-/* ----- AFFICHAGE PROFIL ----- */
 function percentFromSum(sum){
-  // 4 occurrences par dimension × max 4 = 16
   return Math.round((sum/16)*100);
 }
 
-/* ----- CALCUL UNIVERS (TRI PAR SCORE DÉCROISSANT) ----- */
 function calcUnivers(){
   const s = calcProfile();
   return universes.map(u=>{
     let score=0, max=0;
     u.weights.forEach((w,i)=>{
       const dimCode = DIMENSIONS[i].code;
-      score += s[dimCode]*w;      // somme pondérée
-      max   += 16 * w;            // max possible
+      score += s[dimCode]*w;
+      max += 16 * w;
     });
     const pct = Math.round((score/max)*100);
     return {...u, pct};
-  }).sort((a,b)=>b.pct-a.pct);  // TRI DÉCROISSANT
+  }).sort((a,b)=>b.pct-a.pct);
 }
 
-/* ----- INITIALISATION AU CHARGEMENT DU DOM ----- */
+function updateUniversCounter(){
+  const counter = document.getElementById("selectedUniversCounter");
+  const n = selectedUnivers.size;
+  counter.textContent = n===0
+    ? "0 univers sélectionné"
+    : n===1
+      ? "1 univers sélectionné"
+      : `${n} univers sélectionnés`;
+}
+
+function renderUniversCard(u){
+  const isSelected = selectedUnivers.has(u.id);
+  const subUniversHTML = u.subUniverses && u.subUniverses.length > 0
+    ? `<div class="sub-univers-list" data-univers-id="${u.id}">
+        ${u.subUniverses.map(s => `
+          <div class="sub-item">
+            <div class="sub-icon">${s.icon || '•'}</div>
+            <div>
+              <div class="sub-name">${s.name}</div>
+              ${s.description ? `<div class="sub-desc">${s.description}</div>` : ''}
+            </div>
+          </div>
+        `).join('')}
+      </div>`
+    : '';
+
+  return `
+    <div class="univers-card ${isSelected ? 'selected' : ''}" data-univers-id="${u.id}">
+      <div class="univers-main">
+        <div class="univers-icon">${u.icon}</div>
+        <div class="univers-name">${u.name}</div>
+      </div>
+      <div class="univers-score">${u.pct}%</div>
+      <div class="univers-actions">
+        ${u.subUniverses && u.subUniverses.length > 0 
+          ? '<button class="btn-toggle-sub" data-univers-id="'+u.id+'">🔎 Voir</button>' 
+          : ''}
+        <button class="btn-select-univers ${isSelected ? 'selected' : ''}" data-univers-id="${u.id}" aria-pressed="${isSelected}">
+          <span class="tick">${isSelected ? '✓' : ''}</span>
+        </button>
+      </div>
+      ${subUniversHTML}
+    </div>
+  `;
+}
+
+function attachUniversEvents(){
+  // Toggle sous-univers
+  document.querySelectorAll(".btn-toggle-sub").forEach(btn=>{
+    btn.addEventListener("click", (e)=>{
+      e.stopPropagation();
+      const id = btn.dataset.universId;
+      const subList = document.querySelector(`.sub-univers-list[data-univers-id="${id}"]`);
+      if(subList){
+        subList.classList.toggle("visible");
+        btn.textContent = subList.classList.contains("visible") ? "🔼 Masquer" : "🔎 Voir";
+      }
+    });
+  });
+
+  // Sélection univers
+  document.querySelectorAll(".btn-select-univers").forEach(btn=>{
+    btn.addEventListener("click", (e)=>{
+      e.stopPropagation();
+      const id = Number(btn.dataset.universId);
+      const card = btn.closest(".univers-card");
+      
+      if(selectedUnivers.has(id)){
+        selectedUnivers.delete(id);
+        card.classList.remove("selected");
+        btn.classList.remove("selected");
+        btn.setAttribute("aria-pressed", "false");
+        btn.querySelector(".tick").textContent = "";
+      }else{
+        selectedUnivers.add(id);
+        card.classList.add("selected");
+        btn.classList.add("selected");
+        btn.setAttribute("aria-pressed", "true");
+        btn.querySelector(".tick").textContent = "✓";
+      }
+      
+      saveSelections();
+      updateUniversCounter();
+    });
+  });
+}
+
 document.addEventListener('DOMContentLoaded', function() {
+  loadSelections();
   
-  // Rendre les questions
+  // Charger les réponses sauvegardées
+  const hasAnswers = loadAnswers();
+  
   renderQuestions();
 
-  // Bouton calcul profil
   const btnCalc = document.getElementById("calculateBtn");
   
   function calculerEtAfficherProfil() {
     const scores = calcProfile();
     const root = document.getElementById("profileResults");
-
     root.innerHTML = DIMENSIONS.map(dim=>{
       const sum = scores[dim.code];
       const pct = percentFromSum(sum);
@@ -112,17 +227,13 @@ document.addEventListener('DOMContentLoaded', function() {
     }).join("");
 
     document.getElementById("profileSection").classList.remove("hidden");
-
-    // Marquer comme calculé
     profileComputed = true;
     btnCalc.classList.remove("needs-recalc");
     btnCalc.textContent = "🔁 Recalculer mon profil";
     
-    // Cacher la section univers si elle était affichée (pour forcer recalcul)
     const universSection = document.getElementById("univers-section");
     if(universSection && !universSection.classList.contains("hidden")){
       universSection.classList.add("hidden");
-      // Réinitialiser le bouton "Voir tous les univers"
       const btnShowAll = document.getElementById("btn-show-all");
       if(btnShowAll) btnShowAll.classList.add("hidden");
     }
@@ -130,51 +241,53 @@ document.addEventListener('DOMContentLoaded', function() {
   
   btnCalc.addEventListener("click", calculerEtAfficherProfil);
 
-  // Bouton vers univers
+  // Si on a des réponses sauvegardées, afficher automatiquement le profil
+  if(hasAnswers && Object.keys(answers).length > 0){
+    calculerEtAfficherProfil();
+  }
+
   const btnUnivers = document.getElementById("goUniversesBtn");
   btnUnivers.addEventListener("click", ()=>{
-    // Vérifier si un recalcul est nécessaire
     if(btnCalc.classList.contains("needs-recalc")){
-      alert("⚠️ Tu as modifié tes réponses. Clique d'abord sur 'Recalculer mon profil' avant de voir les univers.");
+      alert("⚠️ Vous avez modifié vos réponses. Cliquez d'abord sur 'Recalculer mon profil' avant de voir les univers.");
       return;
     }
     
     const list = calcUnivers();
     const root = document.getElementById("univers-results");
-
     const top5 = list.slice(0,5);
     const others = list.slice(5);
 
-    // Affichage avec scores triés par ordre décroissant
-    root.innerHTML = top5.map(u => `
-      <div class="univers-card" style="display:flex;justify-content:space-between;align-items:center;border:1px solid var(--line);border-radius:12px;padding:12px;margin:8px 0;background:#fff;">
-        <div>${u.icon} ${u.name}</div>
-        <div><strong>${u.pct}%</strong></div>
-      </div>
-    `).join("");
+    root.innerHTML = top5.map(u => renderUniversCard(u)).join("");
+    attachUniversEvents();
+    updateUniversCounter();
 
     const btnShow = document.getElementById("btn-show-all");
     btnShow.classList.remove("hidden");
     
-    // Retirer l'ancien event listener en clonant le bouton
     const newBtnShow = btnShow.cloneNode(true);
     btnShow.parentNode.replaceChild(newBtnShow, btnShow);
     
     newBtnShow.addEventListener("click", ()=>{
-      root.innerHTML += others.map(u => `
-        <div class="univers-card" style="display:flex;justify-content:space-between;align-items:center;border:1px solid var(--line);border-radius:12px;padding:12px;margin:8px 0;background:#fff;">
-          <div>${u.icon} ${u.name}</div>
-          <div><strong>${u.pct}%</strong></div>
-        </div>
-      `).join("");
+      root.innerHTML += others.map(u => renderUniversCard(u)).join("");
+      attachUniversEvents();
       newBtnShow.classList.add("hidden");
     });
 
     document.getElementById("univers-section").classList.remove("hidden");
-    
-    // Scroll vers la section univers
     setTimeout(() => {
       document.getElementById("univers-section").scrollIntoView({ behavior: 'smooth', block: 'start' });
     }, 100);
+  });
+
+  // Boutons retour
+  document.getElementById("btnRetourTop").addEventListener("click", ()=>{
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    document.getElementById("univers-section").classList.add("hidden");
+  });
+
+  document.getElementById("btnRetourBottom").addEventListener("click", ()=>{
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    document.getElementById("univers-section").classList.add("hidden");
   });
 });
