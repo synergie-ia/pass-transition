@@ -1,52 +1,61 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Test d'intérêts professionnels</title>
-  <link rel="stylesheet" href="test-style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>IA360 – Test d'intérêts professionnels</title>
+  <link rel="stylesheet" href="test-style.css" />
 </head>
 <body>
+  <div class="container">
+    <header class="page-head">
+      <h1>🎯 Découvrir mon profil professionnel</h1>
+      <p class="intro">
+        Pour chaque proposition, indique à quel point cela te correspond.<br>
+        <strong>0 = Pas du tout</strong> • <strong>1 = Un peu</strong> •
+        <strong>2 = Moyennement</strong> • <strong>3 = Plutôt</strong> •
+        <strong>4 = Totalement</strong><br>
+        Il n’y a pas de “bonne” réponse : réponds spontanément.
+      </p>
+    </header>
 
-<div class="top-nav">
-  <button class="nav-btn" onclick="location.href='index.html'">← Retour à l'accueil</button>
-</div>
+    <!-- Questionnaire -->
+    <section id="questionnaire" class="card"></section>
 
-<div class="container">
+    <!-- Actions -->
+    <div class="actions">
+      <button id="btn-calc-profile" class="btn primary">✅ Calculer mon profil</button>
+      <span id="change-hint" class="hint hidden">Tu as modifié des réponses. Appuie sur <b>Recalculer mon profil</b>.</span>
+    </div>
 
-  <h1 class="title">🎯 Découvrir mon profil professionnel</h1>
+    <!-- Profil -->
+    <section id="profile-section" class="card hidden">
+      <div class="card-head">
+        <h2>📊 Ton profil d'intérêts</h2>
+        <button class="btn link" id="btn-back-to-questions-top">⬅️ Revenir au questionnaire</button>
+      </div>
+      <div id="profile-results"></div>
+      <div class="card-actions">
+        <button id="btn-calc-univers" class="btn primary" disabled>🌍 Voir les univers qui me correspondent</button>
+      </div>
+    </section>
 
-  <p class="instructions">
-    Pour chaque ligne, choisis ce qui te correspond le plus.<br>
-    <strong>0 = Pas du tout</strong>, <strong>1 = Un peu</strong>, <strong>2 = Moyennement</strong>, 
-    <strong>3 = Plutôt</strong>, <strong>4 = Totalement</strong><br><br>
-    Réponds spontanément — <em>il n’y a pas de bonne ou de mauvaise réponse.</em>
-  </p>
-
-  <div id="questionnaire"></div>
-
-  <button id="calcBtn" class="main-btn">✅ Calculer mon profil</button>
-
-  <div id="profile-section" class="hidden">
-    <h2 class="section-title">📊 Ton profil d'intérêts</h2>
-    <div id="profile-results"></div>
-
-    <button id="showUniversBtn" class="main-btn">🌍 Voir les univers qui me correspondent</button>
+    <!-- Univers -->
+    <section id="univers-section" class="card hidden">
+      <div class="card-head">
+        <h2>🌍 Univers professionnels recommandés</h2>
+        <button class="btn link" id="btn-back-to-questions-bottom">⬅️ Revenir au questionnaire</button>
+      </div>
+      <div id="univers-results" class="univers-grid"></div>
+      <div class="card-actions">
+        <button id="btn-show-all" class="btn outline hidden">Voir tous les univers</button>
+      </div>
+    </section>
   </div>
 
-  <div id="univers-section" class="hidden">
-    <h2 class="section-title">🌍 Univers professionnels recommandés</h2>
-    <div id="univers-container"></div>
-  </div>
-
-</div>
-
-<div class="bottom-nav">
-  <button class="nav-btn" onclick="location.href='index.html'">← Retour à l'accueil</button>
-</div>
-
-<script src="test-data.js"></script>
-<script src="test-script.js"></script>
-
+  <!-- Données (fourni par toi, inchangé) -->
+  <script src="test-data.js"></script>
+  <!-- Logique -->
+  <script src="test-script.js"></script>
 </body>
 </html>
