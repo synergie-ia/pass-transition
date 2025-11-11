@@ -1,47 +1,40 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reconversion 360 IA</title>
-    <link rel="stylesheet" href="home-style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reconversion 360 IA</title>
+  <link rel="stylesheet" href="home-style.css">
 </head>
 <body>
-    <div class="container">
-        <div class="header">
-            <h1>🧭 Reconversion 360 IA</h1>
-            <p class="subtitle">Bienvenue sur la plateforme Reconversion 360 IA</p>
-            <p class="tagline">Au service de la reconversion professionnelle et du bilan de compétence</p>
-        </div>
 
-        <div class="content">
-            <div class="card" onclick="window.location.href='universes.html'">
-                <div class="card-icon">🌐</div>
-                <h2>Sélectionnez vos univers professionnels</h2>
-                <p>Explorez les 21 univers professionnels et sélectionnez jusqu'à 5 qui vous intéressent</p>
-            </div>
+<div class="container">
 
-            <div class="card" onclick="window.location.href='situation.html'">
-                <div class="card-icon">📋</div>
-                <h2>Faites votre bilan de situation professionnelle</h2>
-                <p>Complétez votre bilan pour permettre une reconversion adaptée à votre profil</p>
-            </div>
+  <h1 class="title">🧭 Reconversion 360 IA</h1>
+  <p class="subtitle">Ton parcours d’orientation & reconversion professionnelle</p>
 
-            <div class="card disabled" title="Fonctionnalité à venir">
-                <div class="card-icon">🧭</div>
-                <h2>Construisez votre projet avec votre conseiller et l'assistant virtuel</h2>
-                <p>Élaborez votre projet professionnel avec l'accompagnement de votre conseiller et de l'IA</p>
-                <div class="coming-soon">Bientôt disponible</div>
-            </div>
+  <div class="main-buttons">
+    <button class="main-btn" onclick="location.href='test.html'">
+      🎯 Découvrir mon profil professionnel & choisir mes univers métiers
+    </button>
 
-            <div class="card copy-card" onclick="copyUserData()" id="copyCard">
-                <div class="card-icon">📄</div>
-                <h2>Copier vos données pour les communiquer à l'assistant virtuel</h2>
-                <p>Copiez toutes vos informations pour les partager avec votre conseiller virtuel</p>
-            </div>
-        </div>
-    </div>
+    <button class="main-btn" onclick="location.href='situation.html'">
+      📋 Faire mon bilan de situation
+    </button>
 
-    <script src="home-script.js"></script>
+    <button id="coachBtn" class="main-btn disabled">
+      🤝 Me faire accompagner par le coach virtuel
+    </button>
+  </div>
+
+  <div class="copy-section">
+    <div class="copy-label">Copier mes données pour les transmettre au coach</div>
+    <div class="copy-icon" onclick="copyData()" title="Copier maintenant">📄</div>
+  </div>
+
+</div>
+
+<script src="home-script.js"></script>
+
 </body>
 </html>
