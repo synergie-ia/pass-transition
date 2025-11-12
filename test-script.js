@@ -2,8 +2,7 @@
   ============================================
   ORIENTATION 360 IA - QUESTIONNAIRE PROFIL
   ============================================
-  Algorithme OPTIMISÉ avec moyenne pondérée normalisée
-  Les réponses sont mises au carré pour accentuer les différences
+  Algorithme OPTIMISÉ avec validation améliorée
 */
 
 let answers = {};
@@ -51,16 +50,60 @@ function allQuestionsAnswered(){
   return Object.keys(answers).length === totalQuestions;
 }
 
+// ✨ NOUVELLE FONCTION : Trouver les questions non répondues
+function getUnansweredQuestions(){
+  const unanswered = [];
+  
+  QUESTIONS.forEach(q => {
+    q.options.forEach(opt => {
+      const key = `${q.id}-${opt.dim}`;
+      if(answers[key] === undefined){
+        unanswered.push({
+          questionId: q.id,
+          questionTitle: q.title,
+          optionText: opt.text,
+          key: key
+        });
+      }
+    });
+  });
+  
+  return unanswered;
+}
+
+// ✨ NOUVELLE FONCTION : Marquer visuellement les questions non répondues
+function highlightUnansweredQuestions(){
+  // D'abord, retirer tous les highlights existants
+  document.querySelectorAll('.option-row').forEach(row => {
+    row.classList.remove('unanswered');
+  });
+  
+  // Ensuite, ajouter le highlight sur les non répondues
+  const unanswered = getUnansweredQuestions();
+  
+  unanswered.forEach(item => {
+    const selector = `.option-row[data-key="${item.key}"]`;
+    const row = document.querySelector(selector);
+    if(row){
+      row.classList.add('unanswered');
+    }
+  });
+  
+  return unanswered;
+}
+
 /* ===== RENDU DES QUESTIONS ===== */
 
 function renderQuestions(){
   const root = document.getElementById("questionsContainer");
   
   root.innerHTML = QUESTIONS.map(q => `
-    <div class="question-block">
+    <div class="question-block" id="block-${q.id}">
       <div class="question-title">${q.title}</div>
-      ${q.options.map(opt => `
-        <div class="option-row">
+      ${q.options.map(opt => {
+        const key = `${q.id}-${opt.dim}`;
+        return `
+        <div class="option-row" data-key="${key}">
           <div class="option-text">${opt.text}</div>
           <div class="rating-buttons">
             ${[0,1,2,3,4].map(v => `
@@ -68,7 +111,7 @@ function renderQuestions(){
             `).join("")}
           </div>
         </div>
-      `).join("")}
+      `}).join("")}
     </div>
   `).join("");
 
@@ -106,6 +149,12 @@ function attachRatingEvents(){
       
       // Appliquer la sélection au bouton cliqué
       btn.classList.add("selected", `v${v}`);
+
+      // ✨ Retirer le highlight rouge si la question vient d'être répondue
+      const row = document.querySelector(`.option-row[data-key="${key}"]`);
+      if(row){
+        row.classList.remove('unanswered');
+      }
 
       // Cacher le message d'erreur si toutes les questions sont répondues
       if(allQuestionsAnswered()){
@@ -147,17 +196,15 @@ function percentFromSum(sum){
 function calcUnivers(){
   const s = calcProfile();
   
-  // Vérifier que universesData existe
   if(typeof universesData === 'undefined'){
     console.error("universesData n'est pas défini. Vérifiez que universes-data.js est chargé.");
     return [];
   }
   
   return universesData.map(u => {
-    let sommePonderee = 0;  // Somme des (score × poids)
-    let sommePoids = 0;      // Somme des poids
+    let sommePonderee = 0;
+    let sommePoids = 0;
     
-    // Chercher les poids correspondants dans universes (de test-data.js)
     if(typeof universes !== 'undefined'){
       const universMatch = universes.find(uv => uv.id === u.id);
       
@@ -165,34 +212,30 @@ function calcUnivers(){
         universMatch.weights.forEach((poids, i) => {
           if(i < DIMENSIONS.length){
             const dimCode = DIMENSIONS[i].code;
-            const scoreQuadratique = s[dimCode]; // 0-64
+            const scoreQuadratique = s[dimCode];
             
-            // ✨ MOYENNE PONDÉRÉE NORMALISÉE
             sommePonderee += scoreQuadratique * poids;
             sommePoids += poids;
           }
         });
       } else {
-        // Pas de poids trouvés, calcul par défaut égal
         DIMENSIONS.forEach(dim => {
           sommePonderee += s[dim.code];
           sommePoids += 1;
         });
       }
     } else {
-      // Pas de fichier universes, calcul par défaut
       DIMENSIONS.forEach(dim => {
         sommePonderee += s[dim.code];
         sommePoids += 1;
       });
     }
     
-    // ✨ NORMALISATION : Moyenne / Maximum (64)
     const moyennePonderee = sommePoids > 0 ? sommePonderee / sommePoids : 0;
     const pourcentage = Math.round((moyennePonderee / 64) * 100);
     
     return {...u, pct: pourcentage};
-  }).sort((a, b) => b.pct - a.pct); // Tri décroissant
+  }).sort((a, b) => b.pct - a.pct);
 }
 
 /* ===== AFFICHAGE DU PROFIL ===== */
@@ -201,17 +244,14 @@ function displayProfile(){
   const scores = calcProfile();
   const root = document.getElementById("profileResults");
   
-  // Créer un tableau avec dimensions et scores pour tri
   const dimensionsWithScores = DIMENSIONS.map(dim => ({
     ...dim,
     sum: scores[dim.code],
     pct: percentFromSum(scores[dim.code])
   }));
   
-  // Trier par score décroissant
   dimensionsWithScores.sort((a, b) => b.pct - a.pct);
   
-  // Générer le HTML
   root.innerHTML = dimensionsWithScores.map(dim => `
     <div class="profile-row">
       <div class="profile-label">${dim.name}</div>
@@ -222,11 +262,9 @@ function displayProfile(){
     </div>
   `).join("");
 
-  // Afficher la section profil
   document.getElementById("profileSection").classList.remove("hidden");
   profileComputed = true;
   
-  // Scroll vers le profil
   setTimeout(() => {
     document.getElementById("profileSection").scrollIntoView({ 
       behavior: 'smooth', 
@@ -296,7 +334,6 @@ function renderUniversCard(u){
 /* ===== ÉVÉNEMENTS SUR LES CARTES UNIVERS ===== */
 
 function attachUniversEvents(){
-  // Toggle sous-univers
   document.querySelectorAll(".btn-toggle-sub").forEach(btn=>{
     btn.addEventListener("click", (e)=>{
       e.stopPropagation();
@@ -312,7 +349,6 @@ function attachUniversEvents(){
     });
   });
 
-  // Sélection/désélection univers
   document.querySelectorAll(".btn-select-univers").forEach(btn=>{
     btn.addEventListener("click", (e)=>{
       e.stopPropagation();
@@ -355,16 +391,13 @@ function displayUnivers(){
     const top5 = list.slice(0, 5);
     const others = list.slice(5);
 
-    // Afficher le top 5
     root.innerHTML = top5.map(u => renderUniversCard(u)).join("");
     attachUniversEvents();
     updateUniversCounter();
 
-    // Gestion du bouton "Voir tous"
     const btnShow = document.getElementById("btn-show-all");
     btnShow.classList.remove("hidden");
     
-    // Cloner le bouton pour retirer les anciens événements
     const newBtnShow = btnShow.cloneNode(true);
     btnShow.parentNode.replaceChild(newBtnShow, btnShow);
     
@@ -374,10 +407,8 @@ function displayUnivers(){
       newBtnShow.classList.add("hidden");
     });
 
-    // Afficher la section univers
     document.getElementById("univers-section").classList.remove("hidden");
     
-    // Scroll vers la section
     setTimeout(() => {
       document.getElementById("univers-section").scrollIntoView({ 
         behavior: 'smooth', 
@@ -395,24 +426,40 @@ function displayUnivers(){
 
 document.addEventListener('DOMContentLoaded', function() {
   
-  // Charger les données sauvegardées
   loadSelections();
   loadAnswers();
   
-  // Compter les questions
   totalQuestions = countTotalQuestions();
   
-  // Afficher les questions
   renderQuestions();
 
-  /* ----- Bouton de validation ----- */
+  /* ----- Bouton de validation AMÉLIORÉ ----- */
   const btnValidate = document.getElementById("validateBtn");
   const errorMessage = document.getElementById("errorMessage");
   
   btnValidate.addEventListener("click", ()=>{
     if(!allQuestionsAnswered()){
+      // ✨ Afficher les questions non répondues en rouge
+      const unanswered = highlightUnansweredQuestions();
+      
+      // Afficher le message d'erreur
       errorMessage.classList.remove("hidden");
-      errorMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      
+      // ✨ Scroll vers la PREMIÈRE question non répondue
+      if(unanswered.length > 0){
+        const firstUnansweredKey = unanswered[0].key;
+        const firstUnansweredRow = document.querySelector(`.option-row[data-key="${firstUnansweredKey}"]`);
+        
+        if(firstUnansweredRow){
+          setTimeout(() => {
+            firstUnansweredRow.scrollIntoView({ 
+              behavior: 'smooth', 
+              block: 'center' 
+            });
+          }, 100);
+        }
+      }
+      
       return;
     }
     
