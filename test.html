@@ -15,7 +15,7 @@
       </button>
     </div>
     
-    <h1 class="page-title">Découvrez votre profil professionnel et les univers métiers compatibles</h1>
+    <h1 class="page-title">Découvrez votre profil professionnel et les univers-métiers compatibles</h1>
     
     <div class="info-box">
       <p><strong>ℹ️ À propos de ce questionnaire</strong></p>
@@ -27,11 +27,15 @@
     </p>
     
     <div class="legend-box">
-      <span style="color:var(--c0);font-weight:bold">●</span> 0 = Pas du tout • 
-      <span style="color:var(--c1);font-weight:bold">●</span> 1 = Un peu • 
-      <span style="color:var(--c2);font-weight:bold">●</span> 2 = Moyennement • 
-      <span style="color:var(--c3);font-weight:bold">●</span> 3 = Plutôt • 
-      <span style="color:var(--c4);font-weight:bold">●</span> 4 = Totalement
+      <span class="legend-item"><span class="dot dot-0">●</span> 0 = Pas du tout</span>
+      <span class="legend-sep">•</span>
+      <span class="legend-item"><span class="dot dot-1">●</span> 1 = Un peu</span>
+      <span class="legend-sep">•</span>
+      <span class="legend-item"><span class="dot dot-2">●</span> 2 = Moyennement</span>
+      <span class="legend-sep">•</span>
+      <span class="legend-item"><span class="dot dot-3">●</span> 3 = Plutôt</span>
+      <span class="legend-sep">•</span>
+      <span class="legend-item"><span class="dot dot-4">●</span> 4 = Totalement</span>
     </div>
     
     <!-- Conteneur des questions -->
@@ -58,11 +62,11 @@
     
     <!-- Section univers métiers -->
     <div id="univers-section" class="hidden">
-      <h2 style="margin:32px 0 16px;font-size:24px;">🌍 Vos univers métiers compatibles</h2>
+      <h2 style="margin:32px 0 16px;font-size:24px;">🌍 Vos univers-métiers compatibles</h2>
       
       <div id="selectedUniversCounter" class="counter-univers">0 univers sélectionné</div>
       
-      <p class="notice">Sélectionnez les univers qui vous intéressent et cliquez sur 🔎 pour explorer leurs sous-domaines :</p>
+      <p class="notice">Sélectionnez au moins 3 univers qui vous intéressent et cliquez sur 🔎 pour explorer leurs sous-domaines :</p>
       
       <div id="univers-results"></div>
       
@@ -77,6 +81,6 @@
   <!-- IMPORTANT : Charger dans cet ordre exact -->
   <script src="test-data.js"></script>
   <script src="universes-data.js"></script>
-  <script src="test-script.js?v=10"></script>
+  <script src="test-script.js?v=19"></script>
 </body>
 </html>
