@@ -13,16 +13,13 @@ document.addEventListener('DOMContentLoaded', function() {
   form.addEventListener('submit', function(e){
     e.preventDefault();
     
-    const formData = {
-      nom: document.getElementById('nom').value,
-      age: document.getElementById('age').value,
-      situation: document.getElementById('situation').value,
-      experience: document.getElementById('experience').value,
-      formation: document.getElementById('formation').value,
-      competences: document.getElementById('competences').value,
-      motivations: document.getElementById('motivations').value,
-      contraintes: document.getElementById('contraintes').value
-    };
+    const formData = {};
+    
+    // Récupérer toutes les valeurs
+    const inputs = form.querySelectorAll('input, select, textarea');
+    inputs.forEach(input => {
+      formData[input.name] = input.value;
+    });
     
     // Sauvegarder dans localStorage
     localStorage.setItem('situation_data', JSON.stringify(formData));
@@ -52,14 +49,10 @@ function loadSituationData(){
     try {
       const data = JSON.parse(saved);
       
-      if(data.nom) document.getElementById('nom').value = data.nom;
-      if(data.age) document.getElementById('age').value = data.age;
-      if(data.situation) document.getElementById('situation').value = data.situation;
-      if(data.experience) document.getElementById('experience').value = data.experience;
-      if(data.formation) document.getElementById('formation').value = data.formation;
-      if(data.competences) document.getElementById('competences').value = data.competences;
-      if(data.motivations) document.getElementById('motivations').value = data.motivations;
-      if(data.contraintes) document.getElementById('contraintes').value = data.contraintes;
+      Object.keys(data).forEach(key => {
+        const input = document.querySelector(`[name="${key}"]`);
+        if(input) input.value = data[key];
+      });
       
     } catch(e){
       console.error('Erreur chargement situation:', e);
