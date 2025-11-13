@@ -3,6 +3,7 @@
   RECONVERSION 360 IA - QUESTIONNAIRE PROFIL
   ============================================
   Algorithme OPTIMISÉ avec sauvegarde des noms d'univers
+  Toutes les données sont chargées depuis universes-data.js
 */
 
 let answers = {};
@@ -422,6 +423,30 @@ function displayUnivers(){
 /* ===== INITIALISATION AU CHARGEMENT DE LA PAGE ===== */
 
 document.addEventListener('DOMContentLoaded', function() {
+  
+  // Vérifier que les données sont bien chargées
+  if(typeof QUESTIONS === 'undefined'){
+    console.error("❌ ERREUR : QUESTIONS non défini. Vérifiez que universes-data.js est chargé.");
+    alert("Erreur de chargement des données. Veuillez actualiser la page.");
+    return;
+  }
+  
+  if(typeof DIMENSIONS === 'undefined'){
+    console.error("❌ ERREUR : DIMENSIONS non défini. Vérifiez que universes-data.js est chargé.");
+    alert("Erreur de chargement des données. Veuillez actualiser la page.");
+    return;
+  }
+  
+  if(typeof universesData === 'undefined'){
+    console.error("❌ ERREUR : universesData non défini. Vérifiez que universes-data.js est chargé.");
+    alert("Erreur de chargement des données. Veuillez actualiser la page.");
+    return;
+  }
+  
+  console.log("✅ Toutes les données sont chargées correctement");
+  console.log(`📋 ${QUESTIONS.length} questions chargées`);
+  console.log(`🎯 ${DIMENSIONS.length} dimensions chargées`);
+  console.log(`🌍 ${universesData.length} univers chargés`);
   
   loadSelections();
   loadAnswers();
