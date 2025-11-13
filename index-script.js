@@ -2,7 +2,7 @@
   ============================================
   RECONVERSION 360 IA - PAGE D'ACCUEIL
   ============================================
-  Script pour la page d'accueil avec validation complète + Réinitialisation
+  Script avec noms complets des univers dans le presse-papier
 */
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -29,14 +29,13 @@ document.addEventListener('DOMContentLoaded', function() {
     return univers.length >= 3;
   }
   
-  // Vérifier si le bilan de situation est complet (TOUTES les questions obligatoires)
+  // Vérifier si le bilan de situation est complet
   function isSituationComplete(){
     const situationData = localStorage.getItem('situation_data');
     if(!situationData) return false;
     
     const situation = JSON.parse(situationData);
     
-    // TOUTES les questions sont obligatoires
     const required = [
       'prenom', 'age', 
       'q1', 'q2', 'q3', 'q4',
@@ -98,41 +97,40 @@ document.addEventListener('DOMContentLoaded', function() {
     return percentages;
   }
   
-  // Récupérer les univers sélectionnés avec leurs pourcentages ET NOMS COMPLETS
+  // MAPPING COMPLET DES NOMS D'UNIVERS
+  const UNIVERS_NAMES = {
+    1: "Agriculture, nature & animaux",
+    2: "Agroalimentaire & métiers de bouche",
+    3: "Arts, culture & audiovisuel",
+    4: "Banque, finance & assurance",
+    5: "Commerce & vente",
+    6: "Communication & information",
+    7: "Construction & BTP",
+    8: "Enseignement & formation",
+    9: "Gestion, RH & administration",
+    10: "Hôtellerie, restauration & tourisme",
+    11: "Industrie & production",
+    12: "Installation & maintenance",
+    13: "Lettres, langues & sciences humaines",
+    14: "Santé & paramédical",
+    15: "Sciences & recherche",
+    16: "Services à la personne",
+    17: "Sport & animation",
+    18: "Sécurité & défense",
+    19: "Transport & logistique",
+    20: "Droit & justice",
+    21: "Informatique & numérique"
+  };
+  
+  // Récupérer les univers sélectionnés avec noms et pourcentages
   function getSelectedUniversWithPercentages(){
     const selectedIds = JSON.parse(localStorage.getItem('selectedUnivers') || '[]');
     const universPercentages = JSON.parse(localStorage.getItem('univers_percentages') || '{}');
     
-    // Liste complète des 21 univers avec leurs noms
-    const universesData = [
-      { id: 1, name: "Agriculture, élevage, environnement" },
-      { id: 2, name: "Agroalimentaire" },
-      { id: 3, name: "Arts, artisanat d'art, audiovisuel" },
-      { id: 4, name: "Banque, assurance, immobilier" },
-      { id: 5, name: "Commerce, vente" },
-      { id: 6, name: "Communication, information, média" },
-      { id: 7, name: "Construction, bâtiment, travaux publics" },
-      { id: 8, name: "Enseignement, formation" },
-      { id: 9, name: "Gestion, administration des entreprises" },
-      { id: 10, name: "Hôtellerie, restauration, tourisme, loisirs" },
-      { id: 11, name: "Industrie" },
-      { id: 12, name: "Installation, maintenance" },
-      { id: 13, name: "Lettres, langues, sciences humaines" },
-      { id: 14, name: "Santé, médical, paramédical" },
-      { id: 15, name: "Sciences, recherche, innovation" },
-      { id: 16, name: "Services à la personne et à la collectivité" },
-      { id: 17, name: "Sport, animation" },
-      { id: 18, name: "Défense, sécurité, secours" },
-      { id: 19, name: "Transport, logistique" },
-      { id: 20, name: "Droit, justice" },
-      { id: 21, name: "Informatique, télécommunications" }
-    ];
-    
     return selectedIds.map(id => {
-      const univers = universesData.find(u => u.id === id);
       return {
         id: id,
-        name: univers ? univers.name : `Univers ${id}`,
+        name: UNIVERS_NAMES[id] || `Univers ${id}`,
         percent: universPercentages[id] || 0
       };
     }).sort((a, b) => b.percent - a.percent);
@@ -147,7 +145,6 @@ document.addEventListener('DOMContentLoaded', function() {
         return;
       }
       
-      // Message d'avertissement
       const confirmation = confirm(
         "⚠️ ATTENTION : RÉINITIALISATION DES DONNÉES\n\n" +
         "Vous êtes sur le point de supprimer TOUTES vos données :\n\n" +
@@ -161,7 +158,6 @@ document.addEventListener('DOMContentLoaded', function() {
       
       if(!confirmation) return;
       
-      // Double confirmation
       const doubleConfirm = confirm(
         "🔴 DERNIÈRE CONFIRMATION\n\n" +
         "Êtes-vous ABSOLUMENT SÛR(E) de vouloir supprimer toutes vos données ?\n\n" +
@@ -170,7 +166,6 @@ document.addEventListener('DOMContentLoaded', function() {
       
       if(!doubleConfirm) return;
       
-      // Supprimer toutes les données
       try {
         localStorage.removeItem('questionnaire_answers');
         localStorage.removeItem('selectedUnivers');
@@ -180,13 +175,12 @@ document.addEventListener('DOMContentLoaded', function() {
         
         console.log('✅ Toutes les données ont été supprimées');
         
-        // Feedback visuel
-        btnReset.innerHTML = '<svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="2"><path d="M20 6L9 17l-5-5"></path></svg><span style="color:#22c55e">Données supprimées !</span>';
+        btnReset.innerHTML = '<svg class="btn-icon-small" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="2"><path d="M20 6L9 17l-5-5"></path></svg><span style="color:#22c55e">Supprimé !</span>';
         btnReset.disabled = true;
         
         setTimeout(() => {
           alert("✅ Toutes vos données ont été supprimées.\n\nVous pouvez maintenant recommencer une nouvelle saisie.");
-          location.reload(); // Recharger la page
+          location.reload();
         }, 1000);
         
       } catch(e) {
@@ -200,7 +194,6 @@ document.addEventListener('DOMContentLoaded', function() {
   if(btnCopy){
     btnCopy.addEventListener('click', function(){
       
-      // Vérifier les conditions
       if(!hasMinimumUniversSelected()){
         alert("❌ Vous devez sélectionner au moins 3 univers-métiers.\n\nRetournez au questionnaire de profil et sélectionnez vos univers.");
         return;
@@ -211,25 +204,23 @@ document.addEventListener('DOMContentLoaded', function() {
         return;
       }
       
-      // Récupérer toutes les données
       const profileData = calcProfileWithPercentages();
       const universData = getSelectedUniversWithPercentages();
       const situationData = JSON.parse(localStorage.getItem('situation_data'));
       
-      // Construire le texte à copier
       let textToCopy = "=== MES DONNÉES RECONVERSION 360 IA ===\n\n";
       
       // 📊 PROFIL D'INTÉRÊTS
       textToCopy += "📊 PROFIL D'INTÉRÊTS\n\n";
       profileData.forEach(dim => {
-        textToCopy += `${dim.name}: ${dim.percent}%\n`;
+        textToCopy += `${dim.name} ${dim.percent}%\n`;
       });
       textToCopy += "\n";
       
-      // 🌍 UNIVERS-MÉTIERS SÉLECTIONNÉS (avec noms complets)
+      // 🌍 UNIVERS-MÉTIERS SÉLECTIONNÉS (format: Nom Pourcentage%)
       textToCopy += "🌍 UNIVERS-MÉTIERS SÉLECTIONNÉS\n\n";
       universData.forEach(u => {
-        textToCopy += `${u.name}: ${u.percent}%\n`;
+        textToCopy += `${u.name} ${u.percent}%\n`;
       });
       textToCopy += "\n";
       
@@ -273,14 +264,11 @@ document.addEventListener('DOMContentLoaded', function() {
       textToCopy += "=== FIN DES DONNÉES ===\n";
       textToCopy += "Généré par Reconversion 360 IA - Synergie IA";
       
-      // Copier dans le presse-papier
       navigator.clipboard.writeText(textToCopy).then(() => {
-        // Marquer comme copié
         localStorage.setItem('data_copied', 'true');
         
-        // Feedback visuel
         const originalHTML = btnCopy.innerHTML;
-        btnCopy.innerHTML = '<svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="2"><path d="M20 6L9 17l-5-5"></path></svg><span style="color:#22c55e">Données copiées !</span>';
+        btnCopy.innerHTML = '<svg class="btn-icon-small" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="2"><path d="M20 6L9 17l-5-5"></path></svg><span style="color:#22c55e">Copié !</span>';
         btnCopy.style.borderColor = '#22c55e';
         
         setTimeout(() => {
@@ -306,12 +294,10 @@ document.addEventListener('DOMContentLoaded', function() {
         return;
       }
       
-      // Rediriger vers le GPT personnalisé
       window.open('https://chatgpt.com/g/g-6914f232fb048191b5df9a123ac6af82-reconversion-360-ia', '_blank');
     });
   }
   
-  // ===== INITIALISATION =====
   updateResetButton();
   
 });
