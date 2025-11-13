@@ -48,7 +48,9 @@ function countTotalQuestions(){
 }
 
 function allQuestionsAnswered(){
-  return Object.keys(answers).length === totalQuestions;
+  const currentCount = Object.keys(answers).length;
+  console.log(`Réponses: ${currentCount}/${totalQuestions}`);
+  return currentCount === totalQuestions;
 }
 
 function getUnansweredQuestions(){
@@ -148,6 +150,7 @@ function attachRatingEvents(){
         row.classList.remove('unanswered');
       }
 
+      // ✅ CORRECTION : Vérifier immédiatement après sauvegarde
       if(allQuestionsAnswered()){
         document.getElementById("errorMessage").classList.add("hidden");
       }
@@ -426,6 +429,7 @@ document.addEventListener('DOMContentLoaded', function() {
   loadAnswers();
   
   totalQuestions = countTotalQuestions();
+  console.log(`Total de questions attendues: ${totalQuestions}`);
   
   renderQuestions();
 
@@ -433,6 +437,9 @@ document.addEventListener('DOMContentLoaded', function() {
   const errorMessage = document.getElementById("errorMessage");
   
   btnValidate.addEventListener("click", ()=>{
+    // ✅ Recharger depuis localStorage pour être sûr d'avoir les dernières données
+    loadAnswers();
+    
     if(!allQuestionsAnswered()){
       const unanswered = highlightUnansweredQuestions();
       
