@@ -260,9 +260,9 @@ function percentFromSum(sum){
   Nouvelle échelle à 5 niveaux basée sur les pourcentages :
   
   Pourcentage    Niveau                    Symboles
-  ≥ 52 %         Très compatible           ⭐⭐⭐
-  48 % – 51 %    Compatible                ⭐⭐
-  44 % – 47 %    Assez compatible          ⭐
+  ≥ 52 %         Très compatible           🟢🟢🟢
+  48 % – 51 %    Compatible                🔵🔵
+  44 % – 47 %    Assez compatible          🟠
   40 % – 43 %    Peu compatible            ⚪
   ≤ 39 %         Très peu compatible       ⚫
   
@@ -272,19 +272,19 @@ function getCompatibilityLevel(pct){
   if(pct >= 52){
     return {
       level: "Très compatible",
-      stars: "⭐⭐⭐",
+      stars: "🟢🟢🟢",
       class: "level-5"
     };
   } else if(pct >= 48){
     return {
       level: "Compatible",
-      stars: "⭐⭐",
+      stars: "🔵🔵",
       class: "level-4"
     };
   } else if(pct >= 44){
     return {
       level: "Assez compatible",
-      stars: "⭐",
+      stars: "🟠",
       class: "level-3"
     };
   } else if(pct >= 40){
@@ -554,9 +554,9 @@ function displayUnivers(){
       <div class="stars-legend">
         <div class="legend-title">📊 Échelle de compatibilité :</div>
         <div class="legend-items">
-          <div class="legend-item">⭐⭐⭐ Très compatible</div>
-          <div class="legend-item">⭐⭐ Compatible</div>
-          <div class="legend-item">⭐ Assez compatible</div>
+          <div class="legend-item">🟢🟢🟢 Très compatible</div>
+          <div class="legend-item">🔵🔵 Compatible</div>
+          <div class="legend-item">🟠 Assez compatible</div>
           <div class="legend-item">⚪ Peu compatible</div>
           <div class="legend-item">⚫ Très peu compatible</div>
         </div>
@@ -678,9 +678,11 @@ document.addEventListener('DOMContentLoaded', function() {
         selectedUnivers.forEach(id => {
           const univers = allUnivers.find(u => u.id === id);
           if(univers){
+            const compatibility = getCompatibilityLevel(univers.pct);
             selectedUniversDetails[id] = {
               name: univers.name,
-              percent: univers.pct
+              level: compatibility.level,
+              stars: compatibility.stars
             };
           }
         });
