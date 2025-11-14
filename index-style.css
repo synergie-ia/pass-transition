@@ -1,7 +1,8 @@
 /*
-  ============================================
-  RECONVERSION 360 IA - INDEX STYLE (VERSION OPTIMISÉE)
-  ============================================
+  =====================================================
+  RECONVERSION 360 IA — INDEX STYLE (VERSION FINALE 2025)
+  Cartes alignées – Espacement maîtrisé – Boutons corrects
+  =====================================================
 */
 
 /* ===== VARIABLES ===== */
@@ -19,9 +20,9 @@
 
 /* ===== RESET ===== */
 * {
-  box-sizing: border-box;
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
 }
 
 body {
@@ -32,12 +33,11 @@ body {
   overflow-x: hidden;
 }
 
-/* ===== CONTAINER PRINCIPAL ===== */
+/* ===== CONTAINER ===== */
 .container {
   max-width: 1200px;
   margin: 0 auto;
   padding: 22px;
-  min-height: 100vh;
   display: flex;
   flex-direction: column;
   gap: 28px;
@@ -46,197 +46,182 @@ body {
 /* ===== HERO ===== */
 .hero {
   text-align: center;
-  padding: 18px 0;
+  padding-top: 10px;
 }
 
 .hero-title {
-  font-size: clamp(28px, 4.5vw, 38px);
+  font-size: clamp(28px, 4.5vw, 36px);
   font-weight: 800;
-  margin-bottom: 12px;
 }
 
 .hero-subtitle {
-  font-size: clamp(16px, 3vw, 20px);
+  font-size: clamp(15px, 3vw, 18px);
   font-weight: 500;
+  color: #374151;
   max-width: 800px;
   margin: 0 auto;
-  color: #374151;
 }
 
-/* ===== GRILLE ===== */
+/* =====================================================
+   CARTES
+   ===================================================== */
 .cards-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
-  gap: 32px;               /* espace entre cartes */
-  margin-bottom: 50px;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 26px;
 }
 
-/* ===== CARTES ===== */
+/* --- Cartes parfaitement alignées --- */
 .action-card {
   background: var(--card);
   border: 2px solid var(--border);
   border-radius: 16px;
-  padding: 28px;           /* taille raisonnable */
+  padding: 26px;
+
+  min-height: 300px;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  justify-content: space-between;
+
   text-align: center;
-  transition: all 0.25s ease;
+
   box-shadow: 0 3px 10px rgba(0,0,0,0.06);
-  animation: fadeIn 0.4s ease-out;
+  transition: 0.25s;
 }
 
 .action-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 10px 22px rgba(0,0,0,0.12);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.12);
 }
 
 .card-icon {
-  font-size: 46px;
-  margin-bottom: 14px;
+  font-size: 42px;
+  margin-bottom: 12px;
 }
 
 .card-title {
-  font-size: 21px;        /* plus gros */
+  font-size: 20px;
   font-weight: 700;
-  margin-bottom: 12px;    /* espace sous le titre */
+  margin-bottom: 8px;
 }
 
 .card-desc {
-  font-size: 15.5px;      /* légèrement plus grand */
+  font-size: 15px;
   color: #4b5563;
-  font-weight: 500;
-  margin-bottom: 22px;
-  line-height: 1.55;
+  margin-bottom: 18px;
 }
 
-/* ===== BOUTON PRINCIPAL ===== */
+/* --- Bouton dans les cartes --- */
 .card-btn {
-  width: 100%;
-  padding: 18px 26px;
+  padding: 14px 20px;
+  border: 2px solid var(--border);
+  border-radius: 10px;
+
+  font-size: 17px;
+  font-weight: 700;
+
   background: white;
   color: var(--text);
-  border: 2px solid var(--border);
-  border-radius: 12px;
-  font-size: 18px;        /* plus lisible */
-  font-weight: 700;
   cursor: pointer;
-  transition: all 0.2s ease;
+
   box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  transition: 0.2s;
 }
 
 .card-btn:hover {
   background: #f3f4f6;
   transform: translateY(-2px);
-  box-shadow: 0 4px 14px rgba(0,0,0,0.15);
 }
 
-/* ===== SECTION BOUTONS ===== */
+/* =====================================================
+   BOUTONS DU BAS (RESET + COPIER)
+   ===================================================== */
+
+/* --- Section entière --- */
 .action-buttons-section {
+  margin-top: 12px;              /* ESPACE RÉDUIT */
   display: flex;
-  gap: 16px;              /* espace entre boutons */
   justify-content: center;
+  gap: 14px;
   flex-wrap: wrap;
-  margin-top: 26px;       /* espace entre cartes et boutons */
 }
 
-/* ===== PETITS BOUTONS ===== */
+/* --- Petits boutons équilibrés --- */
 .action-btn-small {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  padding: 12px 18px;
-  border-radius: 10px;
+  padding: 10px 16px;            /* TAILLE NORMALE, NI GROS, NI PETIT */
+  font-size: 15px;
+  font-weight: 600;
+
+  border-radius: 8px;
   border: 2px solid var(--border);
   background: white;
-  font-size: 16px;        /* plus gros */
-  font-weight: 600;
+  color: var(--text);
+
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+
   cursor: pointer;
-  transition: all 0.2s ease;
-  color: var(--text);     /* NOIR */
-  box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+  transition: 0.2s;
+  box-shadow: 0 1px 5px rgba(0,0,0,0.05);
 }
 
 .action-btn-small:hover {
+  background: #f3f4f6;
   transform: translateY(-2px);
-  background: #f9fafb;
 }
 
-/* ===== COPIER / RESET SPÉCIFIQUE ===== */
-.reset-btn,
-.copy-btn {
-  color: var(--text) !important;
-  font-size: 16.5px;      /* encore un peu plus lisible */
+.btn-icon-small {
+  width: 16px;
+  height: 16px;
 }
 
-/* ===== NOTICE ===== */
+/* =====================================================
+   NOTICE
+   ===================================================== */
 .action-notice {
   text-align: center;
-  font-size: 14px;
+  font-size: 13px;
   color: var(--muted);
-  margin-top: 10px;
+  margin-top: 4px;
 }
 
-/* ===== FOOTER ===== */
+/* =====================================================
+   FOOTER
+   ===================================================== */
 .page-footer {
   text-align: center;
   margin-top: auto;
-  padding: 12px 0 10px;
+  padding: 14px 0;
   font-size: 12px;
   color: var(--muted);
   border-top: 1px solid var(--border);
 }
 
-/* ===== ANIMATION ===== */
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(20px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-
-/* ============================================
+/* =====================================================
    RESPONSIVE TABLETTE
-   ============================================ */
+   ===================================================== */
 @media (max-width: 900px) {
   .cards-grid {
     grid-template-columns: 1fr;
     max-width: 500px;
-    margin-left: auto;
-    margin-right: auto;
+    margin: 0 auto;
   }
-
-  .card-title { font-size: 20px; }
-  .card-desc { font-size: 15px; }
 }
 
-/* ============================================
+/* =====================================================
    RESPONSIVE MOBILE
-   ============================================ */
+   ===================================================== */
 @media (max-width: 640px) {
 
   .container {
     padding: 16px;
-    gap: 20px;
-  }
-
-  .hero-title {
-    font-size: 24px;
-  }
-
-  .hero-subtitle {
-    font-size: 14px;
-  }
-
-  .cards-grid {
-    gap: 24px;
-    margin-bottom: 30px;
+    gap: 22px;
   }
 
   .action-card {
     padding: 22px;
-  }
-
-  .card-icon {
-    font-size: 40px;
+    min-height: 280px;
   }
 
   .card-title {
@@ -244,32 +229,31 @@ body {
   }
 
   .card-desc {
-    font-size: 14.5px;
+    font-size: 14px;
   }
 
   .card-btn {
-    font-size: 17px;
-    padding: 16px 20px;
+    font-size: 16px;
+    padding: 12px 16px;
   }
 
+  /* --- boutons du bas sur iPhone --- */
   .action-buttons-section {
+    margin-top: 10px;
+    gap: 10px;
     flex-direction: column;
-    gap: 14px;
+    align-items: center;
   }
 
   .action-btn-small {
     width: 100%;
-    justify-content: center;
+    max-width: 300px;
     font-size: 15px;
-    padding: 12px 14px;
+    padding: 10px 14px;
   }
-}
 
-/* ============================================
-   RESPONSIVE PETITE HAUTEUR D'ÉCRAN
-   ============================================ */
-@media (max-height: 700px) {
-  .action-card { padding: 18px; }
-  .card-title { font-size: 18px; }
-  .card-desc { font-size: 14px; }
+  .btn-icon-small {
+    width: 16px;
+    height: 16px;
+  }
 }
