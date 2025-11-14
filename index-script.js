@@ -239,7 +239,7 @@ document.addEventListener('DOMContentLoaded', function() {
               .sort((a, b) => b.pct - a.pct);
             
             sortedUnivers.forEach(univers => {
-              output += `${univers.stars} ${univers.name} - ${univers.pct}% (${univers.level})\n`;
+              output += `${univers.stars} ${univers.name} - ${univers.level}\n`;
             });
           }
           
