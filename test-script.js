@@ -2,13 +2,13 @@
   ============================================
   RECONVERSION 360 IA - QUESTIONNAIRE PROFIL
   ============================================
-  VERSION 2.1 - SAUVEGARDE COMPLÈTE
+  VERSION 2.2 - AFFICHAGE SIMPLIFIÉ
   Date : 14 novembre 2025
   
   CORRECTIONS :
-  ✅ Sauvegarde des pourcentages du profil
+  ✅ Un seul rond vert/bleu au lieu de trois/deux
+  ✅ Pas de pourcentages dans l'échelle de compatibilité
   ✅ Sauvegarde complète des univers avec noms et compatibilité
-  ✅ Fonction copie corrigée
   
   ============================================
 */
@@ -196,20 +196,20 @@ function percentFromSum(sum){
 
 /* 
   ============================================
-  ÉCHELLE DE COMPATIBILITÉ (OPTIMISÉE)
+  ÉCHELLE DE COMPATIBILITÉ (SIMPLIFIÉE)
   ============================================
 */
 function getCompatibilityLevel(pct){
   if(pct >= 50){
     return {
       level: "Très compatible",
-      stars: "🟢🟢🟢",
+      stars: "🟢",
       class: "level-5"
     };
   } else if(pct >= 40){
     return {
       level: "Compatible",
-      stars: "🔵🔵",
+      stars: "🔵",
       class: "level-4"
     };
   } else if(pct >= 30){
@@ -235,7 +235,7 @@ function getCompatibilityLevel(pct){
 
 /* 
   ============================================
-  CALCUL DES UNIVERS - VERSION QUADRATIQUE ✨
+  CALCUL DES UNIVERS - VERSION QUADRATIQUE
   ============================================
 */
 function calcUnivers(){
@@ -497,11 +497,11 @@ function displayUnivers(){
       <div class="stars-legend">
         <div class="legend-title">📊 Échelle de compatibilité (méthode quadratique) :</div>
         <div class="legend-items">
-          <div class="legend-item">🟢🟢🟢 Très compatible (≥50%)</div>
-          <div class="legend-item">🔵🔵 Compatible (40-49%)</div>
-          <div class="legend-item">🟠 Assez compatible (30-39%)</div>
-          <div class="legend-item">⚪ Peu compatible (20-29%)</div>
-          <div class="legend-item">⚫ Très peu compatible (<20%)</div>
+          <div class="legend-item">🟢 Très compatible</div>
+          <div class="legend-item">🔵 Compatible</div>
+          <div class="legend-item">🟠 Assez compatible</div>
+          <div class="legend-item">⚪ Peu compatible</div>
+          <div class="legend-item">⚫ Très peu compatible</div>
         </div>
       </div>
     `;
@@ -617,7 +617,6 @@ document.addEventListener('DOMContentLoaded', function() {
       }
       
       try {
-        // Récupérer les détails complets depuis le localStorage
         const universDetailsAll = JSON.parse(localStorage.getItem('univers_details') || '{}');
         const selectedUniversDetails = {};
         
