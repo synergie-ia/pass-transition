@@ -59,11 +59,11 @@ body {
 }
 
 .hero-subtitle {
-  font-size: clamp(16px, 3vw, 20px);
+  font-size: clamp(18px, 3vw, 24px);
   color: #374151;
   font-weight: 500;
   max-width: 800px;
-  margin: 0 auto;
+  margin: 0 auto 40px;
 }
 
 /* ===== GRILLE DES CARTES ===== */
@@ -119,12 +119,12 @@ body {
 
 .card-btn {
   width: 100%;
-  padding: 16px 28px;
+  padding: 24px 28px;
   background: white;
   color: var(--primary);
-  border: 3px solid var(--primary);
+  border: 2px solid #d1d5db;
   border-radius: 12px;
-  font-size: 17px;
+  font-size: 20px;
   font-weight: 700;
   cursor: pointer;
   transition: all 0.2s ease;
