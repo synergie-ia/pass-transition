@@ -2,14 +2,13 @@
   ============================================
   RECONVERSION 360 IA - QUESTIONNAIRE PROFIL
   ============================================
-  VERSION CORRIGÉE - Novembre 2025
+  VERSION AVEC HIÉRARCHISATION OBLIGATOIRE
+  Novembre 2025
   
-  CORRECTIONS APPORTÉES :
-  ✅ Vérification de l'ordre des dimensions
-  ✅ Debug du calcul des scores
-  ✅ Debug de l'extraction des dimensions principales
-  ✅ Debug du calcul des univers
-  ✅ Ajout de logs détaillés
+  NOUVELLE FONCTIONNALITÉ :
+  ✅ Chaque note (1-4) ne peut être utilisée qu'une seule fois par question
+  ✅ Validation en temps réel des doublons
+  ✅ Feedback visuel sur les notes disponibles/indisponibles
   
   ============================================
 */
@@ -99,6 +98,70 @@ function highlightUnansweredQuestions(){
   return unanswered;
 }
 
+/* ===== VALIDATION HIÉRARCHIE ===== */
+
+// Vérifie si une valeur est déjà utilisée dans une question
+function isValueUsedInQuestion(questionId, value){
+  if(value === 0) return false; // 0 peut être utilisé plusieurs fois (pas de préférence)
+  
+  const question = QUESTIONS.find(q => q.id === questionId);
+  if(!question) return false;
+  
+  for(const opt of question.options){
+    const key = `${questionId}-${opt.dim}`;
+    if(answers[key] === value){
+      return true;
+    }
+  }
+  return false;
+}
+
+// Récupère les valeurs disponibles pour une question
+function getAvailableValuesForQuestion(questionId){
+  const available = [0, 1, 2, 3, 4]; // Toutes les valeurs possibles
+  const used = new Set();
+  
+  const question = QUESTIONS.find(q => q.id === questionId);
+  if(!question) return available;
+  
+  // Parcourir toutes les options de cette question
+  question.options.forEach(opt => {
+    const key = `${questionId}-${opt.dim}`;
+    const value = answers[key];
+    if(value !== undefined && value !== 0){
+      used.add(value);
+    }
+  });
+  
+  return available.filter(v => v === 0 || !used.has(v));
+}
+
+// Met à jour l'état visuel des boutons d'une question
+function updateButtonStatesForQuestion(questionId){
+  const availableValues = getAvailableValuesForQuestion(questionId);
+  
+  // Mettre à jour tous les boutons de cette question
+  document.querySelectorAll(`.rate-btn[data-q='${questionId}']`).forEach(btn => {
+    const value = Number(btn.dataset.val);
+    const dim = btn.dataset.dim;
+    const key = `${questionId}-${dim}`;
+    const isSelected = answers[key] === value;
+    
+    // Si le bouton est sélectionné, le garder actif
+    if(isSelected){
+      btn.classList.remove('disabled');
+      return;
+    }
+    
+    // Sinon, vérifier si la valeur est disponible
+    if(availableValues.includes(value)){
+      btn.classList.remove('disabled');
+    } else {
+      btn.classList.add('disabled');
+    }
+  });
+}
+
 /* ===== RENDU DES QUESTIONS ===== */
 
 function renderQuestions(){
@@ -107,6 +170,7 @@ function renderQuestions(){
   root.innerHTML = QUESTIONS.map(q => `
     <div class="question-block" id="block-${q.id}">
       <div class="question-title">${q.title}</div>
+      <div class="hierarchy-note">⚠️ Chaque note de 1 à 4 ne peut être utilisée qu'une seule fois</div>
       ${q.options.map(opt => {
         const key = `${q.id}-${opt.dim}`;
         return `
@@ -122,6 +186,7 @@ function renderQuestions(){
     </div>
   `).join("");
 
+  // Restaurer les sélections
   Object.keys(answers).forEach(key=>{
     const [q, dim] = key.split("-");
     const v = answers[key];
@@ -132,26 +197,60 @@ function renderQuestions(){
     }
   });
 
+  // Mettre à jour l'état des boutons pour chaque question
+  QUESTIONS.forEach(q => {
+    updateButtonStatesForQuestion(q.id);
+  });
+
   attachRatingEvents();
 }
 
 function attachRatingEvents(){
   document.querySelectorAll(".rate-btn").forEach(btn=>{
     btn.addEventListener("click", ()=>{
+      // Ne pas permettre de cliquer sur un bouton désactivé
+      if(btn.classList.contains('disabled')){
+        // Feedback visuel
+        btn.style.transform = 'scale(0.95)';
+        setTimeout(() => {
+          btn.style.transform = '';
+        }, 100);
+        return;
+      }
+
       const q = btn.dataset.q;
       const dim = btn.dataset.dim;
       const v = Number(btn.dataset.val);
       const key = `${q}-${dim}`;
       
-      answers[key] = v;
+      // Si on clique sur la même valeur, on la désélectionne
+      if(answers[key] === v){
+        delete answers[key];
+      } else {
+        // Vérifier que la valeur n'est pas déjà utilisée (sauf 0)
+        if(v !== 0 && isValueUsedInQuestion(q, v)){
+          alert("⚠️ Cette note est déjà utilisée pour une autre option de cette question.\n\nChaque note de 1 à 4 ne peut être attribuée qu'une seule fois par question.");
+          return;
+        }
+        
+        answers[key] = v;
+      }
+      
       saveAnswers();
 
+      // Réinitialiser les styles de tous les boutons de cette option
       const selector = `.rate-btn[data-q='${q}'][data-dim='${dim}']`;
       document.querySelectorAll(selector).forEach(b=>{
         b.classList.remove("selected","v0","v1","v2","v3","v4");
       });
       
-      btn.classList.add("selected", `v${v}`);
+      // Appliquer le style au bouton sélectionné
+      if(answers[key] !== undefined){
+        btn.classList.add("selected", `v${answers[key]}`);
+      }
+
+      // Mettre à jour l'état de tous les boutons de la question
+      updateButtonStatesForQuestion(q);
 
       const row = document.querySelector(`.option-row[data-key="${key}"]`);
       if(row){
