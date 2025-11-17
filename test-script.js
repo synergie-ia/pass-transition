@@ -6,7 +6,7 @@
   Novembre 2025
   
   NOUVELLE FONCTIONNALITÉ :
-  ✅ Chaque note (1-4) ne peut être utilisée qu'une seule fois par question
+  ✅ Chaque note (0-4) ne peut être utilisée qu'une seule fois par question
   ✅ Validation en temps réel des doublons
   ✅ Feedback visuel sur les notes disponibles/indisponibles
   
@@ -102,8 +102,6 @@ function highlightUnansweredQuestions(){
 
 // Vérifie si une valeur est déjà utilisée dans une question
 function isValueUsedInQuestion(questionId, value){
-  if(value === 0) return false; // 0 peut être utilisé plusieurs fois (pas de préférence)
-  
   const question = QUESTIONS.find(q => q.id === questionId);
   if(!question) return false;
   
@@ -128,12 +126,12 @@ function getAvailableValuesForQuestion(questionId){
   question.options.forEach(opt => {
     const key = `${questionId}-${opt.dim}`;
     const value = answers[key];
-    if(value !== undefined && value !== 0){
+    if(value !== undefined){
       used.add(value);
     }
   });
   
-  return available.filter(v => v === 0 || !used.has(v));
+  return available.filter(v => !used.has(v));
 }
 
 // Met à jour l'état visuel des boutons d'une question
@@ -170,7 +168,7 @@ function renderQuestions(){
   root.innerHTML = QUESTIONS.map(q => `
     <div class="question-block" id="block-${q.id}">
       <div class="question-title">${q.title}</div>
-      <div class="hierarchy-note">⚠️ Chaque note de 1 à 4 ne peut être utilisée qu'une seule fois</div>
+      <div class="hierarchy-note">⚠️ Chaque note de 0 à 4 ne peut être utilisée qu'une seule fois</div>
       ${q.options.map(opt => {
         const key = `${q.id}-${opt.dim}`;
         return `
@@ -227,9 +225,9 @@ function attachRatingEvents(){
       if(answers[key] === v){
         delete answers[key];
       } else {
-        // Vérifier que la valeur n'est pas déjà utilisée (sauf 0)
-        if(v !== 0 && isValueUsedInQuestion(q, v)){
-          alert("⚠️ Cette note est déjà utilisée pour une autre option de cette question.\n\nChaque note de 1 à 4 ne peut être attribuée qu'une seule fois par question.");
+        // Vérifier que la valeur n'est pas déjà utilisée
+        if(isValueUsedInQuestion(q, v)){
+          alert("⚠️ Cette note est déjà utilisée pour une autre option de cette question.\n\nChaque note de 0 à 4 ne peut être attribuée qu'une seule fois par question.");
           return;
         }
         
