@@ -530,28 +530,70 @@ html,body{
   flex-shrink:0;
 }
 
-/* ===== ROND DE COMPATIBILITÉ ===== */
-.univers-compatibility-dot{
-  width:clamp(20px, 4vw, 24px);
-  height:clamp(20px, 4vw, 24px);
-  border-radius:50%;
+/* ===== BADGE POURCENTAGE DE COMPATIBILITÉ ===== */
+.univers-percentage{
+  font-size:clamp(16px, 3.5vw, 18px);
+  font-weight:700;
+  padding:6px 12px;
+  border-radius:20px;
+  background:#f3f4f6;
+  color:#374151;
+  border:2px solid #e5e7eb;
   flex-shrink:0;
-  box-shadow:0 2px 8px rgba(0,0,0,.15);
-  transition:transform .2s ease;
+  min-width:clamp(60px, 12vw, 70px);
+  text-align:center;
+  transition:all .2s ease;
+  box-shadow:0 2px 4px rgba(0,0,0,.08);
 }
 
-.univers-card:hover .univers-compatibility-dot{
-  transform:scale(1.1);
+/* Couleurs du badge selon le niveau */
+.univers-card.level-5 .univers-percentage{
+  background:var(--very-compatible);
+  color:#fff;
+  border-color:var(--very-compatible);
+  box-shadow:0 2px 8px rgba(4, 120, 87, 0.3);
+}
+
+.univers-card.level-4 .univers-percentage{
+  background:var(--compatible);
+  color:#fff;
+  border-color:var(--compatible);
+  box-shadow:0 2px 8px rgba(16, 185, 129, 0.3);
+}
+
+.univers-card.level-3 .univers-percentage{
+  background:#9ca3af;
+  color:#fff;
+  border-color:#6b7280;
+  box-shadow:0 2px 8px rgba(156, 163, 175, 0.3);
+}
+
+.univers-card.level-2 .univers-percentage{
+  background:var(--low-compatible);
+  color:#fff;
+  border-color:var(--low-compatible);
+  box-shadow:0 2px 8px rgba(249, 115, 22, 0.3);
+}
+
+.univers-card.level-1 .univers-percentage{
+  background:var(--not-compatible);
+  color:#fff;
+  border-color:var(--not-compatible);
+  box-shadow:0 2px 8px rgba(220, 38, 38, 0.3);
+}
+
+.univers-card:hover .univers-percentage{
+  transform:scale(1.05);
+}
+
+/* ===== ROND DE COMPATIBILITÉ - SUPPRIMÉ ===== */
+.univers-compatibility-dot{
+  display:none;
 }
 
 /* Couleurs par niveau de compatibilité */
 
-/* Niveau 5 - Très compatible (≥14) */
-.univers-card.level-5 .univers-compatibility-dot{
-  background:var(--very-compatible);
-  box-shadow:0 2px 12px rgba(4, 120, 87, 0.4);
-}
-
+/* Niveau 5 - Très compatible (≥10) */
 .univers-card.level-5{
   border-left:5px solid var(--very-compatible);
   background:linear-gradient(135deg, #d1fae5 0%, #ffffff 100%);
@@ -561,12 +603,7 @@ html,body{
   box-shadow:0 8px 24px rgba(4, 120, 87, 0.2);
 }
 
-/* Niveau 4 - Compatible (10-13) */
-.univers-card.level-4 .univers-compatibility-dot{
-  background:var(--compatible);
-  box-shadow:0 2px 12px rgba(16, 185, 129, 0.4);
-}
-
+/* Niveau 4 - Compatible (8-9) */
 .univers-card.level-4{
   border-left:5px solid var(--compatible);
   background:linear-gradient(135deg, #d1fae5 0%, #ffffff 100%);
@@ -576,12 +613,7 @@ html,body{
   box-shadow:0 8px 24px rgba(16, 185, 129, 0.2);
 }
 
-/* Niveau 3 - Moyennement compatible (7-9) */
-.univers-card.level-3 .univers-compatibility-dot{
-  background:var(--medium-compatible);
-  box-shadow:0 2px 12px rgba(209, 213, 219, 0.4);
-}
-
+/* Niveau 3 - Moyennement compatible (6-7) */
 .univers-card.level-3{
   border-left:5px solid var(--medium-compatible);
   background:linear-gradient(135deg, #f3f4f6 0%, #ffffff 100%);
@@ -591,12 +623,7 @@ html,body{
   box-shadow:0 8px 24px rgba(209, 213, 219, 0.2);
 }
 
-/* Niveau 2 - Peu compatible (4-6) */
-.univers-card.level-2 .univers-compatibility-dot{
-  background:var(--low-compatible);
-  box-shadow:0 2px 12px rgba(249, 115, 22, 0.4);
-}
-
+/* Niveau 2 - Peu compatible (4-5) */
 .univers-card.level-2{
   border-left:5px solid var(--low-compatible);
   background:linear-gradient(135deg, #ffedd5 0%, #ffffff 100%);
@@ -607,11 +634,6 @@ html,body{
 }
 
 /* Niveau 1 - Pas compatible (0-3) */
-.univers-card.level-1 .univers-compatibility-dot{
-  background:var(--not-compatible);
-  box-shadow:0 2px 12px rgba(220, 38, 38, 0.4);
-}
-
 .univers-card.level-1{
   border-left:5px solid var(--not-compatible);
   background:linear-gradient(135deg, #fee2e2 0%, #ffffff 100%);
@@ -840,5 +862,11 @@ html,body{
   .univers-right{
     order:2;
     margin-left:auto;
+  }
+  
+  .univers-percentage{
+    font-size:15px;
+    padding:5px 10px;
+    min-width:55px;
   }
 }
