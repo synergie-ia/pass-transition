@@ -258,15 +258,15 @@ function copyResultsToClipboard() {
         if(situation.q15) textToCopy += `Rémunération minimale: ${situation.q15}\n\n`;
         if(situation.q16) textToCopy += `Situations à éviter: ${situation.q16}\n\n`;
         if(situation.q17) textToCopy += `Environnement idéal: ${situation.q17}\n\n`;
+        if(situation.q18) textToCopy += `Échéance du projet: ${situation.q18}\n\n`;
         
         textToCopy += "5. FORMATION\n";
         textToCopy += "─────────────\n";
-        if(situation.q18) textToCopy += `Formation envisagée: ${situation.q18}\n\n`;
+        if(situation.q19) textToCopy += `Formation envisagée: ${situation.q19}\n\n`;
         
         textToCopy += "6. OUVERTURE\n";
         textToCopy += "─────────────\n";
-        if(situation.q19) textToCopy += `Informations complémentaires: ${situation.q19}\n\n`;
-        if(situation.q20) textToCopy += `Échéance du projet: ${situation.q20}\n\n`;
+        if(situation.q20) textToCopy += `Informations complémentaires: ${situation.q20}\n\n`;
         
         console.log("✅ Bilan complet ajouté (20 questions)");
       } catch(e) {
@@ -439,15 +439,15 @@ function downloadPDF() {
         if(situation.q15) pdfContent += `Rémunération minimale:\n${situation.q15}\n\n`;
         if(situation.q16) pdfContent += `Situations à éviter:\n${situation.q16}\n\n`;
         if(situation.q17) pdfContent += `Environnement idéal:\n${situation.q17}\n\n`;
+        if(situation.q18) pdfContent += `Échéance du projet:\n${situation.q18}\n\n`;
         
         pdfContent += "5. FORMATION\n";
         pdfContent += "─────────────\n\n";
-        if(situation.q18) pdfContent += `Formation envisagée:\n${situation.q18}\n\n`;
+        if(situation.q19) pdfContent += `Formation envisagée:\n${situation.q19}\n\n`;
         
         pdfContent += "6. OUVERTURE\n";
         pdfContent += "─────────────\n\n";
-        if(situation.q19) pdfContent += `Informations complémentaires:\n${situation.q19}\n\n`;
-        if(situation.q20) pdfContent += `Échéance du projet:\n${situation.q20}\n\n`;
+        if(situation.q20) pdfContent += `Informations complémentaires:\n${situation.q20}\n\n`;
         
         console.log("✅ Bilan complet ajouté au PDF (20 questions)");
       } catch(e) {
