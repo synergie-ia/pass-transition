@@ -513,7 +513,7 @@ function updateUniversCounter(){
 
 /* ===== CARTE UNIVERS ===== */
 
-function renderUniversCard(u){
+function renderUniversCard(u, index){
   const isSelected = selectedUnivers.has(u.id);
   const hasSubUnivers = u.subUniverses && u.subUniverses.length > 0;
   
@@ -540,11 +540,12 @@ function renderUniversCard(u){
     <div class="univers-card ${isSelected ? 'selected' : ''} ${compatibility.class}" id="card-${u.id}">
       <div class="univers-header">
         <div class="univers-main">
+          <div class="univers-rank">${index + 1}</div>
           <div class="univers-icon">${u.icon}</div>
           <div class="univers-name">${u.name}</div>
+          <div class="univers-percentage">${percentage}%</div>
         </div>
         <div class="univers-right">
-          <div class="univers-percentage">${percentage}%</div>
           <div class="univers-actions">
             ${hasSubUnivers 
               ? `<button class="btn-toggle-sub" data-id="${u.id}" title="Voir sous-univers">🔎</button>` 
@@ -647,7 +648,7 @@ function displayUnivers(){
       </div>
     `;
 
-    root.innerHTML = legendHTML + top10.map(u => renderUniversCard(u)).join("");
+    root.innerHTML = legendHTML + top10.map((u, index) => renderUniversCard(u, index)).join("");
     attachUniversEvents();
     updateUniversCounter();
 
@@ -658,7 +659,7 @@ function displayUnivers(){
     btnShow.parentNode.replaceChild(newBtnShow, btnShow);
     
     newBtnShow.addEventListener("click", ()=>{
-      root.innerHTML = legendHTML + list.map(u => renderUniversCard(u)).join("");
+      root.innerHTML = legendHTML + list.map((u, index) => renderUniversCard(u, index)).join("");
       attachUniversEvents();
       newBtnShow.classList.add("hidden");
     });
