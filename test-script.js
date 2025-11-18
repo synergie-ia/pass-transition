@@ -2,14 +2,9 @@
   ============================================
   RECONVERSION 360 IA - QUESTIONNAIRE PROFIL
   ============================================
-  VERSION AVEC 2 UTILISATIONS PAR NOTE
+  VERSION 48 ITEMS - 12 QUESTIONS × 4 DIMENSIONS
+  Chaque note (0-4) peut être utilisée 2 fois maximum par question
   Novembre 2025
-  
-  FONCTIONNALITÉ :
-  ✅ Chaque note (0-4) peut être utilisée 2 fois maximum par question
-  ✅ Validation en temps réel des limites d'utilisation
-  ✅ Feedback visuel sur les notes disponibles/indisponibles
-  
   ============================================
 */
 
@@ -100,7 +95,6 @@ function highlightUnansweredQuestions(){
 
 /* ===== VALIDATION HIÉRARCHIE (2 UTILISATIONS MAX) ===== */
 
-// Compte combien de fois une valeur est utilisée dans une question
 function countValueUsageInQuestion(questionId, value){
   const question = QUESTIONS.find(q => q.id === questionId);
   if(!question) return 0;
@@ -115,44 +109,36 @@ function countValueUsageInQuestion(questionId, value){
   return count;
 }
 
-// Vérifie si une valeur peut encore être utilisée (max 2 fois)
 function canUseValueInQuestion(questionId, value, currentKey){
   const usageCount = countValueUsageInQuestion(questionId, value);
   
-  // Si c'est déjà la valeur sélectionnée pour cette option, on peut la réutiliser
   if(answers[currentKey] === value){
     return true;
   }
   
-  // Sinon, on vérifie si la limite de 2 utilisations n'est pas atteinte
   return usageCount < 2;
 }
 
-// Met à jour l'état visuel des boutons d'une question
 function updateButtonStatesForQuestion(questionId){
   const question = QUESTIONS.find(q => q.id === questionId);
   if(!question) return;
   
-  // Compter les utilisations de chaque valeur
   const usage = {};
   [0, 1, 2, 3, 4].forEach(v => {
     usage[v] = countValueUsageInQuestion(questionId, v);
   });
   
-  // Mettre à jour tous les boutons de cette question
   document.querySelectorAll(`.rate-btn[data-q='${questionId}']`).forEach(btn => {
     const value = Number(btn.dataset.val);
     const dim = btn.dataset.dim;
     const key = `${questionId}-${dim}`;
     const isSelected = answers[key] === value;
     
-    // Si le bouton est sélectionné, le garder actif
     if(isSelected){
       btn.classList.remove('disabled');
       return;
     }
     
-    // Sinon, vérifier si la valeur peut encore être utilisée
     if(usage[value] < 2){
       btn.classList.remove('disabled');
     } else {
@@ -184,7 +170,6 @@ function renderQuestions(){
     </div>
   `).join("");
 
-  // Restaurer les sélections
   Object.keys(answers).forEach(key=>{
     const [q, dim] = key.split("-");
     const v = answers[key];
@@ -195,7 +180,6 @@ function renderQuestions(){
     }
   });
 
-  // Mettre à jour l'état des boutons pour chaque question
   QUESTIONS.forEach(q => {
     updateButtonStatesForQuestion(q.id);
   });
@@ -211,13 +195,10 @@ function attachRatingEvents(){
       const v = Number(btn.dataset.val);
       const key = `${q}-${dim}`;
       
-      // Si on clique sur la même valeur, on la désélectionne
       if(answers[key] === v){
         delete answers[key];
       } else {
-        // Vérifier que la valeur peut encore être utilisée (max 2 fois)
         if(!canUseValueInQuestion(q, v, key)){
-          // Feedback visuel
           btn.style.transform = 'scale(0.95)';
           setTimeout(() => {
             btn.style.transform = '';
@@ -231,18 +212,15 @@ function attachRatingEvents(){
       
       saveAnswers();
 
-      // Réinitialiser les styles de tous les boutons de cette option
       const selector = `.rate-btn[data-q='${q}'][data-dim='${dim}']`;
       document.querySelectorAll(selector).forEach(b=>{
         b.classList.remove("selected","v0","v1","v2","v3","v4");
       });
       
-      // Appliquer le style au bouton sélectionné
       if(answers[key] !== undefined){
         btn.classList.add("selected", `v${answers[key]}`);
       }
 
-      // Mettre à jour l'état de tous les boutons de la question
       updateButtonStatesForQuestion(q);
 
       const row = document.querySelector(`.option-row[data-key="${key}"]`);
@@ -263,15 +241,10 @@ function attachRatingEvents(){
   });
 }
 
-/* 
-  ============================================
-  CALCUL DU PROFIL - VERSION DEBUGGÉE
-  ============================================
-*/
+/* ===== CALCUL DU PROFIL ===== */
 function calcProfile(){
   const scores = Object.fromEntries(DIMENSIONS.map(d => [d.code, 0]));
   
-  // Somme simple des valeurs (0-4)
   Object.keys(answers).forEach(key => {
     const [, dim] = key.split("-");
     const val = answers[key];
@@ -286,14 +259,8 @@ function calcProfile(){
   return scores;
 }
 
-/* 
-  ============================================
-  EXTRACTION DES DIMENSIONS PRINCIPALES
-  VERSION DEBUGGÉE
-  ============================================
-*/
+/* ===== EXTRACTION DES DIMENSIONS PRINCIPALES ===== */
 function extractMainDimensions(scores){
-  // Tri décroissant
   const sorted = Object.entries(scores)
     .sort((a, b) => b[1] - a[1]);
   
@@ -303,16 +270,13 @@ function extractMainDimensions(scores){
     console.log(`   ${index + 1}. ${code} (${dimName}): ${value}`);
   });
   
-  // Top 3
   const mainDims = sorted.slice(0, 3).map(([code]) => code);
   
-  // Valeur de la 3ème dimension
   const thirdValue = sorted[2][1];
-  const threshold = thirdValue * 0.9; // 10% de tolérance
+  const threshold = thirdValue * 0.9;
   
   console.log(`📏 Seuil d'égalité: ${threshold.toFixed(1)} (90% de ${thirdValue})`);
   
-  // Ajout des dimensions proches (écart ≤ 10%)
   for(let i = 3; i < sorted.length; i++){
     const [code, value] = sorted[i];
     if(value >= threshold){
@@ -328,11 +292,7 @@ function extractMainDimensions(scores){
   return mainDims;
 }
 
-/* 
-  ============================================
-  CALCUL DES UNIVERS - VERSION DEBUGGÉE
-  ============================================
-*/
+/* ===== CALCUL DES UNIVERS ===== */
 function calcUnivers(){
   const scores = calcProfile();
   const mainDims = extractMainDimensions(scores);
@@ -356,13 +316,11 @@ function calcUnivers(){
     let score = 0;
     const details = [];
     
-    // Pour chaque dimension de l'univers
     universWeights.weights.forEach((coeff, index) => {
       if(index < DIMENSIONS.length){
         const dimCode = DIMENSIONS[index].code;
         const dimName = DIMENSIONS[index].name;
         
-        // Si la dimension est dans les principales de la personne
         if(mainDims.includes(dimCode) && coeff > 0){
           score += coeff;
           details.push(`${dimCode}(${coeff})`);
@@ -377,7 +335,6 @@ function calcUnivers(){
     return {...univers, score: score};
   });
   
-  // Tri par score décroissant
   const universTries = universAvecScores.sort((a, b) => b.score - a.score);
   
   console.log("\n🏆 TOP 10 UNIVERS:");
@@ -392,19 +349,7 @@ function calcUnivers(){
   return universTries;
 }
 
-/* 
-  ============================================
-  ÉCHELLE DE COMPATIBILITÉ - CORRIGÉE
-  ============================================
-  Score max par univers = 12 points (6+4+2)
-  
-  Seuils ajustés:
-  - 10-12 pts = très compatible (83-100%)
-  - 8-9 pts = compatible (67-75%)
-  - 6-7 pts = moyennement compatible (50-58%)
-  - 4-5 pts = peu compatible (33-42%)
-  - 0-3 pts = pas compatible (0-25%)
-*/
+/* ===== ÉCHELLE DE COMPATIBILITÉ ===== */
 function getCompatibilityLevel(score){
   if(score >= 10){
     return {
@@ -439,16 +384,12 @@ function getCompatibilityLevel(score){
   }
 }
 
-/* 
-  ============================================
-  AFFICHAGE DU PROFIL
-  ============================================
-*/
+/* ===== AFFICHAGE DU PROFIL ===== */
 function displayProfile(){
   const scores = calcProfile();
   const root = document.getElementById("profileResults");
   
-  const MAX_SCORE = 12; // 3 questions max par dimension × 4 points max
+  const MAX_SCORE = 16; // 4 items max par dimension × 4 points max
   
   const dimensionsAvecScores = DIMENSIONS.map(dim => ({
     ...dim,
@@ -464,7 +405,6 @@ function displayProfile(){
     console.log(`${dim.name}: ${dim.pct}% (${dim.score}/${MAX_SCORE})`);
   });
   
-  // Sauvegarde du profil
   const profilePercentages = {};
   dimensionsAvecScores.forEach(dim => {
     profilePercentages[dim.code] = {
@@ -533,7 +473,6 @@ function renderUniversCard(u, index){
       </div>`
     : '';
 
-  // Calcul du pourcentage (sur 12 points max)
   const percentage = Math.round((u.score / 12) * 100);
   
   return `
@@ -618,7 +557,6 @@ function displayUnivers(){
       return;
     }
     
-    // Sauvegarde complète des univers
     const universDetails = {};
     list.forEach(u => {
       const compatibility = getCompatibilityLevel(u.score);
@@ -716,7 +654,6 @@ document.addEventListener('DOMContentLoaded', function() {
   console.log(`🌍 ${universesData.length} univers`);
   console.log(`⚙️ ${UNIVERS_WEIGHTS.length} matrices\n`);
   
-  // Vérification de l'ordre des dimensions
   console.log("🔍 Ordre des dimensions:");
   DIMENSIONS.forEach((d, i) => {
     console.log(`   ${i}. ${d.code} - ${d.name}`);
