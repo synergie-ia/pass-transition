@@ -161,6 +161,7 @@ const QUESTIONS = [
 // ===== MATRICES DE CORRÉLATION =====
 // Ordre : MP, MT, IN, ST, AE, IC, AA, RS, LS, AI, RM, DC
 // Coefficients : 6=essentiel, 4=important, 2=utile
+// VERSION OPTIMISÉE - Validation par cohérence avec sous-univers
 
 const UNIVERS_WEIGHTS = [
   // 1 — Agriculture, nature & animaux
@@ -173,7 +174,7 @@ const UNIVERS_WEIGHTS = [
   { id: 3,  weights: [0, 0, 0, 0, 0, 0, 0, 6, 2, 4, 0, 0] },
 
   // 4 — Communication, médias & culture
-  { id: 4,  weights: [0, 0, 0, 0, 6, 2, 0, 4, 0, 0, 0, 0] },
+  { id: 4,  weights: [0, 0, 4, 0, 6, 2, 0, 0, 0, 0, 0, 0] },
 
   // 5 — Construction, BTP & habitat
   { id: 5,  weights: [0, 6, 0, 0, 0, 0, 0, 0, 0, 0, 4, 2] },
@@ -194,7 +195,7 @@ const UNIVERS_WEIGHTS = [
   { id: 10, weights: [2, 0, 0, 0, 0, 0, 4, 6, 0, 0, 0, 0] },
 
   // 11 — Immobilier & patrimoine
-  { id: 11, weights: [0, 0, 0, 0, 0, 0, 0, 6, 4, 2, 0, 0] },
+  { id: 11, weights: [0, 0, 2, 0, 0, 4, 0, 6, 0, 0, 0, 0] },
 
   // 12 — Industrie, fabrication & production
   { id: 12, weights: [0, 6, 0, 2, 0, 0, 0, 0, 0, 0, 4, 0] },
@@ -203,30 +204,29 @@ const UNIVERS_WEIGHTS = [
   { id: 13, weights: [6, 4, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0] },
 
   // 14 — Management, entrepreneuriat & stratégie
-  { id: 14, weights: [0, 0, 0, 0, 0, 0, 0, 2, 6, 4, 0, 0] },
+  { id: 14, weights: [0, 0, 2, 0, 0, 4, 0, 0, 6, 0, 0, 0] },
 
   // 15 — Numérique, informatique & data
-  { id: 15, weights: [0, 0, 0, 6, 0, 4, 0, 0, 0, 0, 0, 2] },
+  { id: 15, weights: [0, 0, 2, 6, 0, 4, 0, 0, 0, 0, 0, 0] },
 
   // 16 — Santé, bien-être & médical
   { id: 16, weights: [0, 4, 2, 0, 0, 0, 6, 0, 0, 0, 0, 0] },
 
   // 17 — Sciences, recherche & innovation
-  { id: 17, weights: [0, 0, 4, 6, 0, 2, 0, 0, 0, 0, 0, 0] },
+  { id: 17, weights: [0, 2, 6, 4, 0, 0, 0, 0, 0, 0, 0, 0] },
 
   // 18 — Sécurité, défense & urgence
-  { id: 18, weights: [2, 0, 0, 0, 0, 0, 0, 0, 0, 6, 0, 4] },
+  { id: 18, weights: [4, 2, 0, 0, 0, 0, 0, 0, 0, 6, 0, 0] },
 
   // 19 — Social, aide & solidarité
-  { id: 19, weights: [0, 0, 0, 0, 0, 0, 6, 4, 0, 0, 2, 0] },
+  { id: 19, weights: [2, 0, 0, 0, 0, 0, 6, 4, 0, 0, 0, 0] },
 
   // 20 — Sport, loisirs & vie active
   { id: 20, weights: [6, 0, 0, 0, 0, 0, 4, 2, 0, 0, 0, 0] },
 
   // 21 — Technologies émergentes & futur du travail
-  { id: 21, weights: [0, 0, 2, 6, 0, 4, 0, 0, 0, 0, 0, 0] }
+  { id: 21, weights: [0, 0, 4, 6, 0, 2, 0, 0, 0, 0, 0, 0] }
 ];
-
 // ===== DONNÉES DES UNIVERS =====
 const universesData = [
   {
