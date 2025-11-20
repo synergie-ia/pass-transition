@@ -117,7 +117,7 @@ html,body{
   margin-bottom:0;
 }
 
-/* ===== LÉGENDE AVEC AVERTISSEMENT ===== */
+/* ===== LÉGENDE AVEC LIMITATIONS ===== */
 .legend-box{
   background:var(--bg);
   border:2px solid #9ca3af;
@@ -168,11 +168,6 @@ html,body{
   display:inline-block;
 }
 
-/* Suppression complète des séparateurs */
-.legend-sep{
-  display:none !important;
-}
-
 /* Couleurs des ronds dans la légende */
 .dot-0{background:var(--c0)}
 .dot-1{background:var(--c1)}
@@ -211,11 +206,6 @@ html,body{
   .legend-item{
     width:100%;
   }
-}
-
-/* ===== NOTE D'HIÉRARCHIE DANS QUESTIONS - SUPPRIMÉE ===== */
-.hierarchy-note{
-  display:none;
 }
 
 /* ===== LÉGENDE DE COMPATIBILITÉ ===== */
@@ -273,151 +263,20 @@ html,body{
   75% { transform: translateX(10px); }
 }
 
-/* ===== BLOCS QUESTIONS ===== */
-.question-block{
+/* ===== CARTES DE QUESTIONS - NOUVEAU DESIGN ===== */
+.question-card{
   background:var(--card);
-  border:1px solid var(--line);
+  border:2px solid var(--line);
   border-radius:16px;
-  padding:20px 16px;
+  padding:20px;
   margin:20px 0;
   box-shadow:0 2px 8px rgba(0,0,0,.06);
+  transition:all .3s ease;
 }
 
-.question-title{
-  font-weight:700;
-  font-size:clamp(16px,3vw,18px);
-  margin:0 0 16px;
-  line-height:1.4;
-  color:var(--ink);
-}
-
-/* ===== OPTIONS DE RÉPONSE ===== */
-.option-row{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:10px;
-  padding:12px 0;
-  border-top:2px solid #d1d5db;
-}
-
-.option-row:first-of-type{border-top:none}
-
-.option-text{
-  flex:1 1 auto;
-  padding-right:8px;
-  line-height:1.4;
-  font-size:clamp(14px,2.8vw,16px);
-}
-
-.rating-buttons{
-  display:flex;
-  gap:6px;
-  flex:0 0 auto;
-}
-
-@media (max-width: 640px) {
-  .option-row{
-    flex-direction:column;
-    align-items:stretch;
-    gap:12px;
-  }
-  
-  .option-text{
-    padding-right:0;
-    text-align:left;
-  }
-  
-  .rating-buttons{
-    justify-content:space-between;
-    width:100%;
-    gap:4px;
-  }
-}
-
-/* ===== BOUTONS DE NOTATION ===== */
-.rate-btn{
-  min-width:38px;
-  width:38px;
-  height:38px;
-  border-radius:50%;
-  border:2px solid var(--line);
-  background:#fff;
-  color:var(--muted);
-  font-weight:700;
-  font-size:15px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  cursor:pointer;
-  user-select:none;
-  transition:transform .06s ease, border-color .15s ease, box-shadow .15s ease, background .15s ease, color .15s ease;
-  box-shadow:0 1px 3px rgba(0,0,0,.08);
-  flex-shrink:0;
-}
-
-.rate-btn:active{transform:scale(.94)}
-
-.rate-btn.disabled{
-  opacity:0.4;
-  cursor:not-allowed;
-  background:#f3f4f6;
-}
-
-@media (hover:hover){
-  .rate-btn:hover:not(.disabled){
-    border-color:#cbd5e1;
-    box-shadow:0 2px 8px rgba(0,0,0,.12);
-  }
-}
-
-@media (max-width: 640px) {
-  .rate-btn{
-    min-width:44px;
-    width:44px;
-    height:44px;
-    font-size:16px;
-  }
-}
-
-/* ===== ÉTATS SÉLECTIONNÉS ===== */
-.rate-btn.selected.v0{
-  background:var(--c0);
-  border-color:var(--c0);
-  color:#fff;
-}
-
-.rate-btn.selected.v1{
-  background:var(--c1);
-  border-color:var(--c1);
-  color:#fff;
-}
-
-.rate-btn.selected.v2{
-  background:var(--c2);
-  border-color:var(--c2);
-  color:#fff;
-}
-
-.rate-btn.selected.v3{
-  background:var(--c3);
-  border-color:#86efac;
-  color:#166534;
-}
-
-.rate-btn.selected.v4{
-  background:var(--c4);
-  border-color:var(--c4);
-  color:#fff;
-}
-
-/* ===== QUESTIONS NON RÉPONDUES ===== */
-.option-row.unanswered{
+.question-card.unanswered{
   background:#fee;
   border:2px solid #ef4444;
-  border-radius:10px;
-  padding:10px;
-  margin:8px 0;
   animation:pulse-red 1.5s ease-in-out infinite;
 }
 
@@ -432,9 +291,148 @@ html,body{
   }
 }
 
-.option-row.unanswered .option-text{
+.question-header{
+  margin-bottom:12px;
+}
+
+.question-title{
+  font-weight:700;
+  font-size:clamp(16px,3.2vw,18px);
+  color:#5a4af4;
+  margin-bottom:8px;
+}
+
+.question-text{
+  font-size:clamp(14px,2.8vw,16px);
+  line-height:1.5;
+  color:var(--ink);
+  margin-bottom:16px;
+}
+
+/* ===== ÉCHELLE DE NOTATION ===== */
+.rating-scale{
+  display:flex;
+  justify-content:space-between;
+  gap:8px;
+  flex-wrap:wrap;
+}
+
+.rate-btn{
+  flex:1 1 auto;
+  min-width:clamp(80px, 18%, 110px);
+  padding:12px 8px;
+  border-radius:12px;
+  border:2px solid var(--line);
+  background:#fff;
+  cursor:pointer;
+  transition:all .15s ease;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:4px;
+  box-shadow:0 1px 3px rgba(0,0,0,.08);
+}
+
+.rate-btn:hover:not(.disabled){
+  border-color:#cbd5e1;
+  box-shadow:0 2px 8px rgba(0,0,0,.12);
+  transform:translateY(-2px);
+}
+
+.rate-btn:active:not(.disabled){
+  transform:scale(.97);
+}
+
+.rate-btn.disabled{
+  opacity:0.35;
+  cursor:not-allowed;
+  background:#f3f4f6;
+}
+
+.rate-value{
+  font-size:clamp(20px,4vw,24px);
+  font-weight:700;
+  color:var(--muted);
+}
+
+.rate-label{
+  font-size:clamp(10px,2vw,11px);
+  color:var(--muted);
+  text-align:center;
+  line-height:1.2;
   font-weight:600;
-  color:#991b1b;
+}
+
+/* États sélectionnés */
+.rate-btn.selected.v0{
+  background:var(--c0);
+  border-color:var(--c0);
+}
+
+.rate-btn.selected.v0 .rate-value,
+.rate-btn.selected.v0 .rate-label{
+  color:#fff;
+}
+
+.rate-btn.selected.v1{
+  background:var(--c1);
+  border-color:var(--c1);
+}
+
+.rate-btn.selected.v1 .rate-value,
+.rate-btn.selected.v1 .rate-label{
+  color:#fff;
+}
+
+.rate-btn.selected.v2{
+  background:var(--c2);
+  border-color:var(--c2);
+}
+
+.rate-btn.selected.v2 .rate-value,
+.rate-btn.selected.v2 .rate-label{
+  color:#fff;
+}
+
+.rate-btn.selected.v3{
+  background:var(--c3);
+  border-color:#86efac;
+}
+
+.rate-btn.selected.v3 .rate-value,
+.rate-btn.selected.v3 .rate-label{
+  color:#166534;
+}
+
+.rate-btn.selected.v4{
+  background:var(--c4);
+  border-color:var(--c4);
+}
+
+.rate-btn.selected.v4 .rate-value,
+.rate-btn.selected.v4 .rate-label{
+  color:#fff;
+}
+
+/* Responsive échelle */
+@media (max-width: 640px) {
+  .rating-scale{
+    gap:6px;
+  }
+  
+  .rate-btn{
+    min-width:clamp(65px, 18%, 90px);
+    padding:10px 6px;
+  }
+  
+  .rate-value{
+    font-size:clamp(18px,4vw,22px);
+  }
+  
+  .rate-label{
+    font-size:clamp(9px,2vw,10px);
+  }
 }
 
 /* ===== RÉSULTATS PROFIL / UNIVERS ===== */
@@ -530,7 +528,7 @@ html,body{
   flex-shrink:0;
 }
 
-/* ===== BADGE POURCENTAGE DE COMPATIBILITÉ - VERSION DISCRÈTE ===== */
+/* ===== BADGE POURCENTAGE DE COMPATIBILITÉ ===== */
 .univers-percentage{
   font-size:clamp(12px, 2.5vw, 13px);
   font-weight:600;
@@ -546,7 +544,6 @@ html,body{
   opacity:0.8;
 }
 
-/* Couleurs discrètes du badge selon le niveau */
 .univers-card.level-5 .univers-percentage{
   background:#ecfdf5;
   color:#047857;
@@ -608,14 +605,7 @@ html,body{
   color:#dc2626;
 }
 
-/* ===== ROND DE COMPATIBILITÉ - SUPPRIMÉ ===== */
-.univers-compatibility-dot{
-  display:none;
-}
-
 /* Couleurs par niveau de compatibilité */
-
-/* Niveau 5 - Très compatible (≥10) */
 .univers-card.level-5{
   border-left:5px solid var(--very-compatible);
   background:linear-gradient(135deg, #d1fae5 0%, #ffffff 100%);
@@ -625,7 +615,6 @@ html,body{
   box-shadow:0 8px 24px rgba(4, 120, 87, 0.2);
 }
 
-/* Niveau 4 - Compatible (8-9) */
 .univers-card.level-4{
   border-left:5px solid var(--compatible);
   background:linear-gradient(135deg, #d1fae5 0%, #ffffff 100%);
@@ -635,7 +624,6 @@ html,body{
   box-shadow:0 8px 24px rgba(16, 185, 129, 0.2);
 }
 
-/* Niveau 3 - Moyennement compatible (6-7) */
 .univers-card.level-3{
   border-left:5px solid var(--medium-compatible);
   background:linear-gradient(135deg, #f3f4f6 0%, #ffffff 100%);
@@ -645,7 +633,6 @@ html,body{
   box-shadow:0 8px 24px rgba(209, 213, 219, 0.2);
 }
 
-/* Niveau 2 - Peu compatible (4-5) */
 .univers-card.level-2{
   border-left:5px solid var(--low-compatible);
   background:linear-gradient(135deg, #ffedd5 0%, #ffffff 100%);
@@ -655,7 +642,6 @@ html,body{
   box-shadow:0 8px 24px rgba(249, 115, 22, 0.2);
 }
 
-/* Niveau 1 - Pas compatible (0-3) */
 .univers-card.level-1{
   border-left:5px solid var(--not-compatible);
   background:linear-gradient(135deg, #fee2e2 0%, #ffffff 100%);
@@ -666,7 +652,7 @@ html,body{
   box-shadow:0 8px 24px rgba(220, 38, 38, 0.2);
 }
 
-/* État sélectionné - accentué pour tous les niveaux */
+/* État sélectionné */
 .univers-card.selected.level-5,
 .univers-card.selected.level-4{
   border-left-width:8px;
