@@ -179,11 +179,11 @@ function renderQuestions(){
 
 function getLabelForNote(value){
   const labels = {
-    0: "Aucun intérêt",
-    1: "Intérêt faible",
-    2: "Intérêt moyen",
-    3: "Intérêt fort",
-    4: "Intérêt très fort"
+    0: "Pas du tout",
+    1: "Plutôt non",
+    2: "Moyennement",
+    3: "Plutôt oui",
+    4: "Totalement"
   };
   return labels[value];
 }
