@@ -3,7 +3,7 @@
   RECONVERSION 360 IA - PAGE D'ACCUEIL
   ============================================
   Gestion des badges de complétion et actions
-  VERSION 12 QUESTIONS
+  VERSION MODIFIÉE - Copie uniquement bilan + univers
   ============================================
 */
 
@@ -98,7 +98,7 @@ function resetAllData() {
       'selected_univers_details',
       'selectedUnivers',
       'situation_data',
-      'data_exported' // Réinitialiser aussi le flag d'export
+      'data_exported'
     ];
     
     keysToRemove.forEach(key => {
@@ -121,22 +121,7 @@ function resetAllData() {
 /* ===== VÉRIFICATION DES DONNÉES REQUISES ===== */
 
 function checkRequiredData() {
-  // Vérifier les réponses au questionnaire (12 questions)
-  const answersData = localStorage.getItem('questionnaire_answers');
-  let hasCompleteQuestionnaire = false;
-  
-  if(answersData) {
-    try {
-      const answers = JSON.parse(answersData);
-      const answerCount = Object.keys(answers).length;
-      hasCompleteQuestionnaire = answerCount === 12;
-      console.log(`📋 Questionnaire: ${answerCount}/12 réponses`);
-    } catch(e) {
-      console.error("❌ Erreur lecture réponses:", e);
-    }
-  }
-  
-  // Vérifier la sélection d'univers
+  // Vérifier uniquement les univers et le bilan
   const selectedUniversDetails = localStorage.getItem('selected_univers_details');
   let hasUnivers = false;
   
@@ -151,7 +136,6 @@ function checkRequiredData() {
     }
   }
   
-  // Vérifier le bilan personnel
   const situationData = localStorage.getItem('situation_data');
   let hasSituation = false;
   
@@ -166,7 +150,6 @@ function checkRequiredData() {
   }
   
   return { 
-    hasCompleteQuestionnaire, 
     hasUnivers, 
     hasSituation 
   };
@@ -178,15 +161,10 @@ function copyResultsToClipboard() {
   try {
     console.log("📋 Début de la copie des résultats...");
     
-    const { hasCompleteQuestionnaire, hasUnivers, hasSituation } = checkRequiredData();
+    const { hasUnivers, hasSituation } = checkRequiredData();
     
-    if(!hasCompleteQuestionnaire && !hasUnivers && !hasSituation){
-      alert("⚠️ Aucune donnée à copier.\n\nVeuillez d'abord :\n• Compléter le questionnaire (12 questions)\n• Sélectionner au moins 3 univers\n• Compléter votre bilan personnel");
-      return;
-    }
-    
-    if(!hasCompleteQuestionnaire){
-      alert("⚠️ Questionnaire incomplet.\n\nVeuillez répondre aux 12 questions du questionnaire avant de copier vos résultats.");
+    if(!hasUnivers && !hasSituation){
+      alert("⚠️ Aucune donnée à copier.\n\nVeuillez d'abord :\n• Sélectionner au moins 3 univers\n• Compléter votre bilan personnel");
       return;
     }
     
@@ -200,35 +178,12 @@ function copyResultsToClipboard() {
       return;
     }
     
-    const profileData = localStorage.getItem('profile_percentages');
     const universData = localStorage.getItem('selected_univers_details');
     const situationData = localStorage.getItem('situation_data');
     
     let textToCopy = "═══════════════════════════════════════\n";
     textToCopy += "   RECONVERSION 360 IA - MES RÉSULTATS\n";
     textToCopy += "═══════════════════════════════════════\n\n";
-    
-    // PROFIL
-    if(profileData){
-      try {
-        const profile = JSON.parse(profileData);
-        textToCopy += "📊 MON PROFIL D'INTÉRÊT PROFESSIONNEL\n";
-        textToCopy += "───────────────────────────────────────\n";
-        textToCopy += "(Basé sur 12 questions évaluées)\n\n";
-        
-        const sortedDims = Object.entries(profile)
-          .sort((a, b) => b[1].pct - a[1].pct);
-        
-        sortedDims.forEach(([code, data]) => {
-          textToCopy += `• ${data.name}: ${data.pct}% (${data.score}/4 points)\n`;
-        });
-        
-        textToCopy += "\n";
-        console.log("✅ Profil ajouté");
-      } catch(e) {
-        console.error("❌ Erreur profil:", e);
-      }
-    }
     
     // UNIVERS SÉLECTIONNÉS
     if(universData){
@@ -326,7 +281,6 @@ function copyResultsToClipboard() {
       navigator.clipboard.writeText(textToCopy)
         .then(() => {
           console.log("✅ Texte copié avec succès");
-          // Marquer que les données ont été exportées
           localStorage.setItem('data_exported', 'true');
           showCopySuccess();
         })
@@ -350,15 +304,10 @@ function downloadPDF() {
   try {
     console.log("📄 Début de la génération PDF...");
     
-    const { hasCompleteQuestionnaire, hasUnivers, hasSituation } = checkRequiredData();
+    const { hasUnivers, hasSituation } = checkRequiredData();
     
-    if(!hasCompleteQuestionnaire && !hasUnivers && !hasSituation){
-      alert("⚠️ Aucune donnée à télécharger.\n\nVeuillez d'abord :\n• Compléter le questionnaire (12 questions)\n• Sélectionner au moins 3 univers\n• Compléter votre bilan personnel");
-      return;
-    }
-    
-    if(!hasCompleteQuestionnaire){
-      alert("⚠️ Questionnaire incomplet.\n\nVeuillez répondre aux 12 questions du questionnaire avant de générer le PDF.");
+    if(!hasUnivers && !hasSituation){
+      alert("⚠️ Aucune donnée à télécharger.\n\nVeuillez d'abord :\n• Sélectionner au moins 3 univers\n• Compléter votre bilan personnel");
       return;
     }
     
@@ -372,7 +321,6 @@ function downloadPDF() {
       return;
     }
     
-    const profileData = localStorage.getItem('profile_percentages');
     const universData = localStorage.getItem('selected_univers_details');
     const situationData = localStorage.getItem('situation_data');
     
@@ -387,28 +335,6 @@ function downloadPDF() {
       month: 'long', 
       day: 'numeric' 
     }) + "\n\n";
-    
-    if(profileData){
-      try {
-        const profile = JSON.parse(profileData);
-        pdfContent += "───────────────────────────────────────────────────────\n";
-        pdfContent += "📊 MON PROFIL D'INTÉRÊT PROFESSIONNEL\n";
-        pdfContent += "───────────────────────────────────────────────────────\n";
-        pdfContent += "(Basé sur 12 questions évaluées)\n\n";
-        
-        const sortedDims = Object.entries(profile)
-          .sort((a, b) => b[1].pct - a[1].pct);
-        
-        sortedDims.forEach(([code, data]) => {
-          pdfContent += `   ${data.name}\n`;
-          pdfContent += `   Score: ${data.pct}% (${data.score}/4 points)\n\n`;
-        });
-        
-        console.log("✅ Profil ajouté au PDF");
-      } catch(e) {
-        console.error("❌ Erreur profil:", e);
-      }
-    }
     
     if(universData){
       try {
@@ -511,7 +437,6 @@ function downloadPDF() {
     document.body.removeChild(a);
     window.URL.revokeObjectURL(url);
     
-    // Marquer que les données ont été exportées
     localStorage.setItem('data_exported', 'true');
     
     console.log("✅ Fichier téléchargé");
@@ -526,17 +451,11 @@ function downloadPDF() {
 /* ===== VÉRIFICATION ACCÈS PROJET ===== */
 
 function checkProjectAccess() {
-  const { hasCompleteQuestionnaire, hasUnivers, hasSituation } = checkRequiredData();
+  const { hasUnivers, hasSituation } = checkRequiredData();
   
-  // Vérifier d'abord que toutes les données sont complètes
-  if(!hasCompleteQuestionnaire || !hasUnivers || !hasSituation){
-    if(!hasCompleteQuestionnaire && !hasUnivers && !hasSituation){
-      alert("⚠️ Accès non autorisé\n\nPour construire votre projet, vous devez d'abord :\n\n1. Compléter le questionnaire (12 questions)\n2. Sélectionner au moins 3 univers\n3. Remplir votre bilan personnel");
-      return;
-    }
-    
-    if(!hasCompleteQuestionnaire){
-      alert("⚠️ Questionnaire incomplet\n\nVeuillez répondre aux 12 questions du questionnaire avant d'accéder à la construction de votre projet.");
+  if(!hasUnivers || !hasSituation){
+    if(!hasUnivers && !hasSituation){
+      alert("⚠️ Accès non autorisé\n\nPour construire votre projet, vous devez d'abord :\n\n1. Sélectionner au moins 3 univers\n2. Remplir votre bilan personnel");
       return;
     }
     
@@ -551,7 +470,6 @@ function checkProjectAccess() {
     }
   }
   
-  // Vérifier si les données ont été exportées (copiées OU téléchargées)
   const dataExported = localStorage.getItem('data_exported');
   
   if(!dataExported || dataExported !== 'true'){
@@ -567,7 +485,6 @@ function checkProjectAccess() {
     return;
   }
   
-  // Si tout est OK, afficher le message de rappel et ouvrir l'IA
   alert(
     "✅ Accès autorisé !\n\n" +
     "📋 RAPPEL IMPORTANT :\n\n" +
@@ -577,7 +494,6 @@ function checkProjectAccess() {
     "La fenêtre de l'IA va s'ouvrir dans 3 secondes..."
   );
   
-  // Délai de 3 secondes pour laisser le temps de lire le message
   setTimeout(() => {
     window.open('https://chatgpt.com/g/g-6914f232fb048191b5df9a123ac6af82-reconversion-360-ia', '_blank');
   }, 3000);
@@ -601,7 +517,6 @@ function fallbackCopy(text) {
     
     if(successful){
       console.log("✅ Copie réussie (méthode alternative)");
-      // Marquer que les données ont été exportées
       localStorage.setItem('data_exported', 'true');
       showCopySuccess();
     } else {
