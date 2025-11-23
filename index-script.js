@@ -4,6 +4,7 @@
   ============================================
   Gestion des badges de complétion et actions
   VERSION MODIFIÉE - Copie profil + univers + bilan
+  CORRECTION: Mapping des dimensions
   ============================================
 */
 
@@ -215,19 +216,19 @@ function copyResultsToClipboard() {
         textToCopy += "🎯 MON PROFIL PSYCHOMÉTRIQUE\n";
         textToCopy += "───────────────────────────────────────\n\n";
         
+        // MAPPING CORRECT DES DIMENSIONS
         const dimensionNames = {
-          'D1': 'Leadership & Autorité',
-          'D2': 'Empathie & Relationnel',
-          'D3': 'Innovation & Créativité',
-          'D4': 'Rigueur & Organisation',
-          'D5': 'Technicité & Expertise',
-          'D6': 'Communication & Expression',
-          'D7': 'Travail Manuel & Pratique',
-          'D8': 'Analyse & Réflexion',
-          'D9': 'Autonomie & Indépendance',
-          'D10': 'Collaboration & Équipe',
-          'D11': 'Adaptabilité & Flexibilité',
-          'D12': 'Engagement & Valeurs'
+          'AE': 'Autorité & Encadrement',
+          'ST': 'Social & Entraide',
+          'IC': 'Innovation & Créativité',
+          'DC': 'Détail & Conformité',
+          'IN': 'Investigation & Analyse',
+          'AA': 'Artistique & Esthétique',
+          'RM': 'Réaliste & Manuel',
+          'MT': 'Méthode & Organisation',
+          'RS': 'Relationnel & Service',
+          'AI': 'Autonomie & Initiative',
+          'MP': 'Manipulation & Persuasion'
         };
         
         // Trier les dimensions par pourcentage décroissant
@@ -426,19 +427,19 @@ function downloadPDF() {
         pdfContent += "🎯 MON PROFIL PSYCHOMÉTRIQUE\n";
         pdfContent += "───────────────────────────────────────────────────────\n\n";
         
+        // MAPPING CORRECT DES DIMENSIONS
         const dimensionNames = {
-          'D1': 'Leadership & Autorité',
-          'D2': 'Empathie & Relationnel',
-          'D3': 'Innovation & Créativité',
-          'D4': 'Rigueur & Organisation',
-          'D5': 'Technicité & Expertise',
-          'D6': 'Communication & Expression',
-          'D7': 'Travail Manuel & Pratique',
-          'D8': 'Analyse & Réflexion',
-          'D9': 'Autonomie & Indépendance',
-          'D10': 'Collaboration & Équipe',
-          'D11': 'Adaptabilité & Flexibilité',
-          'D12': 'Engagement & Valeurs'
+          'AE': 'Autorité & Encadrement',
+          'ST': 'Social & Entraide',
+          'IC': 'Innovation & Créativité',
+          'DC': 'Détail & Conformité',
+          'IN': 'Investigation & Analyse',
+          'AA': 'Artistique & Esthétique',
+          'RM': 'Réaliste & Manuel',
+          'MT': 'Méthode & Organisation',
+          'RS': 'Relationnel & Service',
+          'AI': 'Autonomie & Initiative',
+          'MP': 'Manipulation & Persuasion'
         };
         
         // Trier les dimensions par pourcentage décroissant
