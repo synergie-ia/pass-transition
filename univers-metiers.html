@@ -11,8 +11,6 @@
     --ink:#2c3e50;
     --muted:#dfe6e9;
     --accent:#2c3e50;
-    --tooltip:#2c3e50;
-    --shadow:rgba(0,0,0,.18);
     --primary:#667eea;
   }
 
@@ -41,13 +39,12 @@
     background:#fff;
     border-radius:12px;
     box-shadow:0 2px 6px rgba(0,0,0,.06);
-    padding:1.2rem 0.8rem;
+    padding:1.2rem 0.8rem 2.5rem;
     transition:transform .25s ease,box-shadow .25s ease;
-    cursor:pointer;
     display:flex;
     flex-direction:column;
     align-items:center;
-    justify-content:center;
+    justify-content:flex-start;
   }
 
   .card:hover{
@@ -65,52 +62,68 @@
     color:var(--ink);
     font-weight:600;
     line-height:1.3;
-    margin-bottom:0.5rem;
+    text-align:center;
   }
 
-  /* --- Loupe --- */
+  /* --- Loupe en haut à droite et plus petite --- */
   .magnifier{
-    width:24px;
-    height:24px;
-    opacity:0.6;
-    transition:opacity .2s ease;
+    position:absolute;
+    top:8px;
+    right:8px;
+    width:16px;
+    height:16px;
+    opacity:0.5;
+    transition:all .2s ease;
+    cursor:pointer;
+    stroke:var(--ink);
   }
 
-  .card:hover .magnifier{
+  .magnifier:hover{
+    opacity:1;
+    transform:scale(1.15);
+  }
+  
+  .card.sub-visible .magnifier{
     opacity:1;
   }
 
-  /* --- Infobulles --- */
-  .tooltip{
-    position:absolute;
-    left:50%;
-    transform:translateX(-50%);
-    width:min(320px,88vw);
-    background:var(--tooltip);
-    color:#fff;
+  /* --- Sous-univers --- */
+  .sub-univers{
+    display:none;
+    width:100%;
+    background:#f9fafb;
+    border-radius:8px;
+    padding:0.8rem;
+    margin-top:0.8rem;
     text-align:left;
-    border-radius:12px;
-    padding:1rem 1.2rem;
-    box-shadow:0 12px 28px rgba(0,0,0,.25);
-    line-height:1.5;
-    font-size:.95rem;
-    visibility:hidden;
-    opacity:0;
-    transition:opacity .22s ease,transform .22s ease;
-    pointer-events:none;
-    z-index:1000;
+    font-size:0.75rem;
+    line-height:1.4;
+    max-height:300px;
+    overflow-y:auto;
   }
 
-  .tooltip.up{bottom:110%;transform:translateX(-50%) translateY(-4px);}
-  .tooltip.down{top:110%;transform:translateX(-50%) translateY(4px);}
-  .tooltip.show{visibility:visible;opacity:1;}
-  .card:nth-last-child(-n+4) .tooltip{bottom:110%;top:auto;}
+  .sub-univers.visible{
+    display:block;
+  }
 
-  footer{
-    background:var(--accent);
-    color:var(--muted);
-    padding:1rem;
-    font-size:.9rem;
+  .sub-item{
+    padding:0.4rem 0;
+    border-bottom:1px dashed #e5e7eb;
+  }
+
+  .sub-item:last-child{
+    border-bottom:none;
+  }
+
+  .sub-name{
+    font-weight:600;
+    color:var(--ink);
+    margin-bottom:0.2rem;
+  }
+
+  .sub-desc{
+    color:#6b7280;
+    font-size:0.7rem;
   }
 
   @media(hover:none) and (pointer:coarse){
@@ -121,317 +134,483 @@
 <body>
 
 <!-- 🌍 Grille des univers -->
-<div class="grid">
-    <!-- 1. AGRICULTURE -->
-  <div class="card" data-url="https://chat.openai.com/g/example-agriculture">
-    <div class="icon">🌾</div>
-    <div class="label">Agriculture, Nature & Animaux</div>
-    <svg class="magnifier" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-      <circle cx="11" cy="11" r="8"></circle>
-      <path d="m21 21-4.35-4.35"></path>
-    </svg>
-    <div class="tooltip">
-      🌱 Cultures<br>🐄 Élevage<br>🍇 Viticulture<br>🧀 Agroalimentaire<br>
-      🌲 Forêts<br>🌼 Paysage<br>🦋 Biodiversité<br>🔬 Agronomie
-    </div>
-  </div>
-
-  <!-- 2. ARTS -->
-  <div class="card" data-url="https://chat.openai.com/g/example-arts">
-    <div class="icon">🎨</div>
-    <div class="label">Arts, Design & Création</div>
-    <svg class="magnifier" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-      <circle cx="11" cy="11" r="8"></circle>
-      <path d="m21 21-4.35-4.35"></path>
-    </svg>
-    <div class="tooltip">
-      🖌️ Arts visuels<br>🖍️ Graphisme<br>🪑 Design produit<br>👗 Mode & textile<br>
-      🪡 Artisanat d'art<br>📸 Photographie<br>🗿 Sculpture<br>💻 Arts numériques
-    </div>
-  </div>
-
-  <!-- 3. COMMERCE -->
-  <div class="card" data-url="https://chat.openai.com/g/example-commerce">
-    <div class="icon">🛒</div>
-    <div class="label">Commerce & Vente</div>
-    <svg class="magnifier" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-      <circle cx="11" cy="11" r="8"></circle>
-      <path d="m21 21-4.35-4.35"></path>
-    </svg>
-    <div class="tooltip">
-      🏬 Détail<br>🤝 B2B<br>🛍️ E-commerce<br>🏠 Immobilier<br>
-      📣 Marketing<br>📢 Publicité<br>🧾 Achats<br>🗣️ Services
-    </div>
-  </div>
-
-  <!-- 4. COMMUNICATION -->
-  <div class="card" data-url="https://chat.openai.com/g/example-communication">
-    <div class="icon">🎙️</div>
-    <div class="label">Communication & Médias</div>
-    <svg class="magnifier" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-      <circle cx="11" cy="11" r="8"></circle>
-      <path d="m21 21-4.35-4.35"></path>
-    </svg>
-    <div class="tooltip">
-      🗞️ Journalisme<br>🎥 Audiovisuel<br>🎬 Cinéma<br>🎧 Radio / Podcast<br>
-      💬 Réseaux sociaux<br>📢 Relations publiques<br>🎯 Publicité<br>📰 Édition
-    </div>
-  </div>
-
-  <!-- 5. CONSTRUCTION -->
-  <div class="card" data-url="https://chat.openai.com/g/example-construction">
-    <div class="icon">🏗️</div>
-    <div class="label">Construction, BTP & Habitat</div>
-    <svg class="magnifier" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-      <circle cx="11" cy="11" r="8"></circle>
-      <path d="m21 21-4.35-4.35"></path>
-    </svg>
-    <div class="tooltip">
-      🧱 Gros œuvre<br>🎨 Second œuvre<br>⚡ Électricité<br>🚿 Plomberie<br>
-      📐 Architecture<br>🛣️ Travaux publics<br>🪚 Menuiserie<br>🏚️ Rénovation
-    </div>
-  </div>
-
-  <!-- 6. DROIT -->
-  <div class="card" data-url="https://chat.openai.com/g/example-droit">
-    <div class="icon">⚖️</div>
-    <div class="label">Droit, Administration & Justice</div>
-    <svg class="magnifier" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-      <circle cx="11" cy="11" r="8"></circle>
-      <path d="m21 21-4.35-4.35"></path>
-    </svg>
-    <div class="tooltip">
-      🏛️ Administration publique<br>⚖️ Droit social<br>📜 Avocature<br>💼 Collectivités<br>
-      📈 Finances publiques<br>🤝 Médiation<br>🌍 Gouvernance<br>👩‍⚖️ Justice
-    </div>
-  </div>
-
-  <!-- 7. ÉDUCATION -->
-  <div class="card" data-url="https://chat.openai.com/g/example-education">
-    <div class="icon">🎓</div>
-    <div class="label">Éducation & Formation</div>
-    <svg class="magnifier" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-      <circle cx="11" cy="11" r="8"></circle>
-      <path d="m21 21-4.35-4.35"></path>
-    </svg>
-    <div class="tooltip">
-      🏫 Primaire<br>📚 Secondaire<br>🎓 Supérieur<br>🔁 Formation continue<br>
-      👩‍🏫 Spécialisée<br>💻 E-learning<br>🎯 Coaching<br>🔍 Recherche
-    </div>
-  </div>
-
-  <!-- 8. ENVIRONNEMENT -->
-  <div class="card" data-url="https://chat.openai.com/g/example-environnement">
-    <div class="icon">🌍</div>
-    <div class="label">Environnement & Énergies</div>
-    <svg class="magnifier" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-      <circle cx="11" cy="11" r="8"></circle>
-      <path d="m21 21-4.35-4.35"></path>
-    </svg>
-    <div class="tooltip">
-      ☀️ Renouvelables<br>🔌 Réseaux énergie<br>💧 Eau<br>♻️ Recyclage<br>
-      🌿 Protection<br>🧪 Dépollution<br>🦋 Écologie<br>🌦️ Climat
-    </div>
-  </div>
-
-  <!-- 9. FINANCE -->
-  <div class="card" data-url="https://chat.openai.com/g/example-finance">
-    <div class="icon">💶</div>
-    <div class="label">Gestion & Finance</div>
-    <svg class="magnifier" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-      <circle cx="11" cy="11" r="8"></circle>
-      <path d="m21 21-4.35-4.35"></path>
-    </svg>
-    <div class="tooltip">
-      🏦 Banque<br>📈 Marchés<br>🛡️ Assurance<br>🔍 Audit<br>
-      💼 Patrimoine<br>📚 Comptabilité<br>📊 Contrôle<br>💰 Crédit
-    </div>
-  </div>
-
-  <!-- 10. TOURISME -->
-  <div class="card" data-url="https://chat.openai.com/g/example-tourisme">
-    <div class="icon">🍽️</div>
-    <div class="label">Hôtellerie, Restauration & Tourisme</div>
-    <svg class="magnifier" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-      <circle cx="11" cy="11" r="8"></circle>
-      <path d="m21 21-4.35-4.35"></path>
-    </svg>
-    <div class="tooltip">
-      🏨 Hôtellerie<br>👨‍🍳 Cuisine<br>🍷 Gastronomie<br>🥗 Collective<br>
-      ✈️ Voyage<br>🎉 Événementiel<br>🍇 Œnotourisme<br>🌿 Durable
-    </div>
-  </div>
-
-  <!-- 11. INDUSTRIE -->
-  <div class="card" data-url="https://chat.openai.com/g/example-industrie">
-    <div class="icon">⚙️</div>
-    <div class="label">Industrie & Fabrication</div>
-    <svg class="magnifier" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-      <circle cx="11" cy="11" r="8"></circle>
-      <path d="m21 21-4.35-4.35"></path>
-    </svg>
-    <div class="tooltip">
-      🏭 Production<br>🧰 Maintenance et SAV<br>🤖 Robotique<br>✔️ Qualité<br>
-      🔧 Mécanique<br>🔩 Métallurgie<br>💡 Électrotechnique<br>🚀 Aéronautique
-    </div>
-  </div>
-
-  <!-- 12. LOGISTIQUE -->
-  <div class="card" data-url="https://chat.openai.com/g/example-logistique">
-    <div class="icon">🚚</div>
-    <div class="label">Logistique & Transport</div>
-    <svg class="magnifier" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-      <circle cx="11" cy="11" r="8"></circle>
-      <path d="m21 21-4.35-4.35"></path>
-    </svg>
-    <div class="tooltip">
-      🚛 Routier<br>⚓ Maritime<br>✈️ Aérien<br>🚆 Ferroviaire<br>
-      📦 Stockage<br>🏭 Supply chain<br>🚌 Mobilité<br>🧾 Douanes
-    </div>
-  </div>
-
-  <!-- 13. MANAGEMENT -->
-  <div class="card" data-url="https://chat.openai.com/g/example-management">
-    <div class="icon">💼</div>
-    <div class="label">Management & Entrepreneuriat</div>
-    <svg class="magnifier" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-      <circle cx="11" cy="11" r="8"></circle>
-      <path d="m21 21-4.35-4.35"></path>
-    </svg>
-    <div class="tooltip">
-      🎯 Direction<br>🚀 Création<br>🗂️ Projets<br>🧠 Stratégie<br>
-      👥 RH<br>🤝 Leadership<br>📈 Performance<br>💡 Innovation
-    </div>
-  </div>
-
-  <!-- 14. NUMÉRIQUE -->
-  <div class="card" data-url="https://chat.openai.com/g/example-numerique">
-    <div class="icon">💻</div>
-    <div class="label">Numérique & Informatique</div>
-    <svg class="magnifier" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-      <circle cx="11" cy="11" r="8"></circle>
-      <path d="m21 21-4.35-4.35"></path>
-    </svg>
-    <div class="tooltip">
-      👨‍💻 Développement<br>🌐 Web & mobile<br>🔐 Cybersécurité<br>📈 Data & IA<br>
-      ☁️ Cloud<br>🔌 Réseaux<br>⚙️ DevOps<br>🎨 UX/UI
-    </div>
-  </div>
-
-  <!-- 15. SANTÉ -->
-  <div class="card" data-url="https://chat.openai.com/g/example-sante">
-    <div class="icon">⚕️</div>
-    <div class="label">Santé & Médical</div>
-    <svg class="magnifier" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-      <circle cx="11" cy="11" r="8"></circle>
-      <path d="m21 21-4.35-4.35"></path>
-    </svg>
-    <div class="tooltip">
-      🩺 Médecine<br>👩‍⚕️ Soins<br>🔪 Chirurgie<br>💊 Pharmacie<br>
-      🏃 Rééducation<br>🔬 Imagerie<br>🧠 Psychologie<br>🚑 Urgences
-    </div>
-  </div>
-
-  <!-- 16. SCIENCES -->
-  <div class="card" data-url="https://chat.openai.com/g/example-sciences">
-    <div class="icon">🔬</div>
-    <div class="label">Sciences & Recherche</div>
-    <svg class="magnifier" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-      <circle cx="11" cy="11" r="8"></circle>
-      <path d="m21 21-4.35-4.35"></path>
-    </svg>
-    <div class="tooltip">
-      🧪 Recherche<br>💡 R&D<br>🧬 Biotech<br>⚗️ Chimie<br>
-      🔭 Physique<br>⛰️ Géologie<br>🌌 Astronomie<br>🧠 Neurosciences
-    </div>
-  </div>
-
-  <!-- 17. SÉCURITÉ -->
-  <div class="card" data-url="https://chat.openai.com/g/example-securite">
-    <div class="icon">🛡️</div>
-    <div class="label">Sécurité & Défense</div>
-    <svg class="magnifier" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-      <circle cx="11" cy="11" r="8"></circle>
-      <path d="m21 21-4.35-4.35"></path>
-    </svg>
-    <div class="tooltip">
-      🕵️ Sécurité privée<br>🪖 Armée<br>🚓 Police<br>🚒 Pompiers<br>
-      🔐 Cybersécurité<br>⚖️ Droit<br>🏛️ Administration<br>🦺 Prévention
-    </div>
-  </div>
-
-  <!-- 18. SOCIAL -->
-  <div class="card" data-url="https://chat.openai.com/g/example-social">
-    <div class="icon">❤️</div>
-    <div class="label">Social & Aide à la Personne</div>
-    <svg class="magnifier" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-      <circle cx="11" cy="11" r="8"></circle>
-      <path d="m21 21-4.35-4.35"></path>
-    </svg>
-    <div class="tooltip">
-      🤝 Travail social<br>👶 Enfance<br>💼 Insertion<br>🏡 Aide<br>
-      ♿ Handicap<br>🗣️ Médiation<br>🧩 Inclusion<br>🫶 Solidarité
-    </div>
-  </div>
-
-  <!-- 19. SPORT -->
-  <div class="card" data-url="https://chat.openai.com/g/example-sport">
-    <div class="icon">🏋️</div>
-    <div class="label">Sport, Loisirs & Bien-être</div>
-    <svg class="magnifier" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-      <circle cx="11" cy="11" r="8"></circle>
-      <path d="m21 21-4.35-4.35"></path>
-    </svg>
-    <div class="tooltip">
-      🏃 Animation<br>💪 Coaching<br>🧘 Fitness<br>🏆 Compétition<br>
-      🌿 Bien-être<br>🥗 Nutrition<br>🎽 Management<br>🏟️ Infrastructures
-    </div>
-  </div>
-
-</div>
+<div class="grid" id="universGrid"></div>
 
 <script>
-const cards=document.querySelectorAll('.card');
-let lastOpenedCard=null;
+// Données des univers (extrait de universesData)
+const universesData = [
+  {
+    id: 1,
+    name: "Agriculture, nature & animaux",
+    icon: "🌾",
+    subUniverses: [
+      { icon: "🏭", name: "Agroalimentaire industriel" },
+      { icon: "🌱", name: "Production biologique & circuits courts" },
+      { icon: "🔬", name: "Agronomie & recherche appliquée" },
+      { icon: "🌾", name: "Cultures céréalières & grandes exploitations" },
+      { icon: "🍇", name: "Viticulture & œnologie" },
+      { icon: "🥕", name: "Maraîchage & production maraîchère" },
+      { icon: "🌺", name: "Horticulture & pépinière" },
+      { icon: "🌳", name: "Paysagisme & aménagement végétal" },
+      { icon: "🌲", name: "Forêt & sylviculture durable" },
+      { icon: "🐄", name: "Élevage bovin / ovin / porcin / avicole" },
+      { icon: "🐟", name: "Aquaculture & pêche durable" },
+      { icon: "🐝", name: "Apiculture & insectes utiles" },
+      { icon: "💧", name: "Gestion de l'eau, irrigation & bassins versants" },
+      { icon: "🏭", name: "Valorisation & transformation des produits agricoles" },
+      { icon: "🐕", name: "Soins & services aux animaux domestiques" }
+    ]
+  },
+  {
+    id: 2,
+    name: "Arts, design & création",
+    icon: "🎨",
+    subUniverses: [
+      { icon: "🎨", name: "Arts visuels & peinture" },
+      { icon: "🗿", name: "Sculpture & installations" },
+      { icon: "💻", name: "Design graphique & communication visuelle" },
+      { icon: "🛋️", name: "Design produit & industriel" },
+      { icon: "🏠", name: "Architecture intérieure & décoration" },
+      { icon: "📷", name: "Photographie & image numérique" },
+      { icon: "🎬", name: "Cinéma, audiovisuel & animation" },
+      { icon: "👗", name: "Mode, stylisme & textile" },
+      { icon: "✋", name: "Artisanat d'art traditionnel" },
+      { icon: "🎭", name: "Scénographie & design d'espace" },
+      { icon: "✏️", name: "Illustration & bande dessinée" },
+      { icon: "🏛️", name: "Patrimoine, muséographie & restauration d'art" },
+      { icon: "🎭", name: "Spectacle vivant & arts de la scène" },
+      { icon: "💎", name: "Métiers du luxe & savoir-faire d'exception" },
+      { icon: "🎪", name: "Régie & technique du spectacle" }
+    ]
+  },
+  {
+    id: 3,
+    name: "Commerce, marketing & vente",
+    icon: "🛒",
+    subUniverses: [
+      { icon: "🏪", name: "Commerce de détail & retail" },
+      { icon: "💻", name: "E-commerce & marketplaces" },
+      { icon: "🤝", name: "Vente B2B & négociation commerciale" },
+      { icon: "🚪", name: "Représentation & prospection" },
+      { icon: "📦", name: "Merchandising & mise en valeur produits" },
+      { icon: "📊", name: "Marketing stratégique" },
+      { icon: "📱", name: "Marketing digital & réseaux sociaux" },
+      { icon: "🎤", name: "Communication commerciale & influence" },
+      { icon: "🛍️", name: "Achats & approvisionnement" },
+      { icon: "📈", name: "Gestion de rayon & management de point de vente" },
+      { icon: "🏢", name: "Immobilier commercial" },
+      { icon: "🏦", name: "Banque & assurance commerciale" },
+      { icon: "😊", name: "Service client & relation après-vente" },
+      { icon: "💎", name: "Commerce du luxe & clientèle premium" },
+      { icon: "🛒", name: "Vente en ligne & marketplaces spécialisées" }
+    ]
+  },
+  {
+    id: 4,
+    name: "Communication, médias & culture",
+    icon: "📺",
+    subUniverses: [
+      { icon: "📰", name: "Journalisme & presse écrite" },
+      { icon: "📻", name: "Audiovisuel & production radio/TV" },
+      { icon: "🎉", name: "Relations publiques & événementiel" },
+      { icon: "🏢", name: "Communication d'entreprise" },
+      { icon: "🏛️", name: "Communication publique & politique" },
+      { icon: "📖", name: "Édition & correction" },
+      { icon: "🎥", name: "Création de contenus numériques" },
+      { icon: "📢", name: "Publicité & stratégie de marque" },
+      { icon: "📱", name: "Influence, réseaux & storytelling" },
+      { icon: "🌍", name: "Traduction & interprétation" },
+      { icon: "🎭", name: "Médiation culturelle & animation de projets" },
+      { icon: "🎙️", name: "Podcasting & création audio" }
+    ]
+  },
+  {
+    id: 5,
+    name: "Construction, BTP & habitat",
+    icon: "🏗️",
+    subUniverses: [
+      { icon: "📐", name: "Architecture & conception" },
+      { icon: "🧱", name: "Gros œuvre & maçonnerie" },
+      { icon: "🎨", name: "Second œuvre & finitions" },
+      { icon: "🪵", name: "Menuiserie & charpente bois" },
+      { icon: "🔧", name: "Plomberie, chauffage & climatisation" },
+      { icon: "⚡", name: "Électricité & domotique" },
+      { icon: "🛣️", name: "Travaux publics & voirie" },
+      { icon: "🏗️", name: "Génie civil & infrastructures" },
+      { icon: "🌿", name: "Rénovation énergétique & éco-bâtiment" },
+      { icon: "📋", name: "Études techniques & dessin bâtiment" },
+      { icon: "👷", name: "Coordination & conduite de chantier" },
+      { icon: "🏢", name: "Gestion immobilière & copropriétés" },
+      { icon: "🏙️", name: "Aménagement urbain & espaces publics" }
+    ]
+  },
+  {
+    id: 6,
+    name: "Droit, administration & politique publique",
+    icon: "⚖️",
+    subUniverses: [
+      { icon: "⚖️", name: "Droit privé & judiciaire" },
+      { icon: "💼", name: "Droit des affaires & fiscalité" },
+      { icon: "🤝", name: "Droit social & du travail" },
+      { icon: "🏛️", name: "Droit public & institutions" },
+      { icon: "📋", name: "Administration publique" },
+      { icon: "👥", name: "Ressources humaines & médiation" },
+      { icon: "🗺️", name: "Gouvernance territoriale & collectivités locales" },
+      { icon: "🌍", name: "Diplomatie & relations internationales" },
+      { icon: "📝", name: "Gestion des marchés publics" },
+      { icon: "⚖️", name: "Intelligence juridique & conformité" },
+      { icon: "📜", name: "Notariat & professions réglementées" }
+    ]
+  },
+  {
+    id: 7,
+    name: "Éducation, formation & apprentissage",
+    icon: "🎓",
+    subUniverses: [
+      { icon: "📚", name: "Enseignement primaire" },
+      { icon: "🏫", name: "Enseignement secondaire" },
+      { icon: "🎓", name: "Enseignement supérieur" },
+      { icon: "💼", name: "Formation professionnelle & continue" },
+      { icon: "🧭", name: "Orientation & accompagnement" },
+      { icon: "📈", name: "Coaching & développement personnel" },
+      { icon: "📖", name: "Ingénierie pédagogique" },
+      { icon: "♿", name: "Éducation spécialisée & médiation éducative" },
+      { icon: "🔬", name: "Recherche en sciences de l'éducation" },
+      { icon: "🎉", name: "Animation socioculturelle" }
+    ]
+  },
+  {
+    id: 8,
+    name: "Environnement, climat & énergies",
+    icon: "🌍",
+    subUniverses: [
+      { icon: "♻️", name: "Gestion des déchets & recyclage" },
+      { icon: "💧", name: "Traitement de l'eau & dépollution" },
+      { icon: "☀️", name: "Énergies renouvelables" },
+      { icon: "⚡", name: "Hydrogène & stockage d'énergie" },
+      { icon: "☢️", name: "Énergie nucléaire & sûreté" },
+      { icon: "🌡️", name: "Génie climatique & efficacité énergétique" },
+      { icon: "🌦️", name: "Adaptation au changement climatique" },
+      { icon: "📊", name: "Bilan carbone & comptabilité environnementale" },
+      { icon: "♻️", name: "Écoconception & économie circulaire" },
+      { icon: "🏙️", name: "Aménagement durable des territoires" },
+      { icon: "🔧", name: "Ingénierie environnementale" },
+      { icon: "🌿", name: "Protection de la biodiversité & conservation" },
+      { icon: "🌳", name: "Restauration écologique & gestion des milieux naturels" },
+      { icon: "🚗", name: "Mobilité durable & transports propres" },
+      { icon: "🌾", name: "Agriculture régénératrice & sols vivants" },
+      { icon: "⚠️", name: "Gestion des risques naturels & résilience" }
+    ]
+  },
+  {
+    id: 9,
+    name: "Gestion, finance & comptabilité",
+    icon: "💰",
+    subUniverses: [
+      { icon: "📊", name: "Comptabilité & fiscalité" },
+      { icon: "🔍", name: "Audit & contrôle de gestion" },
+      { icon: "💵", name: "Trésorerie & financement" },
+      { icon: "🏦", name: "Banque & assurance" },
+      { icon: "💼", name: "Conseil en gestion de patrimoine" },
+      { icon: "🏢", name: "Gestion d'entreprise & administration" },
+      { icon: "🌱", name: "Finance durable & investissement responsable" },
+      { icon: "📈", name: "Gestion de projets financiers" },
+      { icon: "💳", name: "Fintech & services financiers numériques" },
+      { icon: "🏛️", name: "Gestion budgétaire publique" },
+      { icon: "🔒", name: "Contrôle interne & conformité" }
+    ]
+  },
+  {
+    id: 10,
+    name: "Hôtellerie, restauration & tourisme",
+    icon: "🏨",
+    subUniverses: [
+      { icon: "👨‍🍳", name: "Cuisine gastronomique" },
+      { icon: "🍽️", name: "Restauration collective" },
+      { icon: "🛎️", name: "Service & sommellerie" },
+      { icon: "🏨", name: "Hôtellerie & hébergement" },
+      { icon: "🙋", name: "Accueil & réception" },
+      { icon: "🗺️", name: "Tourisme local & culturel" },
+      { icon: "✈️", name: "Tourisme international" },
+      { icon: "🎪", name: "Événementiel & congrès" },
+      { icon: "🏨", name: "Management hôtelier" },
+      { icon: "🍷", name: "Œnotourisme & terroir" },
+      { icon: "♻️", name: "Gestion durable du tourisme" }
+    ]
+  },
+  {
+    id: 11,
+    name: "Immobilier & patrimoine",
+    icon: "🏠",
+    subUniverses: [
+      { icon: "🏡", name: "Transaction immobilière résidentielle" },
+      { icon: "🏢", name: "Transaction immobilière d'entreprise & commerces" },
+      { icon: "🏗️", name: "Promotion & développement immobilier" },
+      { icon: "🔑", name: "Gestion locative & syndic de copropriété" },
+      { icon: "💰", name: "Expertise & évaluation immobilière" },
+      { icon: "📈", name: "Investissement & conseil patrimonial immobilier" },
+      { icon: "🏙️", name: "Aménagement foncier & urbanisme opérationnel" },
+      { icon: "🏘️", name: "Immobilier social & logement accompagné" },
+      { icon: "🔧", name: "Facility management & gestion technique" },
+      { icon: "💎", name: "Immobilier de luxe & biens d'exception" }
+    ]
+  },
+  {
+    id: 12,
+    name: "Industrie, fabrication & production",
+    icon: "⚙️",
+    subUniverses: [
+      { icon: "🏭", name: "Production industrielle" },
+      { icon: "🔧", name: "Maintenance & SAV" },
+      { icon: "🔩", name: "Mécanique & usinage" },
+      { icon: "⚡", name: "Électrotechnique & automatisme" },
+      { icon: "🤖", name: "Robotique & cobotique" },
+      { icon: "⚗️", name: "Chimie & matériaux" },
+      { icon: "✈️", name: "Aéronautique & spatial" },
+      { icon: "🔥", name: "Métallurgie & sidérurgie" },
+      { icon: "💊", name: "Industrie pharmaceutique" },
+      { icon: "🧪", name: "Plasturgie & composites" },
+      { icon: "✅", name: "Qualité, sécurité & environnement industriel" },
+      { icon: "📦", name: "Supply chain industrielle" },
+      { icon: "🖨️", name: "Fabrication additive & impression 3D" },
+      { icon: "👕", name: "Industrie textile & habillement" },
+      { icon: "💻", name: "Micro-électronique & semi-conducteurs" },
+      { icon: "⛏️", name: "Industries extractives & carrières" },
+      { icon: "🚢", name: "Construction & maintenance navale" }
+    ]
+  },
+  {
+    id: 13,
+    name: "Logistique, transport & mobilité",
+    icon: "🚚",
+    subUniverses: [
+      { icon: "📦", name: "Logistique & entreposage" },
+      { icon: "🔗", name: "Supply chain management" },
+      { icon: "🌍", name: "Douanes & commerce international" },
+      { icon: "🚛", name: "Transport routier & livraison" },
+      { icon: "🚆", name: "Transport ferroviaire" },
+      { icon: "✈️", name: "Transport aérien" },
+      { icon: "🚢", name: "Transport maritime & fluvial" },
+      { icon: "🚌", name: "Mobilité urbaine & transports publics" },
+      { icon: "🚗", name: "Gestion de flotte & maintenance" },
+      { icon: "🚴", name: "Logistique urbaine & dernier kilomètre" },
+      { icon: "⚓", name: "Activités portuaires & maritimes" },
+      { icon: "🚙", name: "Mobilité autonome & véhicules intelligents" }
+    ]
+  },
+  {
+    id: 14,
+    name: "Management, entrepreneuriat & stratégie",
+    icon: "📊",
+    subUniverses: [
+      { icon: "🚀", name: "Création d'entreprise & start-up" },
+      { icon: "📋", name: "Gestion de projets" },
+      { icon: "💡", name: "Innovation & transformation digitale" },
+      { icon: "👥", name: "Management d'équipe" },
+      { icon: "🌱", name: "RSE & développement durable" },
+      { icon: "🎯", name: "Stratégie d'entreprise" },
+      { icon: "🏛️", name: "Pilotage de structures publiques ou privées" },
+      { icon: "🌍", name: "Management interculturel" },
+      { icon: "💼", name: "Conseil & accompagnement stratégique" },
+      { icon: "⚖️", name: "Gouvernance & leadership éthique" }
+    ]
+  },
+  {
+    id: 15,
+    name: "Numérique, informatique & data",
+    icon: "💻",
+    subUniverses: [
+      { icon: "🌐", name: "Développement web & mobile" },
+      { icon: "☁️", name: "DevOps & cloud computing" },
+      { icon: "🔐", name: "Cybersécurité" },
+      { icon: "🖥️", name: "Réseaux & systèmes" },
+      { icon: "🤖", name: "Intelligence artificielle & machine learning" },
+      { icon: "📊", name: "Data science & big data" },
+      { icon: "🥽", name: "Réalité augmentée & métavers" },
+      { icon: "🎨", name: "UX/UI design" },
+      { icon: "🏭", name: "Informatique industrielle & IoT" },
+      { icon: "🧩", name: "Logiciels métiers & ERP" },
+      { icon: "⚙️", name: "No-code & automation" },
+      { icon: "🎨", name: "Design numérique & multimédia" },
+      { icon: "⛓️", name: "Blockchain & web3" },
+      { icon: "♻️", name: "Informatique durable & sobriété numérique" },
+      { icon: "🎮", name: "Gaming, jeux vidéo & développement ludique" },
+      { icon: "🏆", name: "E-sport, streaming & création de contenu gaming" }
+    ]
+  },
+  {
+    id: 16,
+    name: "Santé, bien-être & médical",
+    icon: "⚕️",
+    subUniverses: [
+      { icon: "🩺", name: "Médecine générale" },
+      { icon: "🏥", name: "Chirurgie & spécialités hospitalières" },
+      { icon: "📷", name: "Radiologie & imagerie médicale" },
+      { icon: "🔬", name: "Biologie & analyses médicales" },
+      { icon: "💊", name: "Pharmacie & biotechnologies" },
+      { icon: "🩹", name: "Infirmier & soins paramédicaux" },
+      { icon: "🦵", name: "Rééducation & kinésithérapie" },
+      { icon: "🧠", name: "Santé mentale & psychologie" },
+      { icon: "🥗", name: "Nutrition & diététique" },
+      { icon: "🏥", name: "Santé publique & prévention" },
+      { icon: "👵", name: "Accompagnement des personnes âgées" },
+      { icon: "⚽", name: "Médecine du sport" },
+      { icon: "💻", name: "Médecine connectée & télésanté" }
+    ]
+  },
+  {
+    id: 17,
+    name: "Sciences, recherche & innovation",
+    icon: "🔬",
+    subUniverses: [
+      { icon: "🌌", name: "Physique & astrophysique" },
+      { icon: "📐", name: "Mathématiques & statistiques" },
+      { icon: "⚗️", name: "Chimie & matériaux" },
+      { icon: "🧬", name: "Biotechnologies" },
+      { icon: "🌍", name: "Géosciences & climatologie" },
+      { icon: "🧠", name: "Neurosciences & cognition" },
+      { icon: "👥", name: "Sciences humaines & sociales" },
+      { icon: "📚", name: "Recherche en éducation" },
+      { icon: "🔬", name: "Recherche appliquée & transfert technologique" },
+      { icon: "🏢", name: "R&D en entreprise" },
+      { icon: "📊", name: "Études et consulting scientifique" }
+    ]
+  },
+  {
+    id: 18,
+    name: "Sécurité, défense & urgence",
+    icon: "🚨",
+    subUniverses: [
+      { icon: "👮", name: "Police & gendarmerie" },
+      { icon: "🚒", name: "Pompiers & secours" },
+      { icon: "🛡️", name: "Sécurité privée & surveillance" },
+      { icon: "🌪️", name: "Protection civile" },
+      { icon: "⚔️", name: "Défense & armée" },
+      { icon: "🕵️", name: "Renseignement & sécurité stratégique" }
+    ]
+  },
+  {
+    id: 19,
+    name: "Social, aide & solidarité",
+    icon: "❤️",
+    subUniverses: [
+      { icon: "👨‍👩‍👧", name: "Travail social & action sociale" },
+      { icon: "🏠", name: "Hébergement & logement d'urgence" },
+      { icon: "🍽️", name: "Aide alimentaire & distributions" },
+      { icon: "🤝", name: "Médiation sociale & résolution de conflits" },
+      { icon: "🌍", name: "Action humanitaire & ONG" },
+      { icon: "👶", name: "Petite enfance & crèches" },
+      { icon: "👦", name: "Protection de l'enfance" },
+      { icon: "♿", name: "Accompagnement du handicap" },
+      { icon: "💪", name: "Insertion professionnelle & formation" },
+      { icon: "🗣️", name: "Prévention & éducation populaire" },
+      { icon: "🏡", name: "Services à la personne" },
+      { icon: "🤲", name: "Bénévolat & engagement citoyen" },
+      { icon: "🧑‍⚖️", name: "Accès aux droits & lutte contre les discriminations" }
+    ]
+  },
+  {
+    id: 20,
+    name: "Sport, loisirs & vie active",
+    icon: "⚽",
+    subUniverses: [
+      { icon: "🏃", name: "Éducation sportive & encadrement" },
+      { icon: "🏋️", name: "Entraînement & préparation physique" },
+      { icon: "🏆", name: "Sport de haut niveau & compétition" },
+      { icon: "🏢", name: "Management d'équipements sportifs" },
+      { icon: "📺", name: "Événementiel sportif" },
+      { icon: "🎭", name: "Loisirs & animation socioculturelle" },
+      { icon: "🏕️", name: "Tourisme sportif & plein air" },
+      { icon: "🎮", name: "E-sport & gaming professionnel" },
+      { icon: "🧘", name: "Bien-être & activités douces" },
+      { icon: "🛍️", name: "Industrie & commerce du sport" },
+      { icon: "🎨", name: "Création de contenus sportifs & médias" }
+    ]
+  },
+  {
+    id: 21,
+    name: "Technologies émergentes & futur du travail",
+    icon: "🚀",
+    subUniverses: [
+      { icon: "🤖", name: "Intelligence artificielle générative" },
+      { icon: "🧠", name: "IA éthique & gouvernance algorithmique" },
+      { icon: "🦾", name: "Robotique humanoïde & collaborative" },
+      { icon: "🧬", name: "Biotechnologies avancées & biohacking" },
+      { icon: "🌌", name: "Exploration spatiale & NewSpace" },
+      { icon: "⚛️", name: "Technologies quantiques" },
+      { icon: "🏠", name: "Travail hybride & télétravail" },
+      { icon: "🌐", name: "Économie collaborative & plateformes" }
+    ]
+  }
+];
 
-function hideAll(){
-  document.querySelectorAll('.tooltip').forEach(t=>t.classList.remove('show','up','down'));
-  document.querySelectorAll('.card').forEach(c=>c.classList.remove('active'));
-  lastOpenedCard=null;
-}
+// Génération du HTML
+const grid = document.getElementById('universGrid');
 
-function positionTooltip(card,tooltip){
-  const rect=card.getBoundingClientRect();
-  tooltip.classList.remove('up','down');
-  const spaceTop=rect.top;
-  const need=tooltip.offsetHeight+20;
-  if(spaceTop>need) tooltip.classList.add('up'); else tooltip.classList.add('down');
-}
+universesData.forEach(univers => {
+  const card = document.createElement('div');
+  card.className = 'card';
+  card.dataset.id = univers.id;
+  
+  // Sous-univers HTML
+  let subHTML = '';
+  if(univers.subUniverses && univers.subUniverses.length > 0) {
+    subHTML = '<div class="sub-univers">';
+    univers.subUniverses.forEach(sub => {
+      subHTML += `
+        <div class="sub-item">
+          <div class="sub-name">${sub.icon} ${sub.name}</div>
+        </div>
+      `;
+    });
+    subHTML += '</div>';
+  }
+  
+  card.innerHTML = `
+    <svg class="magnifier" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <circle cx="11" cy="11" r="8"></circle>
+      <path d="m21 21-4.35-4.35"></path>
+    </svg>
+    <div class="icon">${univers.icon}</div>
+    <div class="label">${univers.name}</div>
+    ${subHTML}
+  `;
+  
+  grid.appendChild(card);
+});
 
-cards.forEach(card=>{
-  const tooltip=card.querySelector('.tooltip');
-  const url=card.dataset.url;
-
-  // --- PC : survol + clic direct ---
-  card.addEventListener('mouseenter',()=>{
-    if('ontouchstart'in window)return;
-    hideAll();positionTooltip(card,tooltip);card.classList.add('active');tooltip.classList.add('show');
-  });
-  card.addEventListener('mouseleave',()=>{if(!('ontouchstart'in window))hideAll();});
-  card.addEventListener('click',()=>{if(!('ontouchstart'in window))window.open(url,'_blank');});
-
-  // --- Mobile : tap pour voir, second tap pour ouvrir ---
-  card.addEventListener('click',e=>{
-    if(!('ontouchstart'in window))return;
+// Gestion du clic sur la loupe
+document.querySelectorAll('.magnifier').forEach(magnifier => {
+  magnifier.addEventListener('click', (e) => {
     e.stopPropagation();
-    if(lastOpenedCard===card){window.open(url,'_blank');hideAll();}
-    else{hideAll();positionTooltip(card,tooltip);tooltip.classList.add('show');card.classList.add('active');lastOpenedCard=card;}
+    const card = magnifier.closest('.card');
+    const subUnivers = card.querySelector('.sub-univers');
+    
+    if(subUnivers) {
+      const isVisible = subUnivers.classList.contains('visible');
+      
+      // Fermer tous les autres
+      document.querySelectorAll('.sub-univers').forEach(s => s.classList.remove('visible'));
+      document.querySelectorAll('.card').forEach(c => c.classList.remove('sub-visible'));
+      
+      // Toggler celui-ci
+      if(!isVisible) {
+        subUnivers.classList.add('visible');
+        card.classList.add('sub-visible');
+      }
+    }
   });
 });
 
-document.addEventListener('click',e=>{if(!e.target.closest('.card'))hideAll();});
-window.addEventListener('scroll',hideAll);
-window.addEventListener('resize',hideAll);
+// Fermer au clic extérieur
+document.addEventListener('click', (e) => {
+  if(!e.target.closest('.card')) {
+    document.querySelectorAll('.sub-univers').forEach(s => s.classList.remove('visible'));
+    document.querySelectorAll('.card').forEach(c => c.classList.remove('sub-visible'));
+  }
+});
 </script>
 </body>
 </html>
+EOFILE
+ 
