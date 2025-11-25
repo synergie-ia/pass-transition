@@ -67,6 +67,44 @@ body {
   display: block;
 }
 
+/* ===== BOUTON UNIVERS-MÉTIERS ===== */
+.univers-button-container {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.univers-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  font-size: 14px;
+  font-weight: 600;
+  border: 2px solid var(--primary);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: var(--transition);
+  background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+  color: white;
+  box-shadow: var(--shadow-sm);
+}
+
+.univers-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.univers-btn:active {
+  transform: translateY(0);
+}
+
+.univers-icon {
+  width: 18px;
+  height: 18px;
+  stroke: currentColor;
+}
+
 /* ===== CARDS GRID ===== */
 .cards-grid {
   display: grid;
@@ -240,6 +278,16 @@ body {
   
   .hero-title {
     font-size: 28px;
+  }
+  
+  .univers-btn {
+    padding: 8px 16px;
+    font-size: 13px;
+  }
+  
+  .univers-icon {
+    width: 16px;
+    height: 16px;
   }
   
   .cards-grid {
