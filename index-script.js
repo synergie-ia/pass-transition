@@ -33,6 +33,14 @@ document.addEventListener('DOMContentLoaded', function() {
   if(btnProject){
     btnProject.addEventListener('click', checkProjectAccess);
   }
+  
+  // Nouveau : Bouton univers-métiers
+  const btnUniversMetiers = document.getElementById('btnUniversMetiers');
+  if(btnUniversMetiers){
+    btnUniversMetiers.addEventListener('click', function() {
+      window.location.href = 'univers-metiers.html';
+    });
+  }
 });
 
 /* ===== BADGES DE COMPLÉTION ===== */
