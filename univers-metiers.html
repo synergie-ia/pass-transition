@@ -83,7 +83,9 @@ h1 {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   transition: all 0.25s ease;
+  cursor: pointer;
 }
 
 .univers-card:hover {
@@ -117,7 +119,7 @@ h1 {
   opacity: 0.4;
   cursor: pointer;
   transition: all 0.2s ease;
-  z-index: 100;
+  z-index: 10;
 }
 
 .loupe-icon:hover {
@@ -125,26 +127,47 @@ h1 {
   transform: scale(1.2);
 }
 
-.univers-card.is-open .loupe-icon {
-  opacity: 1;
-}
-
-/* Zone sous-univers */
-.sous-univers-zone {
+/* MODAL OVERLAY */
+.modal-overlay {
   display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
   width: 100%;
-  margin-top: 1rem;
-  animation: slideDown 0.3s ease;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  z-index: 9999;
+  animation: fadeIn 0.2s ease;
 }
 
-.univers-card.is-open .sous-univers-zone {
-  display: block;
+.modal-overlay.active {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-@keyframes slideDown {
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* MODAL CONTENT */
+.modal-content {
+  position: relative;
+  background: #fff;
+  border-radius: 16px;
+  width: 90%;
+  max-width: 600px;
+  max-height: 80vh;
+  overflow: hidden;
+  animation: slideUp 0.3s ease;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+}
+
+@keyframes slideUp {
   from {
     opacity: 0;
-    transform: translateY(-10px);
+    transform: translateY(30px);
   }
   to {
     opacity: 1;
@@ -152,22 +175,80 @@ h1 {
   }
 }
 
-.sous-univers-liste {
-  background: #f9fafb;
-  border-radius: 8px;
-  padding: 1rem;
+/* Header modal */
+.modal-header {
+  background: var(--primary);
+  color: #fff;
+  padding: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+}
+
+.modal-header-icon {
+  font-size: 2.5rem;
+  margin-right: 1rem;
+}
+
+.modal-header-title {
+  flex: 1;
+  font-size: 1.3rem;
+  font-weight: 600;
   text-align: left;
-  font-size: 0.8rem;
-  line-height: 1.6;
-  max-height: 280px;
+}
+
+/* Bouton fermer (croix rouge) */
+.close-btn {
+  width: 36px;
+  height: 36px;
+  background: #ef4444;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.close-btn:hover {
+  background: #dc2626;
+  transform: scale(1.1);
+}
+
+.close-btn svg {
+  width: 20px;
+  height: 20px;
+  stroke: #fff;
+  stroke-width: 3;
+}
+
+/* Corps modal */
+.modal-body {
+  padding: 2rem;
+  max-height: calc(80vh - 100px);
   overflow-y: auto;
-  border: 1px solid #e5e7eb;
+}
+
+.sous-univers-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }
 
 .sous-univers-item {
-  padding: 0.5rem 0;
+  padding: 0.8rem 1rem;
+  border-bottom: 1px solid #e5e7eb;
   color: var(--ink);
-  border-bottom: 1px dashed #e5e7eb;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  transition: background 0.2s ease;
+}
+
+.sous-univers-item:hover {
+  background: #f9fafb;
 }
 
 .sous-univers-item:last-child {
@@ -178,22 +259,25 @@ h1 {
   content: "→ ";
   color: var(--primary);
   font-weight: bold;
-  margin-right: 0.3rem;
+  margin-right: 0.5rem;
 }
 
 /* Scrollbar */
-.sous-univers-liste::-webkit-scrollbar {
-  width: 6px;
+.modal-body::-webkit-scrollbar {
+  width: 8px;
 }
 
-.sous-univers-liste::-webkit-scrollbar-track {
+.modal-body::-webkit-scrollbar-track {
   background: #f1f1f1;
-  border-radius: 4px;
 }
 
-.sous-univers-liste::-webkit-scrollbar-thumb {
+.modal-body::-webkit-scrollbar-thumb {
   background: #cbd5e1;
   border-radius: 4px;
+}
+
+.modal-body::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
 }
 
 @media (max-width: 768px) {
@@ -214,6 +298,27 @@ h1 {
   .univers-name {
     font-size: 0.85rem;
   }
+  
+  .modal-content {
+    width: 95%;
+    max-height: 85vh;
+  }
+  
+  .modal-header {
+    padding: 1rem;
+  }
+  
+  .modal-header-icon {
+    font-size: 2rem;
+  }
+  
+  .modal-header-title {
+    font-size: 1.1rem;
+  }
+  
+  .modal-body {
+    padding: 1.5rem;
+  }
 }
 </style>
 </head>
@@ -230,12 +335,29 @@ h1 {
   <div class="univers-grid" id="universGrid"></div>
 </div>
 
+<!-- MODAL OVERLAY -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal-content">
+    <div class="modal-header">
+      <span class="modal-header-icon" id="modalIcon">🌾</span>
+      <h2 class="modal-header-title" id="modalTitle">Univers</h2>
+      <button class="close-btn" id="closeBtn">
+        <svg viewBox="0 0 24 24" fill="none">
+          <path d="M18 6L6 18M6 6l12 12" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+    </div>
+    <div class="modal-body">
+      <ul class="sous-univers-list" id="sousUniversList"></ul>
+    </div>
+  </div>
+</div>
+
 <script>
-// Encapsulation stricte pour éviter les conflits
 (function() {
   'use strict';
   
-  const DATA = [
+  const UNIVERS_DATA = [
     {
       id: 1,
       name: "Agriculture, nature & animaux",
@@ -364,73 +486,78 @@ h1 {
     }
   ];
 
-  // Fonction pour créer une carte
-  function creerCarte(univers) {
+  // Éléments DOM
+  const grid = document.getElementById('universGrid');
+  const modalOverlay = document.getElementById('modalOverlay');
+  const modalIcon = document.getElementById('modalIcon');
+  const modalTitle = document.getElementById('modalTitle');
+  const sousUniversList = document.getElementById('sousUniversList');
+  const closeBtn = document.getElementById('closeBtn');
+
+  // Générer les cartes
+  UNIVERS_DATA.forEach(function(univers) {
     const card = document.createElement('div');
     card.className = 'univers-card';
-    card.setAttribute('data-univers-id', univers.id);
     
-    // Construire le HTML
-    let html = `
+    card.innerHTML = `
       <svg class="loupe-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
         <circle cx="11" cy="11" r="8"></circle>
         <path d="m21 21-4.35-4.35"></path>
       </svg>
       <div class="univers-icon">${univers.icon}</div>
       <div class="univers-name">${univers.name}</div>
-      <div class="sous-univers-zone">
-        <div class="sous-univers-liste">
     `;
     
-    univers.sousUniverses.forEach(function(su) {
-      html += `<div class="sous-univers-item">${su}</div>`;
+    // Clic sur la carte ou la loupe = ouvrir modal
+    card.addEventListener('click', function(e) {
+      e.stopPropagation();
+      ouvrirModal(univers);
     });
     
-    html += `
-        </div>
-      </div>
-    `;
-    
-    card.innerHTML = html;
-    return card;
-  }
-
-  // Générer toutes les cartes
-  const grid = document.getElementById('universGrid');
-  DATA.forEach(function(univers) {
-    const carte = creerCarte(univers);
-    grid.appendChild(carte);
+    grid.appendChild(card);
   });
 
-  // Gérer les clics sur les loupes
-  document.addEventListener('click', function(event) {
-    const loupe = event.target.closest('.loupe-icon');
+  // Fonction ouvrir modal
+  function ouvrirModal(univers) {
+    modalIcon.textContent = univers.icon;
+    modalTitle.textContent = univers.name;
     
-    if (loupe) {
-      event.stopPropagation();
-      const carte = loupe.closest('.univers-card');
-      const estOuvert = carte.classList.contains('is-open');
-      
-      // Fermer toutes les cartes
-      document.querySelectorAll('.univers-card').forEach(function(c) {
-        c.classList.remove('is-open');
-      });
-      
-      // Ouvrir celle-ci si elle était fermée
-      if (!estOuvert) {
-        carte.classList.add('is-open');
-      }
-    } else {
-      // Clic en dehors : fermer tout
-      if (!event.target.closest('.univers-card')) {
-        document.querySelectorAll('.univers-card').forEach(function(c) {
-          c.classList.remove('is-open');
-        });
-      }
+    // Vider et remplir la liste
+    sousUniversList.innerHTML = '';
+    univers.sousUniverses.forEach(function(su) {
+      const li = document.createElement('li');
+      li.className = 'sous-univers-item';
+      li.textContent = su;
+      sousUniversList.appendChild(li);
+    });
+    
+    modalOverlay.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+
+  // Fonction fermer modal
+  function fermerModal() {
+    modalOverlay.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+
+  // Événements fermeture
+  closeBtn.addEventListener('click', fermerModal);
+  
+  modalOverlay.addEventListener('click', function(e) {
+    if (e.target === modalOverlay) {
+      fermerModal();
     }
   });
 
-  console.log('✅ 21 univers professionnels chargés');
+  // Échap pour fermer
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && modalOverlay.classList.contains('active')) {
+      fermerModal();
+    }
+  });
+
+  console.log('✅ 21 univers professionnels chargés avec modal');
 })();
 </script>
 </body>
