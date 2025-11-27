@@ -864,7 +864,7 @@ function checkProjectAccess() {
     "   → Cliquez OK (vos données seront lues automatiquement)\n\n" +
     "📋 Vous N'utilisez PAS Atlas ?\n" +
     "   → Cliquez ANNULER\n" +
-    "   → Copiez d'abord vos résultats avec le bouton ci-dessus\n" +
+    "   → Copiez d'abord vos résultats avec le bouton ci-dessous\n" +
     "   → Puis revenez cliquer sur \"Construire mon projet\""
   );
   
