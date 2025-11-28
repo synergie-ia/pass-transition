@@ -5,6 +5,7 @@
   VERSION 12 QUESTIONS - 1 QUESTION PAR DIMENSION
   Limitation stricte des notes : 0(×2), 1(×3), 2(×3), 3(×4), 4(×3)
   LIMITE: 3 à 5 univers sélectionnables
+  VERSION 39 - Ajout préfixe transition360_ pour localStorage
   Novembre 2025
   ============================================
 */
@@ -26,18 +27,18 @@ const NOTE_LIMITS = {
 /* ===== GESTION DU LOCALSTORAGE ===== */
 
 function loadSelections(){
-  const saved = localStorage.getItem('selectedUnivers');
+  const saved = localStorage.getItem('transition360_selectedUnivers');
   if(saved){
     selectedUnivers = new Set(JSON.parse(saved));
   }
 }
 
 function saveSelections(){
-  localStorage.setItem('selectedUnivers', JSON.stringify([...selectedUnivers]));
+  localStorage.setItem('transition360_selectedUnivers', JSON.stringify([...selectedUnivers]));
 }
 
 function loadAnswers(){
-  const saved = localStorage.getItem('questionnaire_answers');
+  const saved = localStorage.getItem('transition360_questionnaire_answers');
   if(saved){
     answers = JSON.parse(saved);
     return true;
@@ -46,7 +47,7 @@ function loadAnswers(){
 }
 
 function saveAnswers(){
-  localStorage.setItem('questionnaire_answers', JSON.stringify(answers));
+  localStorage.setItem('transition360_questionnaire_answers', JSON.stringify(answers));
 }
 
 /* ===== UTILITAIRES ===== */
@@ -413,7 +414,7 @@ function displayProfile(){
       score: dim.score
     };
   });
-  localStorage.setItem('profile_percentages', JSON.stringify(profilePercentages));
+  localStorage.setItem('transition360_profile_percentages', JSON.stringify(profilePercentages));
   console.log('✅ Profil sauvegardé');
   
   root.innerHTML = dimensionsAvecScores.map(dim => `
@@ -584,7 +585,7 @@ function displayUnivers(){
         color: compatibility.color
       };
     });
-    localStorage.setItem('univers_details', JSON.stringify(universDetails));
+    localStorage.setItem('transition360_univers_details', JSON.stringify(universDetails));
     console.log('✅ Détails univers sauvegardés\n');
     
     const root = document.getElementById("univers-results");
@@ -721,7 +722,7 @@ document.addEventListener('DOMContentLoaded', function() {
       }
       
       try {
-        const universDetailsAll = JSON.parse(localStorage.getItem('univers_details') || '{}');
+        const universDetailsAll = JSON.parse(localStorage.getItem('transition360_univers_details') || '{}');
         const selectedUniversDetails = {};
         
         selectedUnivers.forEach(id => {
@@ -730,7 +731,7 @@ document.addEventListener('DOMContentLoaded', function() {
           }
         });
         
-        localStorage.setItem('selected_univers_details', JSON.stringify(selectedUniversDetails));
+        localStorage.setItem('transition360_selected_univers_details', JSON.stringify(selectedUniversDetails));
         
         console.log('✅ Sélection validée:', selectedUniversDetails);
         
