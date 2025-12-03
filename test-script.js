@@ -6,6 +6,7 @@
   Limitation stricte des notes : 0(×2), 1(×3), 2(×3), 3(×4), 4(×3)
   LIMITE: 3 à 5 univers sélectionnables
   VERSION 39 - Ajout préfixe transition360_ pour localStorage
+  VERSION 40 - Compteur univers : couleur bleue constante
   Novembre 2025
   ============================================
 */
@@ -438,7 +439,7 @@ function displayProfile(){
   }, 100);
 }
 
-/* ===== COMPTEUR UNIVERS ===== */
+/* ===== COMPTEUR UNIVERS - VERSION 40 : COULEUR BLEUE CONSTANTE ===== */
 
 function updateUniversCounter(){
   const counter = document.getElementById("selectedUniversCounter");
@@ -453,15 +454,9 @@ function updateUniversCounter(){
       ? `1 univers sélectionné${maxLabel}`
       : `${n} univers sélectionnés${maxLabel}`;
   
-  if(n >= 5){
-    counter.style.background = "#fef3c7";
-    counter.style.color = "#92400e";
-    counter.style.borderColor = "#fcd34d";
-  } else {
-    counter.style.background = "#eef2ff";
-    counter.style.color = "#5a4af4";
-    counter.style.borderColor = "transparent";
-  }
+  // ✅ Couleur bleue constante - pas de changement dynamique
+  counter.style.color = "#0052A3";
+  counter.style.background = "transparent";
 }
 
 /* ===== CARTE UNIVERS ===== */
