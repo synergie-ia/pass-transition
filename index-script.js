@@ -1,6 +1,6 @@
 /* 
   ============================================
-  Pass-Transition - PAGE D'ACCUEIL
+  Passerelle-Transition - PAGE D'ACCUEIL
   ============================================
   Gestion des actions
   VERSION COMPLÈTE - Copie profil + univers + bilan
@@ -162,7 +162,7 @@ function copyResultsToClipboard() {
     const situationData = localStorage.getItem('transition360_situation_data');
     
     let textToCopy = "═══════════════════════════════════════\n";
-    textToCopy += "   Pass-Transition - MES RÉSULTATS\n";
+    textToCopy += "   Passerelle-Transition - MES RÉSULTATS\n";
     textToCopy += "═══════════════════════════════════════\n\n";
     
     // PROFIL PERSONNEL
@@ -286,7 +286,7 @@ function copyResultsToClipboard() {
     }
     
     textToCopy += "═══════════════════════════════════════\n";
-    textToCopy += "Généré par Pass-Transition\n";
+    textToCopy += "Généré par Passerelle-Transition\n";
     textToCopy += new Date().toLocaleDateString('fr-FR', { 
       year: 'numeric', 
       month: 'long', 
@@ -344,7 +344,7 @@ function downloadPDF() {
     let pdfContent = "";
     
     pdfContent += "═══════════════════════════════════════════════════════\n";
-    pdfContent += "        Passe-Transition - MES RÉSULTATS\n";
+    pdfContent += "        Passerelle-Transition - MES RÉSULTATS\n";
     pdfContent += "═══════════════════════════════════════════════════════\n\n";
     pdfContent += "Date de génération: " + new Date().toLocaleDateString('fr-FR', { 
       weekday: 'long',
@@ -540,10 +540,29 @@ function checkProjectAccess() {
     return;
   }
   
-  // ✅ OUVERTURE CHATGPT
-  const chatURL = 'https://chatgpt.com/g/g-6914f232fb048191b5df9a123ac6af82-Pass-Transition';
-  window.open(chatURL, '_blank');
-  console.log("✅ Ouverture ChatGPT");
+  // ✅ CONFIRMATION CONNEXION CHATGPT
+  const isConnected = confirm(
+    "⚠️ CONNEXION CHATGPT REQUISE\n\n" +
+    "Vous devez être connecté à ChatGPT pour accéder à l'accompagnement personnalisé.\n\n" +
+    "Êtes-vous actuellement connecté à votre compte ChatGPT ?\n\n" +
+    "➡️ Cliquez sur OK si vous êtes connecté\n" +
+    "➡️ Cliquez sur Annuler si vous devez d'abord vous connecter"
+  );
+  
+  if(isConnected){
+    // ✅ OUVERTURE CHATGPT
+    const chatURL = 'https://chatgpt.com/g/g-6914f232fb048191b5df9a123ac6af82-Passerelle-Transition';
+    window.open(chatURL, '_blank');
+    console.log("✅ Ouverture ChatGPT");
+  } else {
+    alert(
+      "ℹ️ COMMENT SE CONNECTER\n\n" +
+      "1. Ouvrez ChatGPT dans un nouvel onglet\n" +
+      "2. Connectez-vous à votre compte\n" +
+      "3. Revenez sur cette page\n" +
+      "4. Cliquez à nouveau sur \"Construire mon projet\""
+    );
+  }
 }
 
 /* ===== MÉTHODE DE COPIE ALTERNATIVE ===== */
